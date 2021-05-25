@@ -1,0 +1,1 @@
+.wrapper{display:grid;grid-template-columns:repeat(100,1fr);grid-template-rows:repeat(100,1fr)}.leftbar{grid-area:1/1/100/20}.mainview{grid-area:1/22/100/100}
