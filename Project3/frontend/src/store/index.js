@@ -12,15 +12,15 @@ export default new Vuex.Store({
     items: [
       {
         text: 'Home',
-        href: 'home',
+        href: '/home',
       },
       {
         text: 'About',
-        href: '#about',
+        href: '/home#about',
       },
       {
         text: 'Shop',
-        href: 'shop'
+        href: '/shop'
       },
       {
         text: 'Rank',
@@ -28,7 +28,7 @@ export default new Vuex.Store({
       },
       {
         text: 'Community',
-        href: '#Community'
+        href: '/Community'
       },
     ],
     genres: [
