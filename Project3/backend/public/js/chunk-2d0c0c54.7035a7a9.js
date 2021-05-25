@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c0c54"],{"42cc":function(n,e,t){"use strict";t.r(e);var c=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("section",{attrs:{id:"product"}},[t("feed",[n._t("default")],2)],1)},u=[],d=(t("d3b7"),t("3ca3"),t("ddb0"),{name:"ShopGame",components:{Feed:function(){return t.e("chunk-58f2089a").then(t.bind(null,"f5bd"))}}}),a=d,o=t("2877"),l=Object(o["a"])(a,c,u,!1,null,null,null);e["default"]=l.exports}}]);
+//# sourceMappingURL=chunk-2d0c0c54.7035a7a9.js.map
