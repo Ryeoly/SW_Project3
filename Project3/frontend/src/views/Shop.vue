@@ -1,16 +1,12 @@
 <template>
-  <div id="shop">
-    <v-row>
-      <v-navigation-drawer
-          permanent="true"
-      >
-        <list />
-
-        <genre />
-      </v-navigation-drawer>
-
+  <div id="shop" class="wrapper">
+    <div class="leftbar">
+      <list />
+    </div>
+    <v-spacer />
+    <div class="mainview">
       <product />
-    </v-row>
+    </div>
   </div>
 </template>
 
@@ -25,9 +21,24 @@
     data () { return { user: [] } },
 
     components: {
-      List: () => import('@/components/shop/List'),
-      Genre: () => import('@/components/shop/Genre'),
-      Product: () => import('@/components/shop/Product'),
+      //Suggest: () => import('../components/shop/Suggest'),
+      List: () => import('../components/shop/List'),
+      //Genre: () => import('../components/shop/Genre'),
+      Product: () => import('../components/shop/Product'),
     },
   }
 </script>
+
+<style>
+.wrapper{
+  display: grid;
+  grid-template-columns: repeat(100, 1fr);
+  grid-template-rows: repeat(100, 1fr);
+}
+.leftbar{
+  grid-area: 1/1/100/20;
+}
+.mainview{
+  grid-area : 10/22/100/100;
+}
+</style>

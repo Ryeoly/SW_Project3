@@ -1,20 +1,14 @@
 <template>
   <v-col
-    cols="12"
-    :md="size === 2 ? 6 : size === 3 ? 4 : undefined"
+    cols="9"
+    md="3"
   >
-    <base-card
-      :height= "150"
-      color="grey lighten-1"
-      dark
-      href="#!"
-    >
       <v-img
         :src="require(`@/assets/game_img/${value.image}`)"
         height="100%"
         gradient="rgba(0, 0, 0, .42), rgba(0, 0, 0, .42)"
       >
-        <v-row
+        <!--<v-row
           class="fill-height text-right ma-0"
         >
           <v-col cols="12">
@@ -37,9 +31,8 @@
               {{ value.price }}
             </div>
           </v-col>
-        </v-row>
+        </v-row>-->
       </v-img>
-    </base-card>
   </v-col>
 </template>
 
@@ -61,7 +54,7 @@
 </script>
 
 <style>
-.v-image__image {
+/*.v-image__image {
   transition: .3s linear;
-}
+}*/
 </style>

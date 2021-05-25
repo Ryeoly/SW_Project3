@@ -65,8 +65,9 @@
       onClick (e, item) {
         e.stopPropagation()
 
-        if (item.href === '#about') {
-          this.$vuetify.goTo(item.href.endsWith('!') ? 0 : item.href)
+        if (item.href === '/home#about') {
+          router.push({path: '/home'})
+          this.$vuetify.goTo('#about')
         }
 
         else{
