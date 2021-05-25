@@ -30,7 +30,6 @@
         >
           {{ link.text }}
         </v-btn>
-
         <v-spacer />
 
         <v-text-field
@@ -40,6 +39,29 @@
           solo-inverted
           style="max-width: 300px;"
         />
+
+        <v-img
+                :src="require('../../assets/icon/shopping-cart.png')"
+                class="text-right"
+                contain
+                height="35"
+                width="35"
+                max-width="48"
+                permanent
+        ></v-img>
+        <v-img
+                :src="require('../../assets/icon/profile.png')"
+                class="text-right"
+                contain
+                height="35"
+                width="35"
+                max-width="48"
+                permanent
+                @click="$router.push({path:'/mypage/my_info'})"
+          >
+
+        </v-img>
+
       </v-row>
     </v-container>
   </v-app-bar>
@@ -77,3 +99,9 @@
     },
   }
 </script>
+
+<style>
+  .text-right{
+    float:right;
+  }
+</style>

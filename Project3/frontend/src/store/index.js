@@ -28,7 +28,7 @@ export default new Vuex.Store({
       },
       {
         text: 'Community',
-        href: '#Community'
+        href: '/Community'
       },
     ],
     genres: [
