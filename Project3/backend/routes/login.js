@@ -37,4 +37,8 @@ router.get('/', function (req, res, next) {
         connection.release();
     });
 });
+
+router.post('/login',function (req,res,next) {
+    
+});
 module.exports = router;
