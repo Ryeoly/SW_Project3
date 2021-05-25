@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Battlefield V",
+    "price": "55000",
+    "category": "FPS",
+    "image": "battlefield.jpg"
+  },
+  {
+    "title": "Apex Legends",
+    "price": "22000",
+    "category": "FPS",
+    "image": "apex.jpg"
+  },
+  {
+    "title": "Among Us",
+    "price": "5500",
+    "category": "Video Game",
+    "image": "amongus.jpg"
+  },
+  {
+    "title": "PLAYERUNKNOWN'S BATTLEGROUNDS",
+    "price": "32000",
+    "category": "FPS",
+    "image": "battleground.jpg"
+  }
+]
