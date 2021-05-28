@@ -22,6 +22,10 @@ const routes = [
     component: Shop
   },
   {
+    path: '/rank',
+    component: Detail
+  },
+  {
     path:'/mypage',
     component: Mypage,
     children:[

@@ -25,7 +25,7 @@ export default new Vuex.Store({
       },
       {
         text: 'Rank',
-        href: '#Rank'
+        href: '/Rank'
       },
       {
         text: 'Community',
