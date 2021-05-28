@@ -1,6 +1,7 @@
 <template>
-  <div class="base">
-    <v-simple-table class="card">
+  <div>
+    <b>Review Board</b>
+    <v-simple-table>
       <thead>
       <tr>
         <th class="primary--text">

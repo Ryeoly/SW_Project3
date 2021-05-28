@@ -7,6 +7,7 @@ import my_info from "../components/mypage/List/my_info";
 import buy_history from "../components/mypage/List/buy_history";
 import Q_A from "../components/mypage/List/Q_A";
 import my_board from "../components/mypage/List/my_board";
+import Detail from "../views/Detail";
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,10 @@ const routes = [
   {
     path: '/shop',
     component: Shop
+  },
+  {
+    path: '/rank',
+    component: Detail
   },
   {
     path:'/mypage',
