@@ -12,9 +12,23 @@ var pool = mysql.createPool({
 });
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    var user = 'comu';
-    res.send({user: user});
+//글리스트 띄우기
+router.get('/example', function(req, res, next) {
+    var item_idx; //front로부터  게임의 idx받아오기
+    var item_info;
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query("SELECT * FROM item WHERE idx= ?",[item_idx], function (err,results) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                item_info = results;
+                return res.send({success: true ,item_info: item_info});
+            }
+        })
+        connection.release();
+    });
 });
 
 module.exports = router;
