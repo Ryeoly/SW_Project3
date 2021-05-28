@@ -14,7 +14,7 @@
 
     created () {
       this.$http.get('/home').then((response) => {
-        this.user = response.data
+        this.user = response.data.user
       })
     },
     data () { return { user: [] } },

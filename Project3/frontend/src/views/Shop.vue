@@ -13,12 +13,6 @@
 <script>
   export default {
     name: 'Shop',
-    created () {
-      this.$http.get('/shop').then((response) => {
-        this.user = response.data
-      })
-    },
-    data () { return { user: [] } },
 
     components: {
       //Suggest: () => import('../components/shop/Suggest'),

@@ -3,18 +3,20 @@
     <v-item-group>
       <v-row>
         <feed-card
-            v-for="(gamedata, i) in paginatedGameDatas"
-            :key="gamedata.title"
-            :size="layout[i]"
+            v-for="(gamedata, i) in paginatedDatas"
+            :key="i"
+            :size="layout[0]"
             :value="gamedata"
         />
+
+
       </v-row>
     </v-item-group>
   </div>
 </template>
 
 <script>
-  import {mapState} from "vuex";
+  //import {mapState} from "vuex";
 
   export default {
     name: 'ShopGame',
@@ -26,21 +28,27 @@
       FeedCard: () => import('../FeedCard'),
     },
 
+    created () {
+      this.$http.get('/shop').then((response) => {
+        this.datas = response.data.items
+      })
+    },
     data: () => ({
       layout: [3, 3, 3, 3],
       page: 1,
+      datas: []
     }),
 
     computed: {
-      ...mapState(['gamedatas']),
+      //...mapState(['gamedatas']),
       pages () {
-        return Math.ceil(this.gamedatas.length / 11)
+        return Math.ceil(this.datas.length / 11)
       },
-      paginatedGameDatas () {
+      paginatedDatas () {
         const start = (this.page - 1) * 11
         const stop = this.page * 11
 
-        return this.gamedatas.slice(start, stop)
+        return this.datas.slice(start, stop)
       },
     },
 

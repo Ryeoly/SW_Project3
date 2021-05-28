@@ -1,15 +1,6 @@
-// const express = require('express');
-// const router = express.Router();
-//
-// const users = require('../data/user.json');
-//
-// router.get('/', function(req, res, next) {
-//     res.json({ user: users[0] });
-// });
-
-
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
 let mysql = require('mysql'); //mysql 모듈을 로딩.
 var pool = mysql.createPool({
     connectionLimit: 5,
@@ -17,28 +8,65 @@ var pool = mysql.createPool({
     user     : 'yunchoko',
     password : 'qwer1234!',
     database : 'yunchoko',
-    port : 8204
+    port : 8204,
+    multipleStatements: true
 });
 
-router.get('/', function (req, res, next) {
-    var a = 1;
-    pool.getConnection(function (err, connection) {
-        var b =1;
+let key=0; //key값 비교
+//인증코드 발생
+var generateKey = function(min,max){
+    var generate_key = Math.floor(Math.random()*(max-min+1)) + min;
+    return generate_key;
+}
+
+//인증코드 이메일발신
+router.post("/",function(req,res,next){
+    let email =req.body.email;
+    key =generateKey(1111,9999);
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'dtree0520@gmail.com',
+            pass: 'keonyoung520'
+        }
+    });
+
+    let mailOptions = {
+        from: 'dtree0520@gmail.com',
+        to: email,
+        subject: "[윤초코]인증 관련 이메일 입니다.",
+        text: "오른쪽 숫자 4자리를 입력해주세요 : " + key
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            console.log(error);
+        }
+        else {
+            console.log('Email 전송완료: ' + info.response);
+        }
+    });
+
+});
+
+
+
+router.get('/ex', function(req, res, next) {
+    var items;
+    pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT * from user", function(err, results) {
-            if (err) {
+        connection.query("SELECT * FROM item", function (err,results) {
+            if(err){
                 return res.json({success: false});
             }
             else{
-                const user = results[0];
-                return res.json({user: user});
+                items = results;
+                return res.send({items: items});
             }
         })
         connection.release();
     });
 });
 
-router.post('/login',function (req,res,next) {
-    
-});
 module.exports = router;

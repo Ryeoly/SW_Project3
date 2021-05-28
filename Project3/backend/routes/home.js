@@ -7,7 +7,8 @@ var pool = mysql.createPool({
     user     : 'yunchoko',
     password : 'qwer1234!',
     database : 'yunchoko',
-    port : 8204
+    port : 8204,
+    multipleStatements: true
 });
 
 /* GET users listing. */
