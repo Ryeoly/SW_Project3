@@ -3,24 +3,28 @@
     "title": "Battlefield V",
     "price": "55000",
     "category": "FPS",
-    "image": "battlefield.jpg"
+    "image": "battlefield.jpg",
+    "video": "battlefield.webm"
   },
   {
     "title": "Apex Legends",
     "price": "22000",
     "category": "FPS",
-    "image": "apex.jpg"
+    "image": "apex.jpg",
+    "video": "apex.webm"
   },
   {
     "title": "Among Us",
     "price": "5500",
     "category": "Video Game",
-    "image": "amongus.jpg"
+    "image": "amongus.jpg",
+    "video": "amongus.webm"
   },
   {
     "title": "PLAYERUNKNOWN'S BATTLEGROUNDS",
     "price": "32000",
     "category": "FPS",
-    "image": "battleground.jpg"
+    "image": "battleground.jpg",
+    "video": "battleground.webm"
   }
 ]

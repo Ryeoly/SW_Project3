@@ -3,6 +3,7 @@
       <v-list-group
           sub-group
           no-action
+          :value="true"
       >
         <template v-slot:activator>
           <v-list-item-title>Genres</v-list-item-title>
