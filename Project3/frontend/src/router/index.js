@@ -9,6 +9,7 @@ import Q_A from "../components/mypage/List/Q_A";
 import my_board from "../components/mypage/List/my_board";
 import login from "../views/login";
 import sign_up from "../views/sign_up";
+import Detail from "../views/Detail";
 
 Vue.use(VueRouter)
 
