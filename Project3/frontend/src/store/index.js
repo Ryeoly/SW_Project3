@@ -9,6 +9,7 @@ export default new Vuex.Store({
     articles: require('../data/articles.json'),
     gamedatas: require('../data/game_data.json'),
     drawer: false,
+    islogin:false,
     items: [
       {
         text: 'Home',
@@ -74,11 +75,16 @@ export default new Vuex.Store({
     },
     lists: (state) => {
       return state.lists
+    },
+    return_islogin:(state)=>{
+      return state.islogin
     }
   },
   mutations: {
     setDrawer: (state, payload) => (state.drawer = payload),
     toggleDrawer: state => (state.drawer = !state.drawer),
+    islogin_reverse:state=>( state.islogin = !state.islogin),
+
   },
   actions: {
 

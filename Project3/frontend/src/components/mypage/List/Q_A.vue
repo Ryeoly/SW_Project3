@@ -35,13 +35,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Minverva Hooper</td>
+                    <tr
+                            v-for="(board, i) in treat"
+                            :key="i"
+                            >
+                        <td>{{board.title}}</td>
+                        <td>{{board.content}}</td>
                     </tr>
                     </tbody>
                 </v-simple-table>
@@ -60,13 +59,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>5</td>
-                        <td>Doris Greene</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Mason Porter</td>
+                    <tr
+                            v-for="(board, i) in untreat"
+                            :key="i"
+                    >
+                        <td>{{board.title}}</td>
+                        <td>{{board.content}}</td>
                     </tr>
                     </tbody>
                 </v-simple-table>
@@ -123,15 +121,16 @@
         name: "Q_A.vue",
         data: () =>({
             tabs:null,
-            table:[
+            untreat:[
                 {title:"1", content:"11"},
-                {title:"2", content:"22"},
                 {title:"3", content:"33"},
                 {title:"4", content:"44"},
-                {title:"5", content:"55"},
-                {title:"6", content:"66"},
-            ]
-            ,
+                {title:"5", content:"55"}
+            ],
+            treat:[
+                {title:"10", content:"10"},
+                {title:"99", content:"99"}
+            ],
         }),
     }
 </script>

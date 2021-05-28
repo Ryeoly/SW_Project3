@@ -7,6 +7,8 @@ import my_info from "../components/mypage/List/my_info";
 import buy_history from "../components/mypage/List/buy_history";
 import Q_A from "../components/mypage/List/Q_A";
 import my_board from "../components/mypage/List/my_board";
+import login from "../views/login";
+import sign_up from "../views/sign_up";
 
 Vue.use(VueRouter)
 
@@ -28,6 +30,14 @@ const routes = [
       {path:'Q_A', component:Q_A},
       {path:'my_board', component: my_board},
     ]
+  },
+  {
+    path: '/login',
+    component: login
+  },
+  {
+    path: '/sign_up',
+    component: sign_up
   }
 
 ]
