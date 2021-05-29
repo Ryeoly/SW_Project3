@@ -13,7 +13,7 @@
           v-for="(genre, i) in genres"
           :key="i"
           link
-          @click="postGenre(genre.title)"
+          @click="postGenre(genre.text)"
       >
         <v-list-item-title v-text="genre.text"></v-list-item-title>
       </v-list-item>
@@ -34,9 +34,7 @@ export default {
   methods: {
     postGenre(sel_genre) {
       this.$http.post('/shop/genre', {genre: sel_genre}).then((response) => {
-        if(response.data.success === false) {
-          console.log(response);
-        }
+        this.$emit('update', response.data.items)
       })
     }
   },
