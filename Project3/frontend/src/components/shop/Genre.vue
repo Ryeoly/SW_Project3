@@ -13,6 +13,7 @@
           v-for="(genre, i) in genres"
           :key="i"
           link
+          @click="postGenre(genre.title)"
       >
         <v-list-item-title v-text="genre.text"></v-list-item-title>
       </v-list-item>
@@ -25,9 +26,19 @@ import {mapGetters} from "vuex";
 
 export default {
   name: 'ShopList',
+
   computed: {
-    ...mapGetters(['lists']),
     ...mapGetters(['genres']),
+  },
+
+  methods: {
+    postGenre(sel_genre) {
+      this.$http.post('/shop/genre', {genre: sel_genre}).then((response) => {
+        if(response.data.success === false) {
+          console.log(response);
+        }
+      })
+    }
   },
 }
 
