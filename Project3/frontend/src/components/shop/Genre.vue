@@ -26,7 +26,6 @@ import {mapGetters} from "vuex";
 export default {
   name: 'ShopList',
   computed: {
-    ...mapGetters(['lists']),
     ...mapGetters(['genres']),
   },
 }

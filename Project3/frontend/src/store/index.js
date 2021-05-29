@@ -33,6 +33,7 @@ export default new Vuex.Store({
       },
     ],
     genres: [
+      {text: 'ALL'},
       {text: 'RPG'},
       {text: 'Action'},
       {text: 'FPS'},
@@ -42,9 +43,9 @@ export default new Vuex.Store({
       {text: 'Arcade'},
     ],
     lists: [
-      {text: 'Rating'},
+      {text: 'Best Sale'},
       {text: 'Release Date'},
-      {text: 'Sales Volume'},
+      {text: 'Rating'},
     ],
   },
   getters: {

@@ -3,6 +3,24 @@
     <v-item-group active-class="primary">
       <v-container>
         <v-row>
+          <v-col calss="d-flex"
+                 cols="20"
+                 sm="9"></v-col>
+          <v-col
+              calss="d-flex"
+              cols="4"
+              sm="3"
+          >
+            <v-select
+                :items="lists"
+                v-model="lists[0]"
+                label="Solo field"
+                dense
+                solo
+            ></v-select>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col
               v-for="(gamedata, i) in value"
               :key="i"
@@ -10,13 +28,6 @@
               md="4"
           >
             <v-item>
-              <!--<video
-                  :autoplay="false"
-                  @mouseover="autoplay = true"
-              >
-                <source :src="require(`@/assets/game_video/${gamedata.video}`)"
-                        type="video/webm">
-              </video>-->
               <v-card
                 width="400"
               >
@@ -53,6 +64,8 @@
   //import {mapState} from "vuex";
   //import myVideo from "vue-video";
 
+  import {mapGetters} from "vuex";
+
   export default {
     name: 'ShopGame',
 
@@ -61,6 +74,10 @@
         type: Object,
         default: () => ({}),
       },
+    },
+
+    computed :{
+      ...mapGetters(['lists'])
     },
   }
 </script>
