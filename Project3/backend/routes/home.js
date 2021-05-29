@@ -12,9 +12,24 @@ var pool = mysql.createPool({
 });
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    var user = 'home';
-    res.send({user: user});
+
+//장바구니 내욜 가져오기
+router.post('/', function(req, res, next) {
+    var basket_datas;
+    var user_idx; //유저 u_idx받아오기
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query("SELECT item.image1, item.product, basket.amount, item.price FROM basket,item WHERE basket.complete=0 AND basket.u_idx=? AND item.idx=basket.i_idx;",[user_idx], function (err,results) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                basket_datas = results;
+                return res.send({basket_datas: basket_datas});
+            }
+        })
+        connection.release();
+    });
 });
 
 router.post('/home',function (req,res,next) {

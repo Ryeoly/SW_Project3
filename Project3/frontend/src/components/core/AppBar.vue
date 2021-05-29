@@ -32,13 +32,20 @@
         </v-btn>
         <v-spacer />
 
-        <v-text-field
-          append-icon="mdi-magnify"
-          flat
-          hide-details
-          solo-inverted
-          style="max-width: 300px;"
-        />
+          <v-autocomplete
+                  v-model="product"
+                  :items="products"
+                  label="Product"
+                  append-icon="mdi-magnify"
+                  chips
+                  @click:append="user_id"
+                  color="blue"
+                  flat
+                  hide-details
+                  solo-inverted
+                  style="max-width: 300px;"
+          >
+          </v-autocomplete>
 
 
 
@@ -78,74 +85,77 @@
               </v-btn>
 
 
-              <v-toolbar-title>Settings</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-toolbar-items>
-                <v-btn
-                        dark
-                        text
-                        @click="dialog = false"
-                >
-                  Save
-                </v-btn>
-              </v-toolbar-items>
+              <v-toolbar-title class="flex text-center">
+                장바구니
+              </v-toolbar-title>
             </v-toolbar>
-            <v-list
-                    three-line
-                    subheader
-            >
-              <v-subheader>User Controls</v-subheader>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Content filtering</v-list-item-title>
-                  <v-list-item-subtitle>Set the content filtering level to restrict apps that can be downloaded</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Password</v-list-item-title>
-                  <v-list-item-subtitle>Require password for purchase or use password to restrict purchase</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-            <v-divider></v-divider>
-            <v-list
-                    three-line
-                    subheader
-            >
-              <v-subheader>General</v-subheader>
-              <v-list-item>
-                <v-list-item-action>
-                  <v-checkbox v-model="notifications"></v-checkbox>
-                </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title>Notifications</v-list-item-title>
-                  <v-list-item-subtitle>Notify me about updates to apps or games that I downloaded</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-action>
-                  <v-checkbox v-model="sound"></v-checkbox>
-                </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title>Sound</v-list-item-title>
-                  <v-list-item-subtitle>Auto-update apps at any time. Data charges may apply</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-action>
-                  <v-checkbox v-model="widgets"></v-checkbox>
-                </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title>Auto-add widgets</v-list-item-title>
-                  <v-list-item-subtitle>Automatically add home screen widgets</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+
+            <v-simple-table style="margin-top: 30px">
+              <thead>
+              <tr style="height: 80px">
+                <th>
+                  선택
+                </th>
+                <th class="primary--text">
+                  제품 사진
+                </th>
+                <th class="primary--text">
+                  제품명
+                </th>
+                <th class="primary--text">
+                  구매 일자
+                </th>
+                <th class="primary--text">
+                  주문금액(수량)
+                </th>
+                <th>
+                  주문관리
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr
+                      v-for="(item, i) in buy_items"
+                      :key="i"
+                      style="height: 120px"
+                      link>
+                <td>
+                  <v-checkbox
+                          v-model="selected"
+                          :value="item.idx"
+                  ></v-checkbox>
+                </td>
+                <td>
+                  <v-img
+                          :src="require(`@/assets/game_img/`+item.image)"
+                          width="200"
+                          height="100"
+                  ></v-img>
+                </td>
+                <td>{{ item.product }}</td>
+                <td>{{ item.buy_time }}</td>
+                <td>{{ item.price }}}</td>
+                <td>
+                  <v-btn>삭제하기</v-btn>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="margin-left: 30px">총액</td>
+                <td>150000</td>
+                <td></td>
+              </tr>
+              </tbody>
+            </v-simple-table>
+            <div style="margin-top: 30px"></div>
+            <div style="text-align: center">
+              <v-btn> 결제하기 </v-btn>
+              <div>{{selected}}</div>
+            </div>
           </v-card>
         </v-dialog>
-
-
 
 
         <v-img
@@ -176,6 +186,16 @@
   export default {
     name: 'CoreAppBar',
     data :()=>({
+      products: [
+        'Samson', 'Wichita', 'Combustion', 'Triton',
+        'Helios', 'Wimbeldon', 'Brixton', 'Iguana',
+        'Xeon', 'Falsy', 'Armagedon', 'Zepellin'],
+      buy_items: [
+        {idx:1, image: "amongus.jpg", product: "어몽어스", buy_time: "2021_05_26(수)", amount: "3", price: "15000"},
+        {idx:2, image: "apex.jpg", product: "apex", buy_time: "2021_05_24(화)", amount: "1", price: "12000"},
+        {idx:3, image: "battlefield.jpg", product: "배틀 필드", buy_time: "2021_05_28(금)", amount: "6", price: "10000"},
+      ],
+      selected:[],
         user_id: false,
         dialog: false,
         notifications: false,
@@ -209,11 +229,23 @@
           }
         },
     },
+    components: {
+      // eslint-disable-next-line vue/no-unused-components
+      search: () => import('./search'),
+    },
   }
 </script>
 
 <style>
   .text-right{
     float:right;
+  }
+  .base{
+    display: grid;
+    grid-template-columns: repeat(100, 1fr);
+    grid-template-rows: repeat(100, 1fr);
+  }
+  .table{
+    grid-area : 30/30/70/70;
   }
 </style>
