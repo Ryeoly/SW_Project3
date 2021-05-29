@@ -29,7 +29,7 @@
     name: 'Shop',
     created () {
       this.$http.get('/shop').then((response) => {
-        this.user = response.data
+        this.datas = response.data.items
       })
     },
 
@@ -40,20 +40,21 @@
       Product: () => import('../components/shop/Product'),
     },
     data: () => ({
-      layout: [3, 3, 3, 3],
+      //layout: [3, 3, 3, 3],
       page: 1,
+      datas: []
     }),
 
     computed: {
       ...mapState(['gamedatas']),
       pages () {
-        return Math.ceil(this.gamedatas.length / 11)
+        return Math.ceil(this.datas.length / 11)
       },
       paginatedGameDatas () {
         const start = (this.page - 1) * 11
         const stop = this.page * 11
 
-        return this.gamedatas.slice(start, stop)
+        return this.datas.slice(start, stop)
       },
     },
 
