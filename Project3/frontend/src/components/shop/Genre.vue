@@ -1,28 +1,45 @@
 <template>
-  <v-container
-    id="genre"
-    tag="section"
-  >
-    <!--<base-subheading>Genre</base-subheading>-->
-    <v-list-item-content>
-      <v-checkbox v-model="checkbox"><br />
-        <template v-slot:label>RPG</template>
-      </v-checkbox>
-      <v-checkbox v-model="checkbox"><br />
-        <template v-slot:label>FPS</template>
-      </v-checkbox>
-      <v-checkbox v-model="checkbox"><br />
-        <template v-slot:label>Arcade</template>
-      </v-checkbox>
-      <v-checkbox v-model="checkbox"><br />
-        <template v-slot:label>Video Game</template>
-      </v-checkbox>
-    </v-list-item-content>
-  </v-container>
+  <div>
+    <v-list-group
+        sub-group
+        no-action
+        :value="true"
+    >
+      <template v-slot:activator>
+        <v-list-item-title>Genres</v-list-item-title>
+      </template>
+
+      <v-list-item
+          v-for="(genre, i) in genres"
+          :key="i"
+          link
+          @click="postGenre(genre.title)"
+      >
+        <v-list-item-title v-text="genre.text"></v-list-item-title>
+      </v-list-item>
+    </v-list-group>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'ShopGenre',
-  }
+import {mapGetters} from "vuex";
+
+export default {
+  name: 'ShopList',
+
+  computed: {
+    ...mapGetters(['genres']),
+  },
+
+  methods: {
+    postGenre(sel_genre) {
+      this.$http.post('/shop/genre', {genre: sel_genre}).then((response) => {
+        if(response.data.success === false) {
+          console.log(response);
+        }
+      })
+    }
+  },
+}
+
 </script>

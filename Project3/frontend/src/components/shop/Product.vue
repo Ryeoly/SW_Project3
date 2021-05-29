@@ -1,53 +1,99 @@
 <template>
   <div id="product">
-    <v-item-group>
-      <v-row>
-        <feed-card
-            v-for="(gamedata, i) in paginatedGameDatas"
-            :key="gamedata.title"
-            :size="layout[i]"
-            :value="gamedata"
-        />
-      </v-row>
+    <v-item-group active-class="primary">
+      <v-container>
+        <v-row>
+          <v-col calss="d-flex"
+                 cols="20"
+                 sm="9"></v-col>
+          <v-col
+              calss="d-flex"
+              cols="4"
+              sm="3"
+          >
+            <v-select
+                :items="lists"
+                v-model="selected"
+                label="Solo field"
+                dense
+                solo
+                return-object
+                @click="postList()"
+            ></v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col
+              v-for="(gamedata, i) in value"
+              :key="i"
+              cols="12"
+              md="4"
+          >
+            <v-item>
+              <v-card
+                width="400"
+              >
+                <v-hover>
+                  <video
+                      slot-scope="{ hover }"
+                      v-if="hover"
+                      :src="require(`@/assets/game_video/${gamedata.video}`)"
+                      :autoplay="true"
+                      width="400"
+                      height="200"
+                  >
+                  </video>
+                  <v-img
+                      v-else
+                      :src="require(`@/assets/game_img/${gamedata.image}`)"
+                      width="400"
+                      height="200"
+                  >
+                  </v-img>
+                </v-hover>
+                <v-card-title>{{gamedata.title}}</v-card-title>
+                <v-card-subtitle>{{gamedata.price}}</v-card-subtitle>
+              </v-card>
+            </v-item>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-item-group>
   </div>
 </template>
 
 <script>
-  import {mapState} from "vuex";
+  //import {mapState} from "vuex";
+  //import myVideo from "vue-video";
+
+  import {mapGetters} from "vuex";
 
   export default {
     name: 'ShopGame',
 
-    /*components: {
-      //Feed: () => import('@/components/Feed'),
-    },*/
-    components: {
-      FeedCard: () => import('../FeedCard'),
+    props: {
+      value: {
+        type: Object,
+        default: () => ({}),
+      },
     },
 
-    data: () => ({
-      layout: [3, 3, 3, 3],
-      page: 1,
+    computed :{
+      ...mapGetters(['lists'])
+    },
+
+    data : ()=> ({
+      selected : this.lists[0]
     }),
 
-    computed: {
-      ...mapState(['gamedatas']),
-      pages () {
-        return Math.ceil(this.gamedatas.length / 11)
-      },
-      paginatedGameDatas () {
-        const start = (this.page - 1) * 11
-        const stop = this.page * 11
-
-        return this.gamedatas.slice(start, stop)
-      },
+    postList() {
+      this.$http.post('/shop/list', {list: this.selected.value}).then((response) => {
+        if(response.data.success === false) {
+          console.log(response);
+        }
+      })
     },
 
-    watch: {
-      page () {
-        window.scrollTo(0, 0)
-      },
-    },
+
   }
 </script>

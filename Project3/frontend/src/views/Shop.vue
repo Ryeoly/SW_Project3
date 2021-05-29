@@ -1,30 +1,67 @@
 <template>
-  <div id="shop" class="wrapper">
+  <div class="wrapper">
     <div class="leftbar">
-      <list />
+      <genre />
     </div>
     <v-spacer />
     <div class="mainview">
-      <product />
+      <product :value="paginatedGameDatas" />
     </div>
   </div>
+  <!--<div id="shop">
+    <suggest :value="gamedatas" />
+    <div class="wrapper">
+      <div class="leftbar">
+        <genre />
+      </div>
+      <v-spacer />
+      <div class="mainview">
+        <product :value="paginatedGameDatas" />
+      </div>
+    </div>
+  </div>-->
 </template>
 
 <script>
+  import {mapState} from "vuex";
+
   export default {
     name: 'Shop',
     created () {
       this.$http.get('/shop').then((response) => {
-        this.user = response.data
+        this.datas = response.data.items
       })
     },
-    data () { return { user: [] } },
 
     components: {
       //Suggest: () => import('../components/shop/Suggest'),
-      List: () => import('../components/shop/List'),
-      //Genre: () => import('../components/shop/Genre'),
+      //List: () => import('../components/shop/List'),
+      Genre: () => import('../components/shop/Genre'),
       Product: () => import('../components/shop/Product'),
+    },
+    data: () => ({
+      //layout: [3, 3, 3, 3],
+      page: 1,
+      datas: []
+    }),
+
+    computed: {
+      ...mapState(['gamedatas']),
+      pages () {
+        return Math.ceil(this.datas.length / 11)
+      },
+      paginatedGameDatas () {
+        const start = (this.page - 1) * 11
+        const stop = this.page * 11
+
+        return this.datas.slice(start, stop)
+      },
+    },
+
+    watch: {
+      page () {
+        window.scrollTo(0, 0)
+      },
     },
   }
 </script>

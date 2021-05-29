@@ -1,16 +1,8 @@
-
-
 <template>
-    <v-container
-            id="user-profile-view"
-            fluid
-            tag="section"
-    >
-        <v-row justify="center">
-            <v-col
-                    cols="12"
-                    md="8"
-            >
+<div class="base">
+        <v-card class="card">
+        <v-row>
+            <v-col>
                 <material-card
                         color="primary"
                         icon="mdi-account-outline"
@@ -24,17 +16,17 @@
                             <v-row>
                                 <v-col
                                         cols="12"
-                                        md="4"
+                                        md="3"
                                 >
                                     <v-text-field
                                             disabled
-                                            label="Company (disabled)"
+                                            label="내 정보 변경"
                                     />
                                 </v-col>
 
                                 <v-col
                                         cols="12"
-                                        md="4"
+                                        md="3"
                                 >
                                     <v-text-field
                                             color="purple"
@@ -44,7 +36,7 @@
 
                                 <v-col
                                         cols="12"
-                                        md="4"
+                                        md="3"
                                 >
                                     <v-text-field
                                             color="purple"
@@ -54,25 +46,28 @@
 
                                 <v-col
                                         cols="12"
-                                        md="6"
+                                        md="4"
                                 >
                                     <v-text-field
                                             color="purple"
-                                            label="First Name"
+                                            label="Name"
                                     />
                                 </v-col>
 
                                 <v-col
                                         cols="12"
-                                        md="6"
+                                        md="4"
                                 >
                                     <v-text-field
                                             color="purple"
-                                            label="Last Name"
+                                            label="Nick Name"
                                     />
                                 </v-col>
 
-                                <v-col cols="12">
+                                <v-col
+                                        cols="12"
+                                        md="8"
+                                >
                                     <v-text-field
                                             color="purple"
                                             label="Adress"
@@ -81,7 +76,7 @@
 
                                 <v-col
                                         cols="12"
-                                        md="4"
+                                        md="3"
                                 >
                                     <v-text-field
                                             color="purple"
@@ -91,7 +86,7 @@
 
                                 <v-col
                                         cols="12"
-                                        md="4"
+                                        md="3"
                                 >
                                     <v-text-field
                                             color="purple"
@@ -101,20 +96,12 @@
 
                                 <v-col
                                         cols="12"
-                                        md="4"
+                                        md="3"
                                 >
                                     <v-text-field
                                             color="purple"
                                             label="Postal Code"
                                             type="number"
-                                    />
-                                </v-col>
-
-                                <v-col cols="12">
-                                    <v-textarea
-                                            color="purple"
-                                            label="About Me"
-                                            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                                     />
                                 </v-col>
 
@@ -130,50 +117,29 @@
                                     </v-btn>
                                 </v-col>
                             </v-row>
+                            <v-row>
+
+                            </v-row>
                         </v-container>
                     </v-form>
                 </material-card>
             </v-col>
-
-            <v-col
-                    cols="12"
-                    md="4"
-            >
-                <app-card class="mt-4 text-center">
-                    <v-img
-                            class="rounded-circle elevation-6 mt-n12 d-inline-block"
-                            src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-                            width="128"
-                    />
-
-                    <v-card-text class="text-center">
-                        <h6 class="text-h6 mb-2 text--secondary">
-                            CEO / FOUNDER
-                        </h6>
-
-                        <h4 class="text-h4 mb-3 text--primary">
-                            John Leider
-                        </h4>
-
-                        <p class="text--secondary">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione dolorem deserunt veniam tempora magnam quisquam quam error iusto cupiditate ducimus, et eligendi saepe voluptatibus assumenda similique temporibus placeat animi dicta?
-                        </p>
-
-                        <v-btn
-                                class="mr-0"
-                                color="primary"
-                                min-width="100"
-                                rounded
-                        >
-                            Follow
-                        </v-btn>
-                    </v-card-text>
-                </app-card>
-            </v-col>
         </v-row>
-    </v-container>
+        </v-card>
+</div>
 </template>
 
 <script>
     export default { name: "user_info.vue", }
 </script>
+
+<style>
+    .base{
+        display: grid;
+        grid-template-columns: repeat(100, 1fr);
+        grid-template-rows: repeat(100, 1fr);
+    }
+    .card{
+        grid-area : 10/2/100/80;
+    }
+</style>
