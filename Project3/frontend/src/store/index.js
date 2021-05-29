@@ -33,18 +33,19 @@ export default new Vuex.Store({
       },
     ],
     genres: [
+      {text: 'ALL'},
       {text: 'RPG'},
       {text: 'Action'},
       {text: 'FPS'},
       {text: 'Simulation'},
       {text: 'Video Game'},
-      {text: 'Role Playing'},
+      {text: 'Role Play'},
       {text: 'Arcade'},
     ],
     lists: [
-      {text: 'Rating'},
-      {text: 'Release Date'},
-      {text: 'Sales Volume'},
+      {text: 'Best Sale', value: 'sold_num'},
+      {text: 'Release Date', value: 'release_day'},
+      {text: 'Rating', value: 'star'},
     ],
   },
   getters: {

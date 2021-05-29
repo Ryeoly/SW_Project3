@@ -1,14 +1,16 @@
 <template>
-  <div id="detail">
+  <div id="detail" class="base">
+    <div class="maincontent">
       <item />
-
+      <v-divider/>
       <item-detail />
-
+      <v-divider/><br>
       <suggest :value="gamedatas" />
-
+      <v-divider/><br>
       <review />
-
+      <v-divider/><br>
       <qna />
+    </div>
   </div>
 </template>
 
@@ -34,16 +36,23 @@ export default {
 </script>
 
 <style>
-  .wrapper{
+  .base{
     display: grid;
     grid-template-columns: repeat(100, 1fr);
     grid-template-rows: repeat(100, 1fr);
   }
-  .leftbar{
-    margin-left: 5%;
-    grid-area: 1/1/100/15;
+  .maincontent{
+    grid-area : 1/20/90/80;
   }
-  .mainview{
-    grid-area : 1/20/100/100;
+  .itemcontent{
+    grid-area : 1/20/30/80;
+  }
+  .bar {
+    display: inline-block;
+    width: 2px;
+    height: 25px;
+    text-indent: -999em;
+    background: #e4e4e5;
+    vertical-align: bottom;
   }
 </style>
