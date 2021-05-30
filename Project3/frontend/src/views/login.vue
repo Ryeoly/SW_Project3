@@ -9,17 +9,18 @@
                 <v-form>
                     <v-text-field
                             prepend-icon="mdi-identifier"
-                            name="login"
-                            label="Login"
+                            v-model="email"
+                            label="Email을 입력해주세요"
                             type="text"
                     ></v-text-field>
                     <v-text-field
-                            id="password"
                             prepend-icon="mdi-lock"
-                            name="password"
-                            label="Password"
+                            v-model="password"
+                            label="패스워드를 입력해주세요"
                             type="password"
                     ></v-text-field>
+                  <span v-if="this.fail"
+                  color="red">Login Failed!</span>
                 </v-form>
             </v-card-text>
             <v-card-actions>
@@ -30,7 +31,7 @@
                 </div>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" to="/sign_up">회원가입</v-btn>
-                <v-btn color="primary" to="/mypage/my_info">Login</v-btn>
+                <v-btn color="primary" @click="click">Login</v-btn>
             </v-card-actions>
         </v-card>
         </div>
@@ -43,6 +44,27 @@
         name: "login.vue",
         props: {
             source: String,
+        },
+
+      data:()=> ({
+        fail : false,
+        email : null,
+        password : null,
+      }),
+
+        methods: {
+          click(){
+            this.$http.post('/login',{email: this.email, pwd: this.password}).then((res)=>{
+              if(res.data.success===false){
+                console.log("error")
+                this.fail = true
+              }
+              else{
+                this.$router.push({path:'/mypage/my_info'})
+              }
+
+            })
+          },
         },
     };
 </script>
