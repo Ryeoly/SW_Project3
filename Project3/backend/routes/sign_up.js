@@ -64,10 +64,11 @@ router.post('/',function (req,res,next) {
     var address =req.body.address;
     var like_genre1=req.body.like_genre1;
     var like_genre2=req.body.like_genre2;
+    var like_genre3=req.body.like_genre3;
 
     pool.getConnection(function(err,connection){
         if(err) throw err;
-        connection.query("INSERT INTO USER(email,pwd,NAME,birth,phone,address,like_genre1,like_genre2) VALUES(?,?,?,?,?,?,?,?)",[email,pwd,name,birth,phone,address,like_genre1,like_genre2],function(err,rows){
+        connection.query("INSERT INTO USER(email,pwd,NAME,birth,phone,address,like_genre1,like_genre2,like_genre3) VALUES(?,?,?,?,?,?,?,?,?)",[email,pwd,name,birth,phone,address,like_genre1,like_genre2,like_genre3],function(err,rows){
             if(err){
                 return res.json({success: false});
             }

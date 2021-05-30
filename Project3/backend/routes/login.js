@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var nodemailer = require('nodemailer');
 let mysql = require('mysql'); //mysql 모듈을 로딩.
 var pool = mysql.createPool({
     connectionLimit: 5,
@@ -12,73 +11,31 @@ var pool = mysql.createPool({
     multipleStatements: true
 });
 
-let key=0; //key값 비교
-//인증코드 발생
-var generateKey = function(min,max){
-    var generate_key = Math.floor(Math.random()*(max-min+1)) + min;
-    return generate_key;
-}
-
-//인증코드 이메일발신
-router.post("/",function(req,res,next){
-    let email =req.body.email;
-    key =generateKey(1111,9999);
-
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'dtree0520@gmail.com',
-            pass: 'keonyoung520'
-        }
-    });
-
-    let mailOptions = {
-        from: 'dtree0520@gmail.com',
-        to: email,
-        subject: "[윤초코]인증 관련 이메일 입니다.",
-        text: "오른쪽 숫자 4자리를 입력해주세요 : " + key
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            console.log(error);
-        }
-        else {
-            console.log('Email 전송완료: ' + info.response);
-        }
-    });
-
-});
-//회원가입 추가
-router.post('/example',function (req,res,next) {
+//로그인 눌렀을떄
+router.post('/',function (req,res,next) {
     var email=req.body.email;
     var pwd =req.body.pwd;
-    var name = req.body.name;
-    var year =req.body.year;
-    var month = req.body.month;
-    var day = req.body.day;
-    var birth = year+'-'+month+'-'+day;
-    var phone =req.body.address;
-    var administer =req.body.administer;
+    var user_idx;
 
     pool.getConnection(function(err,connection){
         if(err) throw err;
-        connection.query("INSERT INTO USER(email,pwd,NAME,birth,phone,address,administer) VALUES(?,?,?,?,?,?,?)",[email,pwd,name,birth,phone,administer],function(err,rows){
+        connection.query("SELECT idx FROM USER WHERE email = ? AND pwd=?",[email,pwd],function(err,result){
             if(err){
                 return res.json({success: false});
             }
             else{
-                res.send({success: true});
+                if(!result[0]){
+                    return res.send({success: false});
+                }
+                else {
+                    user_idx=result;
+                    return res.send({success: true,user_idx: user_idx});
+                }
             }
         })
         connection.release();
     });
 });
-
-
-
-
-
 
 
 module.exports = router;
