@@ -53,10 +53,10 @@
   grid-template-rows: repeat(100, 1fr);
 }
 .selectlist{
-  grid-area : 1/22/9/90;
+  grid-area : 1/22/9/100;
 }
 .leftbar{
-  grid-area: 10/1/100/20;
+  grid-area: 1/1/100/20;
 }
 .mainview{
   grid-area : 10/22/100/100;

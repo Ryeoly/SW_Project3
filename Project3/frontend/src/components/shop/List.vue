@@ -41,7 +41,7 @@ export default {
 
   methods: {
     postList() {
-      this.$http.post('/shop/list', {list: this.selected.value}).then((response) => {
+      this.$http.post('/shop/list', {list: this.selected.value.toString()}).then((response) => {
         this.$emit('update', response.data.items)
       })
     },

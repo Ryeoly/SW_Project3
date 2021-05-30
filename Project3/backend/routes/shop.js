@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
     var items;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item ORDER BY ? DESC",list,function (err,results) {
+        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item ORDER BY " + list + " DESC",function (err,results) {
             if(err){
                 return res.json({success: false});
             }
@@ -37,20 +37,16 @@ router.get('/', function(req, res, next) {
 //Action
 router.post('/genre', function(req, res, next) {
     genre=req.body.genre;
+    list = list.replace('"', "");
     var query ="";
-    var data;
     if(genre == "ALL"){
-        query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item ORDER BY ? DESC";
-        data = list;
+        genre = "%";
     }
-    else{
-        query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre=? ORDER BY ? DESC";
-        data = [genre, list];
-    }
+    query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre like ? ORDER BY " + list + " DESC";
     var items;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query(query, data ,function (err,results) {
+        connection.query(query, genre ,function (err,results) {
             if(err){
                 return res.json({success: false});
             }
@@ -66,20 +62,16 @@ router.post('/genre', function(req, res, next) {
 //Action
 router.post('/list', function(req, res, next) {
     list=req.body.list;
+    list =list.replace('"', "");
     var query ="";
-    var data;
     if(genre == "ALL"){
-        query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item ORDER BY ? DESC";
-        data = list;
+        genre = "%"
     }
-    else{
-        query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre=? ORDER BY ? DESC";
-        data = [genre, list];
-    }
+    query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre like ? ORDER BY " + list + " DESC";
     var items;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query(query, data ,function (err,results) {
+        connection.query(query, genre ,function (err,results) {
             if(err){
                 return res.json({success: false});
             }
