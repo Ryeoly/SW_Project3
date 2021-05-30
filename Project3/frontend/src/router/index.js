@@ -14,13 +14,17 @@ import admin from "../views/admin";
 import trend from "../components/admin/trend";
 import QnA_ans from "../components/admin/QnA_ans";
 import product_add from "../components/admin/product_add";
-
+import communityy from "../views/communityy";
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/home',
     component: Home
+  },
+  {
+    path:'/Community',
+    component: communityy
   },
   {
     path: '/shop',

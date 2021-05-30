@@ -1,6 +1,6 @@
 <template>
   <div id="detail">
-        <item :value="itemdata" :count="count"/>
+        <item :values="[itemdata,count]"/>
 
         <v-container>
           <v-row>
