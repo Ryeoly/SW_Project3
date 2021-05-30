@@ -1,34 +1,51 @@
 <template>
   <div>
-      <v-list-group
-          sub-group
-          no-action
-          :value="true"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>Genres</v-list-item-title>
-        </template>
-
-        <v-list-item
-            v-for="(genre, i) in genres"
-            :key="i"
-            link
+    <v-container>
+      <v-row>
+        <v-col calss="d-flex"
+               cols="20"
+               sm="9"></v-col>
+        <v-col
+            calss="d-flex"
+            cols="4"
+            sm="3"
         >
-          <v-list-item-title v-text="genre.text"></v-list-item-title>
-        </v-list-item>
-      </v-list-group>
+          <v-select
+              :items="lists"
+              v-model="selected"
+              label="Solo field"
+              dense
+              solo
+              return-object
+              @change="postList()"
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 
-  export default {
-    name: 'ShopList',
-    computed: {
-      ...mapGetters(['lists']),
-      ...mapGetters(['genres']),
+export default {
+  name: 'ShopList',
+
+  computed: {
+    ...mapGetters(['lists']),
+  },
+
+  data : ()=> ({
+    selected : null
+  }),
+
+  methods: {
+    postList() {
+      this.$http.post('/shop/list', {list: this.selected.value.toString()}).then((response) => {
+        this.$emit('update', response.data.items)
+      })
     },
   }
+}
 
 </script>
