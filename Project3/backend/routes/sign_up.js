@@ -52,7 +52,7 @@ router.post("/sendauth",function(req,res,next){
 
 });
 //회원가입 추가
-router.post('/example',function (req,res,next) {
+router.post('/',function (req,res,next) {
     var email=req.body.email;
     var pwd =req.body.pwd;
     var name = req.body.name;
@@ -60,12 +60,14 @@ router.post('/example',function (req,res,next) {
     var month = req.body.month;
     var day = req.body.day;
     var birth = year+'-'+month+'-'+day;
-    var phone =req.body.address;
-    var administer =req.body.administer;
+    var phone =req.body.phone;
+    var address =req.body.address;
+    var like_genre1=req.body.like_genre1;
+    var like_genre2=req.body.like_genre2;
 
     pool.getConnection(function(err,connection){
         if(err) throw err;
-        connection.query("INSERT INTO USER(email,pwd,NAME,birth,phone,address,administer) VALUES(?,?,?,?,?,?,?)",[email,pwd,name,birth,phone,administer],function(err,rows){
+        connection.query("INSERT INTO USER(email,pwd,NAME,birth,phone,address,like_genre1,like_genre2) VALUES(?,?,?,?,?,?,?,?)",[email,pwd,name,birth,phone,address,like_genre1,like_genre2],function(err,rows){
             if(err){
                 return res.json({success: false});
             }
@@ -76,11 +78,4 @@ router.post('/example',function (req,res,next) {
         connection.release();
     });
 });
-
-
-
-
-
-
-
 module.exports = router;

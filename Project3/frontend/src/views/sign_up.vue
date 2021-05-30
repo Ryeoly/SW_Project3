@@ -7,7 +7,6 @@
                             ref="email"
                             v-model="email"
                             :rules="[() => !!email || 'This field is required']"
-
                             label="E-mail"
                             placeholder="examplpe@example.com"
                             required
@@ -45,6 +44,7 @@
                         v-model="pwd"
                         :rules="[() => !!pwd || 'This field is required']"
                         label="패스워드"
+                        type="password"
                         required
                 ></v-text-field>
               <v-text-field
@@ -55,6 +55,7 @@
                           ]"
                   :success-messages="checkMessages"
                   label="패스워드확인"
+                  type="password"
                   required
               ></v-text-field>
               <v-row>
@@ -90,14 +91,16 @@
                 ></v-autocomplete>
               </v-row>
 
-              <v-text-field
+              <v-autocomplete
                   ref="address"
                   v-model="address"
                   :rules="[() => !!address || 'This field is required']"
-                  label="주소"
-                  placeholder="시만 입력 ex) 안양시"
+                  :items="countries"
+                  label="국가"
+                  placeholder="Select..."
                   required
-              ></v-text-field>
+              ></v-autocomplete>
+
               <v-text-field
                   ref="phone"
                   v-model="phone"
@@ -170,6 +173,7 @@
         name: "sign_up.vue",
 
         data: () => ({
+            countries: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua &amp; Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia &amp; Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Cape Verde', 'Cayman Islands', 'Chad', 'Chile', 'China', 'Colombia', 'Congo', 'Cook Islands', 'Costa Rica', 'Cote D Ivoire', 'Croatia', 'Cruise Ship', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Estonia', 'Ethiopia', 'Falkland Islands', 'Faroe Islands', 'Fiji', 'Finland', 'France', 'French Polynesia', 'French West Indies', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guam', 'Guatemala', 'Guernsey', 'Guinea', 'Guinea Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hong Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Isle of Man', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jersey', 'Jordan', 'Kazakhstan', 'Kenya', 'Kuwait', 'Kyrgyz Republic', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macau', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Namibia', 'Nepal', 'Netherlands', 'Netherlands Antilles', 'New Caledonia', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Norway', 'Oman', 'Pakistan', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Puerto Rico', 'Qatar', 'Reunion', 'Romania', 'Russia', 'Rwanda', 'Saint Pierre &amp; Miquelon', 'Samoa', 'San Marino', 'Satellite', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'St Kitts &amp; Nevis', 'St Lucia', 'St Vincent', 'St. Lucia', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', `Timor L'Este`, 'Togo', 'Tonga', 'Trinidad &amp; Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks &amp; Caicos', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe'],
             genres: ['Action','Arcade','FPS','Role Play','RPG','Simulation','Video Game'],
             months: ['01','02','03','04','05','06','07','08','09','10','11','12'],
             days: ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],
@@ -215,12 +219,13 @@
             name () {
                 this.errorMessages = ''
                 this.authMessages=''
+                this.checkMessages=''
             },
         },
 
         methods: {
             pwdcheck(){
-              if(this.pwd==this.pwd_check){
+              if(this.pwd==this.pwd_check && !!this.pwd){
                   this.checkMessages='패스워드가 일치합니다.'
               }
               else{
@@ -246,12 +251,27 @@
 
               this.$refs[f].validate(true)
             })
+
+            if(this.pwd==this.pwd_check && this.truekey==this.auth_num){
+              this.$http.post('/sign_up',{email:this.email, name:this.name, pwd:this.pwd, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2}).then((res)=>{
+                if(res.data.success===false){
+                  console.log("error")
+                }
+                else{
+                  location.href="/login"
+                }
+
+              })
+            }
+
+
           },
             send_auth (){
               this.$http.post('/sign_up/sendauth',{email: this.email}).then((res)=>{
                 if(res.data.success===false){
                   console.log(res);
                 }
+                console.log(res.data.truekey);
                 this.truekey=res.data.truekey;
               })
             },
