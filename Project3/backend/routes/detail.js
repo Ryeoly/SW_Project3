@@ -19,20 +19,20 @@ var qna_data;
 var review_data;
 var count_data;
 router.post('/', function(req, res, next) {
-    var user_idx=req.body.user_idx;
-    var item_idx=req.body.item_idx; //front로부터  게임의 idx받아오기
+    var user_idx=req.body.u_idx;
+    var item_idx=req.body.i_idx; //front로부터  게임의 idx받아오기
 
 
     var item_sql='SELECT * FROM item WHERE idx= ?;';
     var item_sqls=mysql.format(item_sql,item_idx);
 
-    var recommend_sql='SELECT  FROM item,USER WHERE user.idx=? AND (item.genre=user.like_genre1 OR item.genre=user.like_genre2 OR item.genre=user.like_genre3) ORDER BY item.sold_num DESC;';
+    var recommend_sql='SELECT item.idx AS idx, product,image1 FROM item,USER WHERE user.idx=? AND (item.genre=user.like_genre1 OR item.genre=user.like_genre2 OR item.genre=user.like_genre3) ORDER BY item.sold_num DESC;';
     var recommend_sqls=mysql.format(recommend_sql,user_idx);
 
-    var qna_sql='SELECT * FROM qna_board,USER WHERE qna_board.i_idx=? AND qna_board.u_idx=user.idx AND qna_board.reply=0;';
+    var qna_sql='SELECT qna_board.idx AS idx,title,create_time,NAME,content FROM qna_board,USER WHERE qna_board.i_idx=? AND qna_board.u_idx=user.idx AND qna_board.reply=0;';
     var qna_sqls=mysql.format(qna_sql,item_idx);
 
-    var review_sql='SELECT * FROM review_board,USER WHERE review_board.i_idx=? AND review_board.u_idx=user.idx;';
+    var review_sql='SELECT review_board.idx AS idx,title,create_time,NAME,star,content FROM review_board,USER WHERE review_board.i_idx=? AND review_board.u_idx=user.idx;';
     var review_sqls=mysql.format(review_sql,item_idx);
 
     var count_sql='SELECT COUNT(*) AS cnt FROM review_board,USER WHERE review_board.i_idx=? AND review_board.u_idx=user.idx;';
@@ -50,14 +50,14 @@ router.post('/', function(req, res, next) {
                 qna_data = results[2];
                 review_data = results[3];
                 count_data = results[4];
-
+                res.send({success: true, item_data: item_data, recommend_data: recommend_data, qna_data: qna_data,review_data: review_data, count_data: count_data});
             }
         })
         connection.release();
     });
 });
 
-router.get('/detail', function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.send({success: true ,item_data: item_data, recommend_data: recommend_data, qna_data: qna_data,review_data: review_data, count_data: count_data});
 });
 
