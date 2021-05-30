@@ -10,6 +10,10 @@ import my_board from "../components/mypage/List/my_board";
 import login from "../views/login";
 import sign_up from "../views/sign_up";
 import Detail from "../views/Detail";
+import admin from "../views/admin";
+import trend from "../components/admin/trend";
+import QnA_ans from "../components/admin/QnA_ans";
+import product_add from "../components/admin/product_add";
 
 Vue.use(VueRouter)
 
@@ -43,6 +47,15 @@ const routes = [
   {
     path: '/sign_up',
     component: sign_up
+  },
+  {
+    path:'/admin',
+    component: admin,
+    children: [
+      {path:'trend', component:trend},
+      {path:'QnA_ans', component:QnA_ans},
+      {path:'product_add', component:product_add}
+    ]
   }
 
 ]
