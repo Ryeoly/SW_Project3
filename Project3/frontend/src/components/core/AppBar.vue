@@ -48,7 +48,6 @@
           </v-autocomplete>
 
 
-
         <v-dialog
                 v-model="dialog"
                 fullscreen
