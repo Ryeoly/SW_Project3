@@ -12,12 +12,15 @@ var pool = mysql.createPool({
 });
 
 /* GET users listing. */
+var list='sold_num';
+var genre='ALL';
+
 //All
 router.get('/', function(req, res, next) {
     var items;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item", function (err,results) {
+        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item ORDER BY " + list + " DESC",function (err,results) {
             if(err){
                 return res.json({success: false});
             }
@@ -32,11 +35,18 @@ router.get('/', function(req, res, next) {
 
 
 //Action
-router.get('/Action', function(req, res, next) {
+router.post('/genre', function(req, res, next) {
+    genre=req.body.genre;
+    list = list.replace('"', "");
+    var query ="";
+    if(genre == "ALL"){
+        genre = "%";
+    }
+    query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre like ? ORDER BY " + list + " DESC";
     var items;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre='Action'", function (err,results) {
+        connection.query(query, genre ,function (err,results) {
             if(err){
                 return res.json({success: false});
             }
@@ -49,102 +59,19 @@ router.get('/Action', function(req, res, next) {
     });
 });
 
-//Arcade
-router.get('/Arcade', function(req, res, next) {
+//Action
+router.post('/list', function(req, res, next) {
+    list=req.body.list;
+    list =list.replace('"', "");
+    var query ="";
+    if(genre == "ALL"){
+        genre = "%"
+    }
+    query = "SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre like ? ORDER BY " + list + " DESC";
     var items;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre='Arcade'", function (err,results) {
-            if(err){
-                return res.json({success: false});
-            }
-            else{
-                items = results;
-                return res.send({items: items});
-            }
-        })
-        connection.release();
-    });
-});
-
-//FPS
-router.get('/FPS', function(req, res, next) {
-    var items;
-    pool.getConnection(function (err,connection) {
-        if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre='FPS'", function (err,results) {
-            if(err){
-                return res.json({success: false});
-            }
-            else{
-                items = results;
-                return res.send({items: items});
-            }
-        })
-        connection.release();
-    });
-});
-
-//Role Play
-router.get('/Role Play', function(req, res, next) {
-    var items;
-    pool.getConnection(function (err,connection) {
-        if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre='Role Play'", function (err,results) {
-            if(err){
-                return res.json({success: false});
-            }
-            else{
-                items = results;
-                return res.send({items: items});
-            }
-        })
-        connection.release();
-    });
-});
-
-//RPG
-router.get('/RPG', function(req, res, next) {
-    var items;
-    pool.getConnection(function (err,connection) {
-        if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre='RPG'", function (err,results) {
-            if(err){
-                return res.json({success: false});
-            }
-            else{
-                items = results;
-                return res.send({items: items});
-            }
-        })
-        connection.release();
-    });
-});
-
-//Simulation
-router.get('/simulation', function(req, res, next) {
-    var items;
-    pool.getConnection(function (err,connection) {
-        if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre='simulation'", function (err,results) {
-            if(err){
-                return res.json({success: false});
-            }
-            else{
-                items = results;
-                return res.send({items: items});
-            }
-        })
-        connection.release();
-    });
-});
-
-//Video Game
-router.get('/Video Game', function(req, res, next) {
-    var items;
-    pool.getConnection(function (err,connection) {
-        if(err) throw err;
-        connection.query("SELECT idx,product,price,image1,video1,sold_num,remain_num,star FROM item where genre='Video Game'", function (err,results) {
+        connection.query(query, genre ,function (err,results) {
             if(err){
                 return res.json({success: false});
             }

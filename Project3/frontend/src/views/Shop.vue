@@ -1,75 +1,59 @@
 <template>
   <div class="wrapper">
+    <div class="selectlist">
+      <list @update="changeDataByList"/>
+    </div>
     <div class="leftbar">
-      <genre />
+      <genre @update="changeDataByGenre"/>
     </div>
     <v-spacer />
     <div class="mainview">
-      <product :value="paginatedGameDatas" />
+      <product :value="gamedatas" />
     </div>
   </div>
-  <!--<div id="shop">
-    <suggest :value="gamedatas" />
-    <div class="wrapper">
-      <div class="leftbar">
-        <genre />
-      </div>
-      <v-spacer />
-      <div class="mainview">
-        <product :value="paginatedGameDatas" />
-      </div>
-    </div>
-  </div>-->
 </template>
 
 <script>
-  import {mapState} from "vuex";
+  //import {mapState} from "vuex";
 
   export default {
     name: 'Shop',
     created () {
       this.$http.get('/shop').then((response) => {
-        this.user = response.data
+        this.gamedatas = response.data.items
       })
     },
 
     components: {
       //Suggest: () => import('../components/shop/Suggest'),
-      //List: () => import('../components/shop/List'),
+      List: () => import('../components/shop/List'),
       Genre: () => import('../components/shop/Genre'),
       Product: () => import('../components/shop/Product'),
     },
     data: () => ({
-      layout: [3, 3, 3, 3],
-      page: 1,
+      //layout: [3, 3, 3, 3],
+      gamedatas: []
     }),
 
-    computed: {
-      ...mapState(['gamedatas']),
-      pages () {
-        return Math.ceil(this.gamedatas.length / 11)
+    methods: {
+      changeDataByGenre (params) {
+        this.gamedatas = params
       },
-      paginatedGameDatas () {
-        const start = (this.page - 1) * 11
-        const stop = this.page * 11
-
-        return this.gamedatas.slice(start, stop)
-      },
-    },
-
-    watch: {
-      page () {
-        window.scrollTo(0, 0)
-      },
-    },
+      changeDataByList (params) {
+        this.gamedatas = params
+      }
+    }
   }
 </script>
 
-<style>
+<style scoped>
 .wrapper{
   display: grid;
   grid-template-columns: repeat(100, 1fr);
   grid-template-rows: repeat(100, 1fr);
+}
+.selectlist{
+  grid-area : 1/22/9/100;
 }
 .leftbar{
   grid-area: 1/1/100/20;

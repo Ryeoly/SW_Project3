@@ -49,24 +49,36 @@ router.post("/",function(req,res,next){
     });
 
 });
+//회원가입 추가
+router.post('/example',function (req,res,next) {
+    var email=req.body.email;
+    var pwd =req.body.pwd;
+    var name = req.body.name;
+    var year =req.body.year;
+    var month = req.body.month;
+    var day = req.body.day;
+    var birth = year+'-'+month+'-'+day;
+    var phone =req.body.address;
+    var administer =req.body.administer;
 
-
-
-router.get('/ex', function(req, res, next) {
-    var items;
-    pool.getConnection(function (err,connection) {
+    pool.getConnection(function(err,connection){
         if(err) throw err;
-        connection.query("SELECT * FROM item", function (err,results) {
+        connection.query("INSERT INTO USER(email,pwd,NAME,birth,phone,address,administer) VALUES(?,?,?,?,?,?,?)",[email,pwd,name,birth,phone,administer],function(err,rows){
             if(err){
                 return res.json({success: false});
             }
             else{
-                items = results;
-                return res.send({items: items});
+                res.send({success: true});
             }
         })
         connection.release();
     });
 });
+
+
+
+
+
+
 
 module.exports = router;

@@ -9,6 +9,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 // var testRouter = require('./routes/test');
+var sign_upRouter = require('./routes/sign_up');
 var loginRouter = require('./routes/login');
 var homeRouter = require('./routes/home');
 var shopRouter = require('./routes/shop');
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // app.use('/test', testRouter);
+app.use('/sign_up',sign_upRouter);
 app.use('/login', loginRouter);
 app.use('/home', homeRouter);
 app.use('/shop', shopRouter);
@@ -41,6 +43,7 @@ app.use('/detail', detailRouter);
 app.use('/comunity', comunityRouter);
 app.use('/mypage', mypageRouter);
 app.use('/basket', basketRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

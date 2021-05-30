@@ -48,4 +48,23 @@ router.post('/example',function (req,res,next) {
     });
 });
 
+//장바구니에 업데이트
+router.post('/example',function (req,res,next) {
+    var item_idx; //front로부터 게임의 idx받아오기
+    var user_idx; //front로부터 유저의 idx받아오기
+    var amount=req.body.amount;
+    pool.getConnection(function(err,connection){
+        if(err) throw err;
+        connection.query("INSERT INTO basket(i_idx,amount,u_idx) VALUES(?,?,?)",[item_idx,amount,user_idx],function(err,rows){
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                res.send({success: true});
+            }
+        })
+        connection.release();
+    });
+});
+
 module.exports = router;
