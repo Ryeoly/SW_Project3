@@ -7,11 +7,11 @@
     >
       <v-slide-item
           v-for="(gamedata, i) in value"
-          :key="gamedata.title"
+          :key="i"
           v-slot="{ active, toggle }"
       >
         <v-img
-            :src="require(`@/assets/game_img/${gamedata.image}`)"
+            :src="require(`@/assets/game_img/${gamedata.image1}`)"
             class="ma-4"
             height="100"
             width="100"

@@ -34,7 +34,7 @@ export default {
   methods: {
     postGenre(sel_genre) {
       this.$http.post('/shop/genre', {genre: sel_genre}).then((response) => {
-        this.$emit('update', response.data.items)
+        this.$emit('update', [response.data.items, sel_genre])
       })
     }
   },

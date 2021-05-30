@@ -2,12 +2,16 @@
   <div>
     <v-container>
       <v-row>
-        <v-col calss="d-flex"
-               cols="20"
-               sm="9"></v-col>
         <v-col
             calss="d-flex"
-            cols="4"
+            sm="3"
+        >
+          <span><h3>Shop/{{value}}</h3></span>
+        </v-col>
+        <v-col calss="d-flex"
+               sm="6"></v-col>
+        <v-col
+            calss="d-flex"
             sm="3"
         >
           <v-select
@@ -33,6 +37,13 @@ export default {
 
   computed: {
     ...mapGetters(['lists']),
+  },
+
+  props: {
+    value: {
+      type: String,
+      default: () => ({}),
+    },
   },
 
   data : ()=> ({

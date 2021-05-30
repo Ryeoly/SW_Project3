@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="selectlist">
-      <list @update="changeDataByList"/>
+      <list @update="changeDataByList" :value="genre"/>
     </div>
     <div class="leftbar">
       <genre @update="changeDataByGenre"/>
@@ -32,12 +32,14 @@
     },
     data: () => ({
       //layout: [3, 3, 3, 3],
-      gamedatas: []
+      gamedatas: [],
+      genre: "ALL"
     }),
 
     methods: {
       changeDataByGenre (params) {
-        this.gamedatas = params
+        this.gamedatas = params[0]
+        this.genre = params[1]
       },
       changeDataByList (params) {
         this.gamedatas = params
