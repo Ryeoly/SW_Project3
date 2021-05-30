@@ -4,9 +4,11 @@ import vuetify from './plugins/vuetify'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import VueYoutube from 'vue-youtube'
 
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
+Vue.use(VueYoutube)
 
 new Vue({
   vuetify,

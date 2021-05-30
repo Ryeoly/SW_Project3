@@ -27,7 +27,7 @@ const routes = [
     component: Shop
   },
   {
-    path: '/rank',
+    path: '/detail',
     component: Detail
   },
   {

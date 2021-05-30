@@ -12,6 +12,7 @@
             <v-item>
               <v-card
                 width="400"
+                @click="gotoDetail(gamedata.idx)"
               >
                 <v-hover>
                   <video
@@ -78,7 +79,7 @@
 </template>
 
 <script>
-  //import {mapState} from "vuex";
+//import {mapGetters, mapState} from "vuex";
   //import myVideo from "vue-video";
 
   //import {mapGetters} from "vuex";
@@ -96,10 +97,11 @@
 
     data : ()=> ({
       page : 1,
+      u_idx : null,
+      test : "1234"
     }),
 
     computed: {
-
       pages () {
         return Math.ceil(this.value.length / 9)
       },
@@ -116,7 +118,18 @@
         window.scrollTo(0, 0)
       },
     },
-
+    methods: {
+      // eslint-disable-next-line no-unused-vars
+      gotoDetail(idx) {
+        this.u_idx=this.$store.state.useridx
+        // eslint-disable-next-line no-unused-vars
+        this.$http.post('/detail', {useridx:this.u_idx, itemidx:idx}).then((response)=>{
+          if(response.data.success === true){
+            this.$router.push({path: '/detail'})
+          }
+        })
+      }
+    }
 
   }
 </script>
