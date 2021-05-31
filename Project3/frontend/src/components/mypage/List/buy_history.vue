@@ -31,8 +31,8 @@
                         ></v-img>
                     </td>
                     <td>{{ item.product }}</td>
-                    <td>{{ item.buy_time }}</td>
-                    <td>{{ item.price }}}</td>
+                    <td>{{ item.buytime }}</td>
+                    <td>{{ item.price}}({{ item.amount}})</td>
                 </tr>
             </tbody>
         </v-simple-table>
@@ -46,11 +46,25 @@
 <script>
     export default {
         name: "buy_history.vue",
+
+      created(){
+        this.u_idx=this.$store.state.userdata.useridx
+        this.$http.post('/mypage/buyhistory',{u_idx: this.u_idx}).then((res)=>{
+          if(res.data.success===false){
+            console.log("error")
+          }
+          else{
+            this.buy_items=res.data.historydatas
+          }
+        })
+      },
+
+
         data: () => ({
             buy_items: [
-                {image: "amongus.jpg", product: "어몽어스", buy_time: "2021_05_26(수)", amount: "3", price: "15000"},
-                {image: "apex.jpg", product: "apex", buy_time: "2021_05_24(화)", amount: "1", price: "12000"},
-                {image: "battlefield.jpg", product: "배틀 필드", buy_time: "2021_05_28(금)", amount: "6", price: "10000"},
+                // {image: "amongus.jpg", product: "어몽어스", buy_time: "2021_05_26(수)", amount: "3", price: "15000"},
+                // {image: "apex.jpg", product: "apex", buy_time: "2021_05_24(화)", amount: "1", price: "12000"},
+                // {image: "battlefield.jpg", product: "배틀 필드", buy_time: "2021_05_28(금)", amount: "6", price: "10000"},
             ],
         })
     }

@@ -15,6 +15,7 @@ export default new Vuex.Store({
     baskets: [],
     drawer: false,
     islogin:false,
+    userdata : [],
     useridx: "1",
     items: [
       {
@@ -94,6 +95,9 @@ export default new Vuex.Store({
     setDrawer: (state, payload) => (state.drawer = payload),
     toggleDrawer: state => (state.drawer = !state.drawer),
     islogin_reverse:state=>( state.islogin = !state.islogin),
+
+    saveuser:(state, data)=>(state.userdata = data),
+    saveidx:(state, data)=>(state.useridx=data),
     save_item_data:(state, data)=>(state.itemdata= data),
     save_rec_data:(state, data)=>(state.recommenddata= data),
     save_rev_data:(state, data)=>(state.reviewdata= data),
