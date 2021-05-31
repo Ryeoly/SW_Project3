@@ -1,6 +1,7 @@
 <template>
 <div>
-    {{product}}
+    <span>{{hi}}</span>
+    <span>a;ksjfdoiqwjgvo;kasmdklfas</span>
 </div>
 </template>
 
@@ -8,10 +9,12 @@
     export default {
         name: "Search.vue",
         data:() =>({
-            product:'no name',
+            //product:'no name',
         }),
-        mounted() {
-            this.product = this.$route.params.product
+        computed:{
+            hi() {
+                return this.$store.state.search_product
+            }
         }
     }
 </script>

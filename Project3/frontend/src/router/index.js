@@ -25,7 +25,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/AppBar_serach/:product',
+    path: '/AppBar_search',
     component: AppBar_search
   },
   {

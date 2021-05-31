@@ -34,14 +34,17 @@
 
           <v-autocomplete
                   v-model="product"
+                  :loading="loading"
                   :items="products"
-                  label="Product"
+                  :search-input.sync="search"
+                  cache-items
+                  class="mx-4"
+                  flat
+                  hide-no-data
+                  hide-details
                   append-icon="mdi-magnify"
                   chips
                   @click:append="go_search()"
-                  color="blue"
-                  flat
-                  hide-details
                   solo-inverted
                   style="max-width: 300px;"
           >
@@ -107,6 +110,7 @@
   export default {
     name: 'CoreAppBar',
     data :()=>({
+      loading: false,
       products: [
         'GTA5', 'Capcom','Apex','Skylines','삼국지','Counter-Strike'
         ,'Rust','Hood','Slormancer','Another Eden','Euro Truck'
@@ -118,7 +122,7 @@
         notifications: false,
         sound: true,
         widgets: false,
-      product:null
+      product:""
       }),
     computed: {
       ...mapGetters(['links']),
@@ -129,7 +133,7 @@
 
     },
       methods: {
-        ...mapMutations(['toggleDrawer']),
+        ...mapMutations(['toggleDrawer','search_product_set' ]),
         ...mapMutations(['islogin_reverse']),
         ...mapMutations(["save_basket"]),
         ...mapMutations(["p_Amount"]),
@@ -174,6 +178,10 @@
         deleteItem(idx){
           this.delete_item(idx)
         },
+        go_search(){
+          this.$store.commit('search_product_set', "1111")
+          location.href = "/AppBar_search"
+        }
     },
     components: {
       // eslint-disable-next-line vue/no-unused-components

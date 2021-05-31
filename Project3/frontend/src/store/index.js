@@ -13,6 +13,7 @@ export default new Vuex.Store({
     qnadata: [],
     count: [],
     baskets: [],
+    search_product: "not change",
     drawer: false,
     islogin:false,
     userdata : [],
@@ -92,6 +93,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    search_product_set: (state, payload)=>(state.search_product = payload),
     setDrawer: (state, payload) => (state.drawer = payload),
     toggleDrawer: state => (state.drawer = !state.drawer),
     islogin_reverse:state=>( state.islogin = !state.islogin),
@@ -109,6 +111,8 @@ export default new Vuex.Store({
     m_Amount:(state, idx)=>(
         state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].price),
     delete_item:(state, obj)=>(state.baskets = obj),
+
+
   },
   actions: {
 
