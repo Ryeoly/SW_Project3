@@ -1,93 +1,125 @@
 <template>
-  <div id="detail">
-        <item :values="[itemdata,count]"/>
-
-        <v-container>
-          <v-row>
-            <v-col md="7">
-              <item-detail />
-            </v-col>
-            <v-col md="3">
-              <div>
-                <youtube
-                    :video-id="videoId"
-                    :player-vars="playerVars"
-                    width="400"
-                    height="200"
-                    @ready="ready"
-                    @playing="playing"
-                    @ended="ended"
-                    @error="error"
-                    ref="youtube" />
-              </div>
-              <div>
-                <youtube
-                    :video-id="videoId"
-                    :player-vars="playerVars"
-                    width="400"
-                    height="200"
-                    @ready="ready"
-                    @playing="playing"
-                    @ended="ended"
-                    @error="error"
-                    ref="youtube" />
-              </div>
-              <div>
-                <youtube
-                    :video-id="videoId"
-                    :player-vars="playerVars"
-                    width="400"
-                    height="200"
-                    @ready="ready"
-                    @playing="playing"
-                    @ended="ended"
-                    @error="error"
-                    ref="youtube" />
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      <suggest :value="recommenddata" />
-      <review :boards="reviewdata"/>
-      <qna :boards="qnadata"/>
+  <div id="detail" class="detailbase">
+    <div class="itemcontent">
+      <item :values="[item,count_star]" />
+    </div>
+    <div class="maincontent">
+      <v-container>
+        <v-row>
+          <v-col cols="7">
+            <item-detail :value="item"/>
+          </v-col>
+          <v-divider vertical/>
+          <v-col cols="2">
+            <h3>Relative Video</h3>
+            <br><br>
+            <div>
+              <youtube
+                  :video-id="youtube_1"
+                  :player-vars="playerVars"
+                  width="400"
+                  height="200"
+                  @ready="ready"
+                  @playing="playing"
+                  @ended="ended"
+                  @error="error"
+                  ref="youtube" />
+            </div>
+            <br><br>
+            <div>
+              <youtube
+                  :video-id="youtube_2"
+                  :player-vars="playerVars"
+                  width="400"
+                  height="200"
+                  @ready="ready"
+                  @playing="playing"
+                  @ended="ended"
+                  @error="error"
+                  ref="youtube" />
+            </div>
+            <br><br>
+            <div>
+              <youtube
+                  :video-id="youtube_3"
+                  :player-vars="playerVars"
+                  width="400"
+                  height="200"
+                  @ready="ready"
+                  @playing="playing"
+                  @ended="ended"
+                  @error="error"
+                  ref="youtube" />
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
+    <div class="suggest">
+      <suggest :value="recommend" />
+    </div>
+    <div class="rev">
+      <review :boards="review"/>
+    </div>
+    <div class="q">
+      <qna :boards="qna"/>
+    </div>
   </div>
 </template>
 
 <script>
 import {mapState} from "vuex";
+import {getIdFromURL} from "vue-youtube-embed";
 //import {getIdFromURL} from "vue-youtube-embed";
 
 export default {
   name: "Detail",
 
   data : () => ({
-    itemdata : [],
-    recommenddata: [],
-    reviewdata : [],
-    qnadata: [],
-    count : 0,
+    itemdata : this.item,
+    recommenddata: this.recommend,
+    reviewdata : this.review,
+    qnadata: this.qna,
+    count : this.count_star,
+    video_id1: this.youtube_1,
+    video_id2: this.youtube_2,
+    video_id3: this.youtube_3,
   }),
-
-  created () {
-    this.$http.get('/detail').then((response) => {
-      this.itemdata = response.data.item_data
-      this.recommenddata = response.data.recommend_data
-      this.reviewdata = response.data.review_data
-      this.qnadata = response.data.qna_data
-      this.count = response.data.count_data
-    })
-  },
 
   computed: {
     ...mapState(['gamedatas']),
-    videoId : "lG0Ys-2d4MA",
+
+    item(){
+      return this.$store.state.itemdata
+    },
+    recommend(){
+      return this.$store.state.recommenddata
+    },
+    review(){
+      return this.$store.state.reviewdata
+    },
+    qna(){
+      return this.$store.state.qnadata
+    },
+    count_star(){
+      return this.$store.state.count
+    },
+    youtube_1(){
+      return getIdFromURL(this.$store.state.itemdata[0].youtube1)
+    },
+    youtube_2(){
+      return getIdFromURL(this.$store.state.itemdata[0].youtube2)
+    },
+    youtube_3(){
+      return getIdFromURL(this.$store.state.itemdata[0].youtube3)
+    },
 
     playerVars() {
       return {
         //controls: 0,
-        player3: Object,
+        //player3: Object,
         rel: 0,
-        autoplay: 1,
+        //autoplay: 1,
         enablejsapi: 1,
         fs: 0,
         playsinline: 1,
@@ -101,6 +133,9 @@ export default {
     },
   },
   methods: {
+    applyConfig() {
+      this.play = Object.assign(this.play, this.temp)
+    },
     ready(){},
     playing(){},
     ended(){},
@@ -122,26 +157,25 @@ export default {
   .detailbase{
     display: grid;
     grid-template-columns: repeat(100, 1fr);
-    grid-template-rows: repeat(100, 1fr);
-  }
-  .maincontent{
-    grid-column-start: 20;
-    grid-column-end: 80;
   }
   .itemcontent{
-    grid-column-start: 20;
-    grid-column-end: 80;
+    grid-column-start : 10;
+    grid-column-end: 90;
+  }
+  .maincontent{
+    grid-column-start : 10;
+    grid-column-end: 90;
   }
   .suggest {
-    grid-column-start: 20;
-    grid-column-end: 80;
+    grid-column-start : 10;
+    grid-column-end: 90;
   }
   .rev {
-    grid-column-start: 20;
+    grid-column-start : 20;
     grid-column-end: 80;
   }
   .q {
-    grid-column-start: 20;
+    grid-column-start : 20;
     grid-column-end: 80;
   }
 </style>

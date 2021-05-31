@@ -1,63 +1,72 @@
 <template>
-    <div
-        class="item"
-        max-width="1200"
-        max-height="800"
-    >
-      <div style="margin-right: 20px">{{rating}}</div>
-      <div style="margin-right: 20px">{{this.values[0][0].star}}</div>
-      <div>{{this.values[1][0].cnt}}</div>
-      <div class="bigimagesection">
-        <v-img
-            v-if="represent"
-            :src="require(`@/assets/game_img/${values[0][0].image1}`)"
-            width="460"
-            height="215"
-        />
-        <video
-            v-else
-            autoplay
-            :src="require(`@/assets/game_video/${values[0][0].video1}`)"
-            width="460"
-            height="215"
-        />
-      </div>
-      <div class="product">
-        <br><br>
-        <v-rating
-            readonly
-            v-model="rating"
-            color="warning"
-            icon-label="custom icon label text {0} of {1}"
-        ></v-rating>
-        <v-card-title><h1>{{values[0][0].product}}</h1></v-card-title>
-        <v-card-subtitle>{{values[0][0].price}}</v-card-subtitle>
-        <v-btn width="120">구매하기</v-btn>
-        <v-btn width="120">장바구니에 담기</v-btn>
-      </div>
-
-      <div class="smallimage">
-        <v-img
-            :src="require(`@/assets/game_img/${values[0][0].image1}`)"
-            max-width="90"
-            max-height="50"
-            @click="RepresentImage"
-        />
-      </div>
-      <div class="smallvideo">
-        <video
-            :src="require(`@/assets/game_video/${values[0][0].video1}`)"
-            width="90"
-            height="50"
-            @click="RepresentVideo"
-        />
-      </div>
-    </div>
+    <v-card style="margin-left: 10%; margin-right: 10%; margin-top: 5%; margin-bottom: 5%">
+      <v-container>
+      <v-row>
+        <v-cols cols="6">
+          <v-img
+              v-if="represent"
+              :src="require(`@/assets/game_img/${values[0][0].image1}`)"
+              width="460"
+              height="215"
+          />
+          <video
+              v-else
+              autoplay
+              :src="require(`@/assets/game_video/${values[0][0].video1}`)"
+              width="460"
+              height="215"
+          />
+        </v-cols>
+        <v-col cols="3" />
+        <v-cols cols="6">
+          <v-rating
+              readonly
+              v-model="rating"
+              color="warning"
+              icon-label="custom icon label text {0} of {1}"
+          ></v-rating>
+          <v-card-title><h1>{{values[0][0].product}}</h1></v-card-title>
+          <br>
+          <v-card-subtitle>{{values[0][0].price}}</v-card-subtitle>
+          <v-btn width="240" @click="addCart(values[0][0].idx)">장바구니에 담기</v-btn>
+        </v-cols>
+      </v-row>
+      <v-row>
+          <v-img
+              :src="require(`@/assets/game_img/${values[0][0].image1}`)"
+              max-width="90"
+              max-height="50"
+              @click="RepresentImage"
+          />
+          <video
+              :src="require(`@/assets/game_video/${values[0][0].video1}`)"
+              width="90"
+              height="50"
+              @click="RepresentVideo"
+          />
+      </v-row>
+      </v-container>
+    </v-card>
 </template>
 
 <script>
 export default {
   name: "Item",
+
+  data: () => ({
+    represent : true,
+    rating: 0,
+  }),
+
+  created() {
+    this.rating = this.make_rate
+  },
+
+  computed:{
+    make_rate:function (){
+      return parseInt(this.values[0][0].star)/parseInt(this.values[1][0].cnt)
+    }
+  },
 
   props: {
     values: {
@@ -66,26 +75,19 @@ export default {
     },
   },
 
-
-  data: () => ({
-    rating: 0,
-    represent : true
-  }),
-  computed:{
-    calculation:function() {
-      return parseInt(this.values[0][0].star)/parseInt(this.values[1][0].cnt)
-    }
-  },
-  created () {
-    // eslint-disable-next-line no-undef
-    this.rating = this.calculation
-  },
   methods: {
     RepresentImage(){
       this.represent = true
     },
     RepresentVideo(){
       this.represent = false
+    },
+    addCart(data){
+      this.$http.post('/basket', {i_idx: data, u_idx: this.$store.state.useridx, amount: "1"}).then((response) => {
+          if(response.data.success === true){
+            alert("Success Add Your Item to Cart")
+          }
+      })
     },
   }
 }
