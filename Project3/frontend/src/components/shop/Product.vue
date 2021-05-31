@@ -12,7 +12,7 @@
             <v-item>
               <v-card
                 width="400"
-                @click="gotoDetail(gamedata.idx)"
+                @click="gotoDetail(gamedata.idx.toString())"
               >
                 <v-hover>
                   <video
@@ -82,7 +82,7 @@
 //import {mapGetters, mapState} from "vuex";
   //import myVideo from "vue-video";
 
-  //import {mapGetters} from "vuex";
+  import {mapMutations} from "vuex";
   //import Shop from "../../views/Shop";
 
   export default {
@@ -119,12 +119,22 @@
       },
     },
     methods: {
+      ...mapMutations(["save_item_data"]),
+      ...mapMutations(["save_qna_data"]),
+      ...mapMutations(["save_rec_data"]),
+      ...mapMutations(["save_count"]),
+      ...mapMutations(["save_rev_data"]),
       // eslint-disable-next-line no-unused-vars
       gotoDetail(idx) {
         this.u_idx=this.$store.state.useridx
         // eslint-disable-next-line no-unused-vars
-        this.$http.post('/detail', {useridx:this.u_idx, itemidx:idx}).then((response)=>{
+        this.$http.post('/detail', {u_idx:this.u_idx, i_idx:idx}).then((response)=>{
           if(response.data.success === true){
+            this.save_item_data(response.data.item_data)
+            this.save_rec_data(response.data.recommend_data)
+            this.save_rev_data(response.data.review_data)
+            this.save_qna_data(response.data.qna_data)
+            this.save_count(response.data.count_data)
             this.$router.push({path: '/detail'})
           }
         })
