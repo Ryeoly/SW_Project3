@@ -18,7 +18,7 @@
               v-model="year"
               :rules="[
                 () => !!year || 'This field is required',
-                () => !!year && year.length <= 4 || 'Address must be less than 4 characters'
+                //() => !!year && year.length <= 4 || 'Address must be less than 4 characters'
               ]"
               label="?œì–´?? ?„ë„"
               placeholder="1997"
@@ -147,7 +147,7 @@
                   color="primary"
                   text
                   @click="confirm"
-                  href="/mypage/my_info"
+
               >
                 ?•ì¸
               </v-btn>
@@ -303,6 +303,7 @@ export default {
 
     confirm(){
       this.dialog=false
+      this.$router.push({path:'/mypage/my_info'})
     }
 
 

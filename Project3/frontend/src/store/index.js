@@ -18,6 +18,7 @@ export default new Vuex.Store({
     islogin:false,
     userdata : [],
     useridx: "1",
+    useremail:"aaaaaa",
     items: [
       {
         text: 'Home',
@@ -100,6 +101,7 @@ export default new Vuex.Store({
 
     saveuser:(state, data)=>(state.userdata = data),
     saveidx:(state, data)=>(state.useridx=data),
+    saveemail:(state, data)=>(state.useremail=data),
     save_item_data:(state, data)=>(state.itemdata= data),
     save_rec_data:(state, data)=>(state.recommenddata= data),
     save_rev_data:(state, data)=>(state.reviewdata= data),
