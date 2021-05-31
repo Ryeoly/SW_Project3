@@ -105,9 +105,9 @@ export default new Vuex.Store({
     save_count:(state, data)=>(state.count= data),
     save_basket:(state, data)=>(state.baskets= data),
     p_Amount:(state, idx)=>(
-        state.baskets[idx].amount += 1, state.baskets[idx].total_price += state.baskets[idx].original_price),
+        state.baskets[idx].amount += 1, state.baskets[idx].total_price += state.baskets[idx].price),
     m_Amount:(state, idx)=>(
-        state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].original_price),
+        state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].price),
     delete_item:(state, obj)=>(state.baskets = obj),
   },
   actions: {
