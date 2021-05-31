@@ -1,1 +1,0 @@
-.base{display:grid;grid-template-columns:repeat(100,1fr);grid-template-rows:repeat(100,1fr)}.board_area{grid-area:0/30/100/70}.title{border-top:1px solid;border-bottom:1px solid;padding:.5rem .75rem;font-size:1.2rem}.reply_form{position:relative;margin:-1px 0;padding:11px 11px 10px 88px;border-top:1px solid #eee;border-bottom:1px solid #eee;transition:background .5s}

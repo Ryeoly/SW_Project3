@@ -44,7 +44,7 @@ app.use('/detail', detailRouter);
 app.use('/comunity', comunityRouter);
 app.use('/mypage', mypageRouter);
 app.use('/basket', basketRouter);
-app.use('/admin', adminRouter);
+app.use('/admin',adminRouter);
 
 
 // catch 404 and forward to error handler

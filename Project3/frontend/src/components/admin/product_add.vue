@@ -26,7 +26,7 @@
                         ref="total_num"
                         v-model="total_num"
                         :rules="[() => !!total_num || 'This field is required']"
-                        :items="days"
+                        :items="numbers"
                         label="등록할 개수"
                         placeholder="Select..."
                         required
@@ -36,7 +36,7 @@
                         v-model="age"
                         :rules="[() => !!age || 'This field is required']"
                         :items="ages"
-                        label="권장 나이+"
+                        label="권장 나이 ex) 12세 이상"
                         placeholder="Select..."
                         required
                         style="margin-right: 10px; margin-left: 10px"
@@ -45,18 +45,46 @@
             </v-row>
 
             <v-file-input
+                    v-model="images"
                     show-size
                     counter
                     multiple
                     label="Images input"
             ></v-file-input>
 
+
             <v-file-input
+                    v-model="videos"
                     show-size
                     counter
                     multiple
                     label="Videos input"
             ></v-file-input>
+
+          <v-text-field
+              ref="youtube link1"
+              v-model="youtube1"
+              :rules="[() => !!youtube1 || 'This field is required']"
+              label="등록할 유튜브링크"
+              placeholder="insert youtube link"
+              required
+          ></v-text-field>
+          <v-text-field
+              ref="youtube link2"
+              v-model="youtube2"
+              :rules="[() => !!youtube2 || 'This field is required']"
+              label="등록할 유튜브링크"
+              placeholder="insert youtube link"
+              required
+          ></v-text-field>
+          <v-text-field
+              ref="youtube link3"
+              v-model="youtube3"
+              :rules="[() => !!youtube3 || 'This field is required']"
+              label="등록할 유튜브링크"
+              placeholder="insert youtube link"
+              required
+          ></v-text-field>
 
             <v-row>
                 <v-text-field
@@ -111,16 +139,19 @@
 
             <v-textarea
                     solo
+                    v-model="content1"
                     name="content1"
                     label="content1"
             ></v-textarea>
             <v-textarea
                     solo
+                    v-model="content2"
                     name="content2"
                     label="content2"
             ></v-textarea>
             <v-textarea
                     solo
+                    v-model="content3"
                     name="content3"
                     label="content3"
             ></v-textarea>
@@ -129,9 +160,7 @@
 
         <v-divider class="mt-12"></v-divider>
         <v-card-actions>
-            <v-btn text href="/login">
-                돌아가기
-            </v-btn>
+
             <v-spacer></v-spacer>
             <v-slide-x-reverse-transition>
                 <v-tooltip
@@ -152,14 +181,47 @@
                     <span>Refresh form</span>
                 </v-tooltip>
             </v-slide-x-reverse-transition>
+          <v-dialog
+              v-model="dialog"
+              width="500"
+          >
+            <template v-slot:activator="{ on, attrs }">
             <v-btn
                     color="primary"
                     text
                     @click="submit"
+                    v-bind="attrs"
             >
-                가입하기
+              추가하기
             </v-btn>
+            </template>
+            <v-card>
+              <v-card-title class="headline grey lighten-2">
+                성공 메세지
+              </v-card-title>
+
+              <v-card-text>
+                상품이 성공적으로 추가되었습니다.
+              </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="primary"
+                    text
+                    @click="confirm"
+                >
+                  확인
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-card-actions>
+
+        </v-card-text>
+
     </v-card>
 </div>
 </template>
@@ -167,35 +229,40 @@
 <script>
     export default {
         name: "product_add.vue",
+
         data: () => ({
+            dialog: false,
+            images: [],
+            videos: [],
+            image1: '',
+            image2: '',
+            image3: '',
+            video: '',
+            content1: null,
+            content2: null,
+            content3: null,
             activePicker: null,
-            date: null,
             menu: false,
             countries: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua &amp; Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia &amp; Herzegovina', 'Botswana', 'Brazil', 'British Virgin Islands', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Cape Verde', 'Cayman Islands', 'Chad', 'Chile', 'China', 'Colombia', 'Congo', 'Cook Islands', 'Costa Rica', 'Cote D Ivoire', 'Croatia', 'Cruise Ship', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Estonia', 'Ethiopia', 'Falkland Islands', 'Faroe Islands', 'Fiji', 'Finland', 'France', 'French Polynesia', 'French West Indies', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guam', 'Guatemala', 'Guernsey', 'Guinea', 'Guinea Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hong Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Isle of Man', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jersey', 'Jordan', 'Kazakhstan', 'Kenya', 'Kuwait', 'Kyrgyz Republic', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macau', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Namibia', 'Nepal', 'Netherlands', 'Netherlands Antilles', 'New Caledonia', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Norway', 'Oman', 'Pakistan', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Puerto Rico', 'Qatar', 'Reunion', 'Romania', 'Russia', 'Rwanda', 'Saint Pierre &amp; Miquelon', 'Samoa', 'San Marino', 'Satellite', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'St Kitts &amp; Nevis', 'St Lucia', 'St Vincent', 'St. Lucia', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', `Timor L'Este`, 'Togo', 'Tonga', 'Trinidad &amp; Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Turks &amp; Caicos', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe'],
             genres: ['Action','Arcade','FPS','Role Play','RPG','Simulation','Video Game'],
             months: ['01','02','03','04','05','06','07','08','09','10','11','12'],
+            numbers: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'],
             days: ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],
-            ages:['ALL', '7','12+','18+'],
+            ages:['0','7','12','18','19'],
             errorMessages: '',
-            authMessages:'',
             checkMessages:'',
             Product: null,
-            auth_num: null,
             sale:null,
-            name: null,
-            address: null,
-            pwd: null,
-            pwd_check: null,
-            year: null,
-            month: null,
+            date: null,
             total_num: null,
-            phone: null,
             genre: null,
             price : null,
             age:null,
-            like_genre2: null,
+            youtube1:null,
+            youtube2:null,
+            youtube3:null,
             formHasErrors: false,
-            truekey: null
+
         }),
 
         computed: {
@@ -205,17 +272,9 @@
                     price:this.price,
                     age : this.age,
                     Product: this.Product,
-                    auth_num: this.auth_num,
-                    name: this.name,
-                    address: this.address,
-                    pwd: this.pwd,
-                    pwd_check: this.pwd_check,
-                    year: this.year,
-                    month: this.month,
+                    date: this.date,
                     total_num: this.total_num,
-                    phone: this.phone,
                     genre: this.genre,
-                    like_genre2: this.like_genre2
                 }
             },
         },
@@ -226,22 +285,17 @@
             },
             name () {
                 this.errorMessages = ''
-                this.authMessages=''
                 this.checkMessages=''
             },
         },
 
         methods: {
-            pwdcheck(){
-                if(this.pwd==this.pwd_check && !!this.pwd){
-                    this.checkMessages='패스워드가 일치합니다.'
-                }
-                else{
-                    this.checkMessages=''
-                }
-
-
-            },
+          test(){
+            this.image1=this.images[0].name
+            this.image2=this.images[1].name
+            this.image3=this.images[2].name
+            this.video=this.videos[0].name
+          },
             save (date) {
                 this.$refs.menu.save(date)
             },
@@ -254,50 +308,26 @@
                     this.$refs[f].reset()
                 })
             },
+
             submit () {
-                this.formHasErrors = false
-
-                Object.keys(this.form).forEach(f => {
-                    if (!this.form[f]) this.formHasErrors = true
-
-                    this.$refs[f].validate(true)
-                })
-
-                if(this.pwd==this.pwd_check && this.truekey==this.auth_num){
-                    this.$http.post('/sign_up',{email:this.email, name:this.name, pwd:this.pwd, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2}).then((res)=>{
-                        if(res.data.success===false){
-                            console.log("error")
-                        }
-                        else{
-                            location.href="/login"
-                        }
-
-                    })
-                }
-
-
-            },
-            send_auth (){
-                this.$http.post('/sign_up/sendauth',{email: this.email}).then((res)=>{
-                    if(res.data.success===false){
-                        console.log(res);
-                    }
-                    console.log(res.data.truekey);
-                    this.truekey=res.data.truekey;
-                })
-            },
-            comparekey(){
-                if(this.auth_num==this.truekey){
-                    this.authMessages='인증 성공'
-                    this.errorMessages=''
-                    console.log('인증 성공');
+              this.test()
+              this.$http.post('/admin/add',{product:this.Product, discount:this.sale, release_day:this.date, remain_num:this.total_num, genre:this.genre, age:this.age, price:this.price,content1: this.content1,content2: this.content2, content3: this.content3, image1:this.image1, image2:this.image2,image3:this.image3,video1:this.video,youtube1:this.youtube1,youtube2:this.youtube2,youtube3:this.youtube3}).then((res)=>{
+                if(res.data.success===false){
+                  console.log("error")
                 }
                 else{
-                    this.errorMessages='인증번호가 일치하지 않습니다.'
-                    this.authMessages=''
-                    console.log('인증 실패');
+                  this.dialog=true
                 }
-            }
+
+              })
+
+            },
+          confirm(){
+            this.dialog=false
+            this.$router.go();
+          }
+
+
         },
     }
 </script>

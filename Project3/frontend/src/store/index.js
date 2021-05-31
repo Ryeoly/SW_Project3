@@ -25,6 +25,10 @@ export default new Vuex.Store({
     userdata : [],
     useridx: "1",
     useremail:"aaaaaa",
+    adminidx:"2",
+    adminname:"관리자",
+    adminemail:"dtree0520@gmail.com",
+
     items: [
       {
         text: 'Home',
