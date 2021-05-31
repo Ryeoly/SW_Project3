@@ -34,14 +34,17 @@
 
           <v-autocomplete
                   v-model="product"
+                  :loading="loading"
                   :items="products"
-                  label="Product"
+                  :search-input.sync="search"
+                  cache-items
+                  class="mx-4"
+                  flat
+                  hide-no-data
+                  hide-details
                   append-icon="mdi-magnify"
                   chips
                   @click:append="go_search()"
-                  color="blue"
-                  flat
-                  hide-details
                   solo-inverted
                   style="max-width: 300px;"
           >
@@ -93,6 +96,17 @@
           >
         </v-img>
 
+
+          <a v-show="login">
+            <span>
+              로그인
+            </span>
+          </a>
+        <a v-show="_login">
+            <span>
+              로그아웃
+            </span>
+        </a>
       </v-row>
     </v-container>
   </v-app-bar>
@@ -110,6 +124,9 @@
     name: 'CoreAppBar',
 
     data :()=>({
+      login:false,
+      _login:true,
+      loading: false,
       products: [
         'Apex Legends',
         "PLAYERUNKNOWN'S BATTLEGROUNDS",
@@ -131,7 +148,7 @@
         notifications: false,
         sound: true,
         widgets: false,
-      product:null
+      product:""
       }),
     computed: {
       ...mapGetters(['links']),
@@ -149,7 +166,7 @@
       },
     },
       methods: {
-        ...mapMutations(['toggleDrawer']),
+        ...mapMutations(['toggleDrawer','search_product_set' ]),
         ...mapMutations(['islogin_reverse']),
         ...mapMutations(["save_basket"]),
         ...mapMutations(["save_item_data"]),
@@ -161,6 +178,18 @@
         ...mapMutations(["p_Amount"]),
         ...mapMutations(["m_Amount"]),
         ...mapMutations(["delete_item"]),
+        ft_login(){
+          if(this.$store.state.userdata.useridx === "1"){
+            this.login = false;
+            this._login = true;
+          }
+          else{
+            this.login = true;
+            this._login = false;
+          }
+
+        }
+        ,
         onClick (e, item) {
           e.stopPropagation()
           if (item.href === '/home#about') {
@@ -194,6 +223,7 @@
           this.delete_item(idx)
         },
         go_search(){
+<<<<<<< HEAD
           var idx;
           for(let i=0;i<this.products.length; i++){
             if(this.product === this.products[i]){
@@ -223,6 +253,10 @@
         logout_user(){
           this.saveidx("1")
           location.href = '/home'
+=======
+          this.$store.commit('search_product_set', "1111")
+          location.href = "/AppBar_search"
+>>>>>>> 13e1d5a4ee290a781dcc1bb63ae418e0d68d1fed
         }
     },
     components: {

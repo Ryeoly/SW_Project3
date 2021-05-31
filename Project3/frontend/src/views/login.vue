@@ -56,6 +56,7 @@
         methods: {
           ...mapMutations(['saveuser']),
           ...mapMutations(['saveidx']),
+          ...mapMutations(['saveemail']),
           click(){
             this.$http.post('/login',{email: this.email, pwd: this.password}).then((res)=>{
               if(res.data.success===false){
@@ -65,6 +66,7 @@
               else{
                 this.saveuser(res.data.information[0])
                 this.saveidx(res.data.information[0].useridx)
+                this.saveemail(this.email)
                 this.$router.push({path:'/mypage/my_info'})
               }
 

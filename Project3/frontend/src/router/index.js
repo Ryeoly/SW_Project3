@@ -23,6 +23,17 @@ const routes = [
     component: Home
   },
   {
+<<<<<<< HEAD
+=======
+    path: '/AppBar_search',
+    component: AppBar_search
+  },
+  {
+    path:'/Community',
+    component: communityy
+  },
+  {
+>>>>>>> 13e1d5a4ee290a781dcc1bb63ae418e0d68d1fed
     path: '/shop',
     component: Shop
   },

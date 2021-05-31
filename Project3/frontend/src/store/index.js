@@ -17,12 +17,17 @@ export default new Vuex.Store({
     qnadata: [],
     count: [],
     baskets: [],
+<<<<<<< HEAD
     freedata: [],
     searchdata: [],
+=======
+    search_product: "not change",
+>>>>>>> 13e1d5a4ee290a781dcc1bb63ae418e0d68d1fed
     drawer: false,
     islogin:false,
     userdata : [],
     useridx: "1",
+    useremail:"aaaaaa",
     items: [
       {
         text: 'Home',
@@ -98,12 +103,14 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    search_product_set: (state, payload)=>(state.search_product = payload),
     setDrawer: (state, payload) => (state.drawer = payload),
     toggleDrawer: state => (state.drawer = !state.drawer),
     islogin_reverse:state=>( state.islogin = !state.islogin),
 
     saveuser:(state, data)=>(state.userdata = data),
     saveidx:(state, data)=>(state.useridx=data),
+    saveemail:(state, data)=>(state.useremail=data),
     save_item_data:(state, data)=>(state.itemdata= data),
     save_search_data:(state, data)=>(state.searchdata= data),
     save_rec_data:(state, data)=>(state.recommenddata= data),
@@ -117,7 +124,12 @@ export default new Vuex.Store({
     m_Amount:(state, idx)=>(
         state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].price),
     delete_item:(state, obj)=>(state.baskets = obj),
+<<<<<<< HEAD
     set_search:(state, product)=>(state.search_product = product),
+=======
+
+
+>>>>>>> 13e1d5a4ee290a781dcc1bb63ae418e0d68d1fed
   },
   actions: {
 
