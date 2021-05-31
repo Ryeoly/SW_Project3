@@ -68,7 +68,7 @@
                 { text: '내 정보 수정', icon: 'mdi-account-cog' , goto:'/mypage/my_info'},
                 { text: '구매 내역', icon: 'mdi-wallet-giftcard', goto:'/mypage/buy_history' },
                 { text: 'Q&A 문의', icon: 'mdi-account-question', goto:'/mypage/Q_A'},
-                { text: '내가 쓴 글', icon: 'mdi-clipboard-edit', goto: '/mypage/my_board' },
+                // { text: '내가 쓴 글', icon: 'mdi-clipboard-edit', goto: '/mypage/my_board' },
             ],
 
         }),

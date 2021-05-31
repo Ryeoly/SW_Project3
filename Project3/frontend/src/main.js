@@ -5,13 +5,14 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import VueYoutube from 'vue-youtube'
-import Chartkick from 'vue-chartkick'
-import Chart from 'chart.js'
+import VueChartkick from 'vue-chartkick'
+import 'chartkick/chart.js'
 
 Vue.use(Chartkick.use(Chart))
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(VueYoutube)
+Vue.use(VueMoment)
 
 new Vue({
   vuetify,
