@@ -7,7 +7,7 @@
             ref="name"
             v-model="name"
             :rules="[() => !!name || 'This field is required']"
-            label="이름"
+            label="?�름"
             required
         ></v-text-field>
 
@@ -20,7 +20,7 @@
                 () => !!year || 'This field is required',
                 () => !!year && year.length <= 4 || 'Address must be less than 4 characters'
               ]"
-              label="태어난 년도"
+              label="?�어?? ?�도"
               placeholder="1997"
               counter="4"
               required
@@ -30,7 +30,7 @@
               v-model="month"
               :rules="[() => !!month || 'This field is required']"
               :items="months"
-              label="태어난 달"
+              label="?�어?? ??"
               placeholder="Select..."
               required
           ></v-autocomplete>
@@ -39,7 +39,7 @@
               v-model="day"
               :rules="[() => !!day || 'This field is required']"
               :items="days"
-              label="태어난 일"
+              label="?�어?? ??"
               placeholder="Select..."
               required
           ></v-autocomplete>
@@ -50,7 +50,7 @@
             v-model="address"
             :rules="[() => !!address || 'This field is required']"
             :items="countries"
-            label="국가"
+            label="�??"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -59,8 +59,8 @@
             ref="phone"
             v-model="phone"
             :rules="[() => !!phone || 'This field is required']"
-            label="휴대폰 번호"
-            placeholder="-빼고 입력"
+            label="?��??? 번호"
+            placeholder="-빼고 ?�력"
             required
         ></v-text-field>
 
@@ -69,7 +69,7 @@
             v-model="like_genre1"
             :rules="[() => !!like_genre1 || 'This field is required']"
             :items="genres"
-            label="관심있는 게임장르1"
+            label="관?�있?? 게임?�르1"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -78,7 +78,7 @@
             v-model="like_genre2"
             :rules="[() => !!like_genre2 || 'This field is required']"
             :items="genres"
-            label="관심있는 게임장르2"
+            label="관?�있?? 게임?�르2"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -87,7 +87,7 @@
             v-model="like_genre3"
             :rules="[() => !!like_genre3 || 'This field is required']"
             :items="genres"
-            label="관심있는 게임장르3"
+            label="관?�있?? 게임?�르3"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -127,16 +127,16 @@
                 v-bind="attrs"
 
             >
-              수정하기
+              ?�정?�기
             </v-btn>
           </template>
           <v-card>
             <v-card-title class="headline grey lighten-2">
-              성공메세지
+              ?�공메세지
             </v-card-title>
 
             <v-card-text>
-              정보가 수정되었습니다.
+              ?�보가 ?�정?�었?�니??.
             </v-card-text>
 
             <v-divider></v-divider>
@@ -149,7 +149,7 @@
                   @click="confirm"
                   href="/mypage/my_info"
               >
-                확인
+                ?�인
               </v-btn>
             </v-card-actions>
           </v-card>
