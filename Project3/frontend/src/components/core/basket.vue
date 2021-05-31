@@ -83,7 +83,7 @@
           </td>
           <td>{{ item.total_price }}</td>
           <td>
-            <v-btn @click="deleteitem">삭제하기</v-btn>
+            <v-btn @click="deleteitem(i)">삭제하기</v-btn>
           </td>
         </tr>
         <tr>
@@ -135,8 +135,8 @@ export default {
     },
     amountUp(idx){
       var new_amount = this.value[idx].amount + 1;
-      var new_price = this.value[idx].price + this.$store.state.baskets.original_price;
-      this.$http.post1('/basket/update', {new_amount : new_amount, new_price: new_price, user_idx: this.$store.state.useridx}).then((response)=>{
+      var new_price = this.value[idx].total_price + this.value[idx].price;
+      this.$http.post('/basket/update', {new_amount : new_amount, new_price: new_price,item_idx: this.value[idx].idx, user_idx: this.$store.state.useridx}).then((response)=>{
         if(response.data.success === true){
           this.$emit('plus', idx)
         }
@@ -144,18 +144,18 @@ export default {
     },
     amountDown(idx){
       var new_amount = this.value[idx].amount - 1;
-      var new_price = this.value[idx].price - this.$store.state.baskets.original_price;
-      this.$http.post1('/basket/update', {new_amount : new_amount, new_price: new_price, user_idx: this.$store.state.useridx}).then((response)=>{
+      var new_price = this.value[idx].total_price - this.value[idx].price;
+      this.$http.post('/basket/update', {new_amount : new_amount, new_price: new_price,item_idx: this.value[idx].idx, user_idx: this.$store.state.useridx}).then((response)=>{
         if(response.data.success === true){
           this.$emit('minus', idx)
         }
       })
     },
     deleteitem(idx){
-      this.$http.post1('/basket/update', {item_idx: this.value[idx].item_idx, user_idx: this.$store.state.useridx}).then((response)=>{
+      this.$http.post('/basket/delete', {item_idx: this.value[idx].idx, user_idx: this.$store.state.useridx}).then((response)=>{
         if(response.data.success === true){
-          var obj = this.value.splice(idx,1);
-          this.$emit('delete', obj)
+          this.value.splice(idx,1);
+          this.$emit('delete', this.value)
         }
       })
     },

@@ -163,18 +163,7 @@
 </template>
 
 <script>
-
-import {mapMutations} from "vuex";
-
-    export default { name: "user_info.vue",
-        created() {
-        this.email="asdf"
-        },
-        data:()=>({
-        email:""
-    })}
-</script>
-
+  import {mapMutations} from 'vuex'
 
 export default {
   name: "user_info.vue",
