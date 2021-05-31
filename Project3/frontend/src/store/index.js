@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins:[
+    createPersistedState()
+  ],
   state: {
     pages: require('../data/page.json'),
     articles: require('../data/articles.json'),
@@ -13,6 +17,8 @@ export default new Vuex.Store({
     qnadata: [],
     count: [],
     baskets: [],
+    freedata: [],
+    searchdata: [],
     drawer: false,
     islogin:false,
     userdata : [],
@@ -99,9 +105,11 @@ export default new Vuex.Store({
     saveuser:(state, data)=>(state.userdata = data),
     saveidx:(state, data)=>(state.useridx=data),
     save_item_data:(state, data)=>(state.itemdata= data),
+    save_search_data:(state, data)=>(state.searchdata= data),
     save_rec_data:(state, data)=>(state.recommenddata= data),
     save_rev_data:(state, data)=>(state.reviewdata= data),
     save_qna_data:(state, data)=>(state.qnadata= data),
+    save_free_data:(state, data)=>(state.freedata= data),
     save_count:(state, data)=>(state.count= data),
     save_basket:(state, data)=>(state.baskets= data),
     p_Amount:(state, idx)=>(
@@ -109,6 +117,7 @@ export default new Vuex.Store({
     m_Amount:(state, idx)=>(
         state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].price),
     delete_item:(state, obj)=>(state.baskets = obj),
+    set_search:(state, product)=>(state.search_product = product),
   },
   actions: {
 

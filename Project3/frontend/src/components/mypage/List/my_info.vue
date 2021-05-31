@@ -7,7 +7,7 @@
             ref="name"
             v-model="name"
             :rules="[() => !!name || 'This field is required']"
-            label="?�름"
+            label="이름"
             required
         ></v-text-field>
 
@@ -18,9 +18,9 @@
               v-model="year"
               :rules="[
                 () => !!year || 'This field is required',
-                () => !!year && year.length <= 4 || 'Address must be less than 4 characters'
+                //() => !!year && year.length <= 4 || 'Address must be less than 4 characters'
               ]"
-              label="?�어?? ?�도"
+              label="태어난 년도"
               placeholder="1997"
               counter="4"
               required
@@ -30,7 +30,7 @@
               v-model="month"
               :rules="[() => !!month || 'This field is required']"
               :items="months"
-              label="?�어?? ??"
+              label="태어난 달"
               placeholder="Select..."
               required
           ></v-autocomplete>
@@ -39,7 +39,7 @@
               v-model="day"
               :rules="[() => !!day || 'This field is required']"
               :items="days"
-              label="?�어?? ??"
+              label="태어난 일"
               placeholder="Select..."
               required
           ></v-autocomplete>
@@ -50,7 +50,7 @@
             v-model="address"
             :rules="[() => !!address || 'This field is required']"
             :items="countries"
-            label="�??"
+            label="국가"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -59,8 +59,8 @@
             ref="phone"
             v-model="phone"
             :rules="[() => !!phone || 'This field is required']"
-            label="?��??? 번호"
-            placeholder="-빼고 ?�력"
+            label="휴대폰 번호"
+            placeholder="-빼고 입력"
             required
         ></v-text-field>
 
@@ -69,7 +69,7 @@
             v-model="like_genre1"
             :rules="[() => !!like_genre1 || 'This field is required']"
             :items="genres"
-            label="관?�있?? 게임?�르1"
+            label="관심있는 게임장르1"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -78,7 +78,7 @@
             v-model="like_genre2"
             :rules="[() => !!like_genre2 || 'This field is required']"
             :items="genres"
-            label="관?�있?? 게임?�르2"
+            label="관심있는 게임장르2"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -87,7 +87,7 @@
             v-model="like_genre3"
             :rules="[() => !!like_genre3 || 'This field is required']"
             :items="genres"
-            label="관?�있?? 게임?�르3"
+            label="관심있는 게임장르3"
             placeholder="Select..."
             required
         ></v-autocomplete>
@@ -127,16 +127,16 @@
                 v-bind="attrs"
 
             >
-              ?�정?�기
+              수정하기
             </v-btn>
           </template>
           <v-card>
             <v-card-title class="headline grey lighten-2">
-              ?�공메세지
+              성공메세지
             </v-card-title>
 
             <v-card-text>
-              ?�보가 ?�정?�었?�니??.
+              정보가 수정되었습니다.
             </v-card-text>
 
             <v-divider></v-divider>
@@ -147,9 +147,9 @@
                   color="primary"
                   text
                   @click="confirm"
-                  href="/mypage/my_info"
+
               >
-                ?�인
+                확인
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -163,13 +163,12 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
-
+import {mapMutations} from 'vuex'
 export default {
   name: "user_info.vue",
 
   created(){
-        this.name= this.$store.state.userdata.name,
+    this.name= this.$store.state.userdata.name,
         this.address= this.$store.state.userdata.address,
         this.year= this.$store.state.userdata.nowyear,
         this.month= this.$store.state.userdata.nowmonth.toString(),
@@ -286,16 +285,16 @@ export default {
         this.$refs[f].validate(true)
       })
 
-        this.$http.post('/mypage/my_info/2',{user_idx: this.u_idx,name:this.name, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2, like_genre3:this.like_genre3}).then((res)=>{
-          if(res.data.success===false){
-            console.log("error")
-          }
-          else{
-            this.saveuser(this.userdata)
-            this.dialog=true
-          }
+      this.$http.post('/mypage/my_info/2',{user_idx: this.u_idx,name:this.name, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2, like_genre3:this.like_genre3}).then((res)=>{
+        if(res.data.success===false){
+          console.log("error")
+        }
+        else{
+          this.saveuser(this.userdata)
+          this.dialog=true
+        }
 
-        })
+      })
 
 
 
@@ -303,6 +302,7 @@ export default {
 
     confirm(){
       this.dialog=false
+      this.$router.push({path:'/mypage/my_info'})
     }
 
 
