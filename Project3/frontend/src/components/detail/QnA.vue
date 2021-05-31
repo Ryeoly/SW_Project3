@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 30px">
+  <div style="margin-top: 30px; margin-bottom: 5%">
     <b>Q&A Board</b>
     <v-simple-table>
       <thead>

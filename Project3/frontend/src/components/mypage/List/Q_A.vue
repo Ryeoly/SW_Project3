@@ -23,6 +23,9 @@
             </v-tab>
 
             <v-tab-item>
+
+
+
                 <v-simple-table class="card">
                     <thead>
                     <tr>
@@ -32,21 +35,68 @@
                         <th class="primary--text">
                             제목
                         </th>
+                        <th class="primary--text">
+                            등록일
+                        </th>
+                        <th style="width: 6px">
+                        </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr
-                            v-for="(board, i) in treat"
-                            :key="i"
-                            >
-                        <td>{{board.title}}</td>
-                        <td>{{board.content}}</td>
-                    </tr>
-                    </tbody>
                 </v-simple-table>
+
+                <v-expansion-panels>
+                    <v-expansion-panel
+                            v-for="(board, i) in treat"
+                            :key="i">
+                        <v-simple-table>
+
+                            <tr>
+                                <v-expansion-panel-header>
+                                    <td>{{i}}</td>
+                                    <td>{{board.title}}</td>
+                                    <td>{{board.create_time}}</td>
+                                    <td>{{board.name}}</td>
+                                </v-expansion-panel-header>
+                            </tr>
+
+                            <v-expansion-panel-content
+                                    color="#F3E2CC"
+                            >
+                                <div class="title" style="margin-top: 20px; margin-bottom: 30px">
+                                          <span>
+                                            Q&A
+                                          </span>
+                                </div>
+                                <div style="text-align: center; height: 150px">
+                                    {{board.content}}
+                                </div>
+                                <div class="title" style="margin-top: 20px; margin-bottom: 30px">
+                                          <span>
+                                            댓글
+                                          </span>
+                                </div>
+                                <div
+                                        v-for="(_reply,i) in board.reply"
+                                        :key="i"
+                                        class="reply_form"
+                                >
+                                    {{_reply.content}}
+                                </div>
+                            </v-expansion-panel-content>
+
+                        </v-simple-table>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+
+
+
+
+
             </v-tab-item>
 
             <v-tab-item>
+
+
                 <v-simple-table class="card">
                     <thead>
                     <tr>
@@ -56,62 +106,83 @@
                         <th class="primary--text">
                             제목
                         </th>
+                        <th class="primary--text">
+                            등록일
+                        </th>
+                        <th style="width: 6px">
+                        </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr
-                            v-for="(board, i) in untreat"
-                            :key="i"
-                    >
-                        <td>{{board.title}}</td>
-                        <td>{{board.content}}</td>
-                    </tr>
-                    </tbody>
                 </v-simple-table>
+
+                <v-expansion-panels>
+                    <v-expansion-panel
+                            v-for="(board, i) in untreat"
+                            :key="i">
+                        <v-simple-table>
+
+                            <tr>
+                                <v-expansion-panel-header>
+                                    <td>{{i}}</td>
+                                    <td>{{board.title}}</td>
+                                    <td>{{board.create_time}}</td>
+                                    <td>{{board.name}}</td>
+                                </v-expansion-panel-header>
+                            </tr>
+
+                            <v-expansion-panel-content
+                                    color="#F3E2CC"
+                            >
+                                <div class="title" style="margin-top: 20px; margin-bottom: 30px">
+                                          <span>
+                                            Q&A
+                                          </span>
+                                </div>
+                                <div style="text-align: center; height: 150px">
+                                    {{board.content}}
+                                </div>
+                            </v-expansion-panel-content>
+
+                        </v-simple-table>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+
+
+
             </v-tab-item>
         </v-tabs>
     </v-card>
         <v-card class="message">
-            <v-col
-                    class="pa-5"
-                    cols="12"
-                    md="6"
-            >
-                <base-heading class="mb-5">
-                    Q&A 문의하기
-                </base-heading>
-                <v-sheet
-                        color="transparent"
-                        max-width="600"
-                >
-                    <v-text-field
-                            color="info"
-                            label="Name"
-                            solo
-                            flat
-                    />
-                    <v-text-field
-                            color="info"
-                            label="Email"
-                            solo
-                            flat
-                    />
+            <base-heading class="mb-5">
+                Q&A 문의하기
+            </base-heading>
+            <v-text-field
+                    color="info"
+                    label="Email"
+                    style="margin-right:40%; margin-left: 10%; margin-top: 20px"
+            />
+            <v-autocomplete
+                    ref="game"
+                    v-model="game"
+                    :items="games"
+                    label="게임"
+                    placeholder="Q&A"
+                    required
+                    style="margin-right: 40%; margin-left: 10%"
+            ></v-autocomplete>
+            <v-textarea
+                    v-model="content"
+                    solo
+                    name="content"
+                    label="Q&A 내용"
+                    style="margin-right:10%; margin-left: 10% "
+            ></v-textarea>
+            <v-row>
+                <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
+                <v-btn >Send</v-btn>
+            </v-row>
 
-                    <v-text-field
-                            color="info"
-                            label="Subject"
-                            solo
-                            flat
-                    />
-                    <v-textarea
-                            color="info"
-                            label="Message"
-                            solo
-                            flat
-                    />
-                    <base-btn>Send</base-btn>
-                </v-sheet>
-            </v-col>
         </v-card>
     </div>
 </template>
@@ -121,15 +192,27 @@
         name: "Q_A.vue",
         data: () =>({
             tabs:null,
-            untreat:[
-                {title:"1", content:"11"},
-                {title:"3", content:"33"},
-                {title:"4", content:"44"},
-                {title:"5", content:"55"}
+            game:null,
+            games: [
+                'ALL',
+                'GTA5', 'Capcom','Apex','Skylines','삼국지','Counter-Strike'
+                ,'Rust','Hood','Slormancer','Another Eden','Euro Truck'
+                ,'FIFA','철권','Battlegrounds'
             ],
+            content:null,
             treat:[
-                {title:"10", content:"10"},
-                {title:"99", content:"99"}
+                {idx:1, title:"타이틀1", content:"내용1", create_time:"2021-04-22", writer:"윤득렬", reply:[{content : "asdfasdfasdf"},{content : "aqgqfbassdf"}]},
+                {idx:2, title:"타이틀2", content:"내용2", create_time:"2021-04-30", writer:"윤득",},
+                {idx:3, title:"타이틀3", content:"내용3", create_time:"2021-05-01", writer:"윤렬", },
+                {idx:4, title:"타이틀4", content:"내용4", create_time:"2021-05-12", writer:"득렬", },
+                {idx:5, title:"타이틀5", content:"내용5", create_time:"2021-08-31", writer:"윤렬", },
+                {idx:6, title:"타이틀6", content:"내용6", create_time:"2021-01-01", writer:"렬", },
+            ],
+            untreat:[
+                {idx:7, title:"타이틀3", content:"내용3", create_time:"2021-05-01", writer:"윤렬", },
+                {idx:8, title:"타이틀4", content:"내용4", create_time:"2021-05-12", writer:"득렬", },
+                {idx:9, title:"타이틀5", content:"내용5", create_time:"2021-08-31", writer:"윤렬", },
+                {idx:10, title:"타이틀6", content:"내용6", create_time:"2021-01-01", writer:"렬", },
             ],
         }),
     }
