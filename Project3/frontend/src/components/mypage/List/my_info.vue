@@ -1,28 +1,30 @@
 <template>
   <div class="base">
-    <v-card ref="form" class="card">
+    <v-card ref="form" class="card22">
       <v-card-text>
 
         <v-text-field
             ref="name"
             v-model="name"
             :rules="[() => !!name || 'This field is required']"
-            label="?�름"
+            label="이름"
+            style="margin-left: 3%; margin-right: 85%; margin-top: 20px"
             required
         ></v-text-field>
 
-        <v-row>
+        <v-row style="margin-top: 20px">
 
           <v-text-field
               ref="year"
               v-model="year"
               :rules="[
                 () => !!year || 'This field is required',
-                () => !!year && year.length <= 4 || 'Address must be less than 4 characters'
+                //() => !!year && year.length <= 4 || 'Address must be less than 4 characters'
               ]"
-              label="?�어?? ?�도"
+              label="출생년도"
               placeholder="1997"
               counter="4"
+              style="margin-right: 5%; margin-left: 3%; text-align: right"
               required
           ></v-text-field>
           <v-autocomplete
@@ -30,8 +32,9 @@
               v-model="month"
               :rules="[() => !!month || 'This field is required']"
               :items="months"
-              label="?�어?? ??"
+              label="태어난 달"
               placeholder="Select..."
+              style="text-align: right"
               required
           ></v-autocomplete>
           <v-autocomplete
@@ -39,58 +42,69 @@
               v-model="day"
               :rules="[() => !!day || 'This field is required']"
               :items="days"
-              label="?�어?? ??"
+              label="출생 일"
+              placeholder="Select..."
+              style="margin-right: 3%; margin-left: 5%; text-align: right"
+              required
+          ></v-autocomplete>
+
+        </v-row>
+
+        <v-row style="margin-top: 20px">
+
+          <v-autocomplete
+              ref="address"
+              v-model="address"
+              :rules="[() => !!address || 'This field is required']"
+              :items="countries"
+              label="국적"
+              style="margin-left: 3%; margin-right: 10%"
               placeholder="Select..."
               required
           ></v-autocomplete>
+
+          <v-text-field
+              ref="phone"
+              v-model="phone"
+              :rules="[() => !!phone || 'This field is required']"
+              label="전화 번호"
+              placeholder="-빼고 출력"
+              style="margin-left: 10%; margin-right: 3%"
+              required
+          ></v-text-field>
         </v-row>
 
-        <v-autocomplete
-            ref="address"
-            v-model="address"
-            :rules="[() => !!address || 'This field is required']"
-            :items="countries"
-            label="�??"
-            placeholder="Select..."
-            required
-        ></v-autocomplete>
-
-        <v-text-field
-            ref="phone"
-            v-model="phone"
-            :rules="[() => !!phone || 'This field is required']"
-            label="?��??? 번호"
-            placeholder="-빼고 ?�력"
-            required
-        ></v-text-field>
-
-        <v-autocomplete
-            ref="like_genre1"
-            v-model="like_genre1"
-            :rules="[() => !!like_genre1 || 'This field is required']"
-            :items="genres"
-            label="관?�있?? 게임?�르1"
-            placeholder="Select..."
-            required
-        ></v-autocomplete>
-        <v-autocomplete
-            ref="like_genre2"
-            v-model="like_genre2"
-            :rules="[() => !!like_genre2 || 'This field is required']"
-            :items="genres"
-            label="관?�있?? 게임?�르2"
-            placeholder="Select..."
-            required
-        ></v-autocomplete>
-        <v-autocomplete
-            ref="like_genre3"
-            v-model="like_genre3"
-            :rules="[() => !!like_genre3 || 'This field is required']"
-            :items="genres"
-            label="관?�있?? 게임?�르3"
-            placeholder="Select..."
-            required
-        ></v-autocomplete>
+        <v-row style="margin-top: 20px">
+          <v-autocomplete
+              ref="like_genre1"
+              v-model="like_genre1"
+              :rules="[() => !!like_genre1 || 'This field is required']"
+              :items="genres"
+              label="관심있는 게임장르1"
+              style="margin-right: 5%; margin-left: 3%;"
+              placeholder="Select..."
+              required
+          ></v-autocomplete>
+          <v-autocomplete
+              ref="like_genre2"
+              v-model="like_genre2"
+              :rules="[() => !!like_genre2 || 'This field is required']"
+              :items="genres"
+              label="관심있는 게임장르2"
+              placeholder="Select..."
+              required
+          ></v-autocomplete>
+          <v-autocomplete
+              ref="like_genre3"
+              v-model="like_genre3"
+              :rules="[() => !!like_genre3 || 'This field is required']"
+              :items="genres"
+              label="관심있는 게임장르3"
+              placeholder="Select..."
+              style="margin-right: 3%; margin-left: 5%;"
+              required
+          ></v-autocomplete>
+        </v-row>
       </v-card-text>
       <v-divider class="mt-12"></v-divider>
       <v-card-actions>
@@ -127,16 +141,16 @@
                 v-bind="attrs"
 
             >
-              ?�정?�기
+              수정하기
             </v-btn>
           </template>
           <v-card>
             <v-card-title class="headline grey lighten-2">
-              ?�공메세지
+              성공메세지
             </v-card-title>
 
             <v-card-text>
-              ?�보가 ?�정?�었?�니??.
+              정보가 수정되었습니다.
             </v-card-text>
 
             <v-divider></v-divider>
@@ -147,9 +161,9 @@
                   color="primary"
                   text
                   @click="confirm"
-                  href="/mypage/my_info"
+
               >
-                ?�인
+                확인
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -265,7 +279,9 @@ export default {
   },
 
   methods: {
-
+    ...mapMutations(['saveuser']),
+    ...mapMutations(['saveidx']),
+    ...mapMutations(['saveemail']),
     ...mapMutations(['saveuser']),
 
     resetForm () {
@@ -286,16 +302,16 @@ export default {
         this.$refs[f].validate(true)
       })
 
-        this.$http.post('/mypage/my_info/2',{user_idx: this.u_idx,name:this.name, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2, like_genre3:this.like_genre3}).then((res)=>{
-          if(res.data.success===false){
-            console.log("error")
-          }
-          else{
-            this.saveuser(this.userdata)
-            this.dialog=true
-          }
+      this.$http.post('/mypage/my_info/2',{user_idx: this.u_idx,name:this.name, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2, like_genre3:this.like_genre3}).then((res)=>{
+        if(res.data.success===false){
+          console.log("error")
+        }
+        else{
+          this.saveuser(this.userdata)
+          this.dialog=true
+        }
 
-        })
+      })
 
 
 
@@ -303,6 +319,7 @@ export default {
 
     confirm(){
       this.dialog=false
+      this.$router.push({path:'/mypage/my_info'})
     }
 
 
@@ -316,7 +333,7 @@ export default {
   grid-template-columns: repeat(100, 1fr);
   grid-template-rows: repeat(100, 1fr);
 }
-.card{
-  grid-area : 10/2/90/42;
+.card22{
+  grid-area : 10/10/90/90;
 }
 </style>

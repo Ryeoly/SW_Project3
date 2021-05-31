@@ -1,10 +1,13 @@
 <template>
-    <div style="align-content: center; margin-top: 10%">
+    <div>
+        <a>1111</a>
+
         <div style="margin-left: 10%;">
             <h1>장르별 판매량</h1>
             <mdb-container >
                 <mdb-pie-chart
                         datalabels
+                        v-model="pieChartData.datasets.data"
                         :data="pieChartData"
                         :options="pieChartOptions"
                         :width="600"
@@ -17,6 +20,7 @@
             <h1>월간 판매량</h1>
             <mdb-container>
                 <mdb-bar-chart
+                        v-model="barChartData.datasets.data"
                         :data="barChartData"
                         :options="barChartOptions"
                         :width="600"
@@ -29,6 +33,7 @@
             <h1>누적 판매액</h1>
             <mdb-container>
                 <mdb-line-chart
+                        v-model="lineChartData.datasets.data"
                         :data="lineChartData"
                         :options="lineChartOptions"
                         :width="600"
@@ -36,57 +41,35 @@
                 ></mdb-line-chart>
             </mdb-container>
         </div>
-
     </div>
 </template>
 
 <script>
-    import { mdbPieChart,mdbBarChart,mdbLineChart,mdbContainer } from "mdbvue";
+    // import { mdbPieChart,mdbBarChart,mdbLineChart,mdbContainer } from "mdbvue";
     export default {
+        name: "trend.vue",
         created() {
-            this.$http.get('/admin/trend').then((response)=>{
-                if(response.data.success === true){
-                    var genredata=[]
-                    var monthdata=[]
-                    var selldata=[]
-                    console.log(response.data.genre_data)
-                    console.log(response.data.month_data)
-                    console.log(response.data.sell_data)
-                    for(let i=0;i<response.data.genre_data.length; i++){
-                        genredata[i] = response.data.genre_data[i].amount
-                    }
-                    for(let i=0;i<response.data.month_data.length; i++){
-                        monthdata[i] = response.data.month_data[i].amount
-                    }
-                    for(let i=0;i<response.data.sell_data.length; i++){
-                        selldata[i] = response.data.sell_data[i].price
-                        if(i>0){
-                            selldata[i] += selldata[i-1]
-                        }
-                    }
-                    this.pieChartData.datasets.data = genredata
-                    this.barChartData.datasets.data = monthdata
-                    this.lineChartData.datasets.data = selldata
-                    console.log(this.lineChartData.datasets.data)
-                }
-            })
-        },
-        mounted() {
-            this.renderChart(this.pieChartData, this.pieChartOptions);
-            this.renderChart(this.lineChartData, this.lineChartOptions);
-            this.renderChart(this.barChartData, this.barChartOptions);
-        },
+            this.pieChartData.datasets.data = this.value[0]
+            this.lineChartData.datasets.data = this.value[2]
+            this.barChartData.datasets.data = this.value[1]
+        }
+        ,
         components: {
-            mdbPieChart,
-            mdbBarChart,
-            mdbLineChart,
-            mdbContainer
+            // mdbPieChart,
+            // mdbBarChart,
+            // mdbLineChart,
+            // mdbContainer
         },
 
-        data :()=>({
-                a1:[],
-                a2:[],
-                a3:[],
+        props: {
+          value:{
+              type:Object,
+              default: () => ({}),
+          }
+        },
+
+        data() {
+            return {
                 pieChartData: {
                     labels: ['Action','Arcade','FPS','Role Play','RPG','Simulation','Video Game'],
                     datasets: [
@@ -229,30 +212,11 @@
                         ]
                     }
                 },
-            }),
-    }
+            };
+        }
+    };
 </script>
 
 <style scoped>
-    .v-sheet--offset {
-        top: -24px;
-        position: relative;
-    }
-    .base{
-        display: grid;
-        grid-template-columns: repeat(100, 1fr);
-        grid-template-rows: repeat(100, 1fr);
-    }
-    .card1{
-        grid-area : 5/5/50/50;
-    }
-    .card2{
-        grid-area : 5/55/50/100;
-    }
-    .card3{
-        grid-area : 55/5/100/50;
-    }
-    .card4{
-        grid-area : 55/55/100/100;
-    }
+
 </style>

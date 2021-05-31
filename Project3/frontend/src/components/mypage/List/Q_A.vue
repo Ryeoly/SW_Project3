@@ -29,13 +29,13 @@
                 <v-simple-table class="card">
                     <thead>
                     <tr>
-                        <th class="primary--text">
-                            글 번호
+                        <th class="primary--text" style="width: 7%">
+                            번호
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text" style="width: 30%">
                             제목
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text" style="width: 63%">
                             등록일
                         </th>
                         <th style="width: 6px">
@@ -52,10 +52,9 @@
 
                             <tr>
                                 <v-expansion-panel-header>
-                                    <td>{{i}}</td>
-                                    <td>{{board.title}}</td>
-                                    <td>{{board.create_time}}</td>
-                                    <td>{{board.name}}</td>
+                                    <td style="width: 7%">{{i}}</td>
+                                    <td style="width: 30%">{{board.title}}</td>
+                                    <td style="width: 63%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                 </v-expansion-panel-header>
                             </tr>
 
@@ -76,11 +75,9 @@
                                           </span>
                                 </div>
                                 <div
-                                        v-for="(_reply,i) in board.reply"
-                                        :key="i"
-                                        class="reply_form"
+
                                 >
-                                    {{_reply.content}}
+                                    {{board.re_content}}
                                 </div>
                             </v-expansion-panel-content>
 
@@ -100,13 +97,13 @@
                 <v-simple-table class="card">
                     <thead>
                     <tr>
-                        <th class="primary--text">
-                            글 번호
+                        <th class="primary--text"  style="width: 7%">
+                            번호
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text"  style="width: 30%">
                             제목
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text"  style="width: 63%">
                             등록일
                         </th>
                         <th style="width: 6px">
@@ -123,10 +120,9 @@
 
                             <tr>
                                 <v-expansion-panel-header>
-                                    <td>{{i}}</td>
-                                    <td>{{board.title}}</td>
-                                    <td>{{board.create_time}}</td>
-                                    <td>{{board.name}}</td>
+                                    <td  style="width: 7%">{{i}}</td>
+                                    <td  style="width: 30%">{{board.title}}</td>
+                                    <td  style="width: 63%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                 </v-expansion-panel-header>
                             </tr>
 
@@ -158,6 +154,7 @@
             </base-heading>
             <v-text-field
                     color="info"
+                    v-model="email"
                     label="Email"
                     style="margin-right:40%; margin-left: 10%; margin-top: 20px"
             />
@@ -170,6 +167,13 @@
                     required
                     style="margin-right: 40%; margin-left: 10%"
             ></v-autocomplete>
+          <v-textarea
+              v-model="title"
+              solo
+              name="title"
+              label="Q&A 제목"
+              style="margin-right:10%; margin-left: 10% "
+          ></v-textarea>
             <v-textarea
                     v-model="content"
                     solo
@@ -180,7 +184,8 @@
             <v-row>
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
-                <v-btn >Send</v-btn>
+                <v-btn
+                @click="qnasend">Send</v-btn>
             </v-row>
 
         </v-card>
@@ -190,31 +195,55 @@
 <script>
     export default {
         name: "Q_A.vue",
+
+      created(){
+        this.u_idx=this.$store.state.userdata.useridx
+        this.$http.post('/mypage/qna',{u_idx: this.u_idx}).then((res)=>{
+          if(res.data.success===false){
+            console.log("error")
+          }
+          else{
+            this.treat=res.data.treat
+            this.untreat=res.data.untreat
+          }
+        })
+      },
+
         data: () =>({
             tabs:null,
             game:null,
             games: [
-                'ALL',
-                'GTA5', 'Capcom','Apex','Skylines','삼국지','Counter-Strike'
-                ,'Rust','Hood','Slormancer','Another Eden','Euro Truck'
-                ,'FIFA','철권','Battlegrounds'
+                'Apex Legends',"PLAYERUNKNOWN'S BATTLEGROUNDS",'Capcom Arcade Stadium','TEKKEN 7','Counter-Strike: Global Offensive','Rust','ANOTHER EDEN','ROMANCE OF THE THREE KINGDOMS','Hood: Outlaws & Legends','The Slormancer','Cities: Skylines','Euro Truck Simulator 2','EA SPORTS FIFA 21','Grand Theft Auto V',
             ],
             content:null,
             treat:[
-                {idx:1, title:"타이틀1", content:"내용1", create_time:"2021-04-22", writer:"윤득렬", reply:[{content : "asdfasdfasdf"},{content : "aqgqfbassdf"}]},
-                {idx:2, title:"타이틀2", content:"내용2", create_time:"2021-04-30", writer:"윤득",},
-                {idx:3, title:"타이틀3", content:"내용3", create_time:"2021-05-01", writer:"윤렬", },
-                {idx:4, title:"타이틀4", content:"내용4", create_time:"2021-05-12", writer:"득렬", },
-                {idx:5, title:"타이틀5", content:"내용5", create_time:"2021-08-31", writer:"윤렬", },
-                {idx:6, title:"타이틀6", content:"내용6", create_time:"2021-01-01", writer:"렬", },
+
             ],
             untreat:[
-                {idx:7, title:"타이틀3", content:"내용3", create_time:"2021-05-01", writer:"윤렬", },
-                {idx:8, title:"타이틀4", content:"내용4", create_time:"2021-05-12", writer:"득렬", },
-                {idx:9, title:"타이틀5", content:"내용5", create_time:"2021-08-31", writer:"윤렬", },
-                {idx:10, title:"타이틀6", content:"내용6", create_time:"2021-01-01", writer:"렬", },
+
             ],
         }),
+
+      computed: {
+         email(){
+           return this.$store.state.useremail
+         },
+      },
+
+      methods: {
+        qnasend(){
+          this.u_idx=this.$store.state.useridx
+          this.$http.post('/mypage/qnasend',{user_idx: this.u_idx, title: this.title, content: this.content, product: this.game}).then((res)=>{
+            if(res.data.success===false){
+              console.log("error")
+            }
+            else{
+              console.log("success")
+            }
+
+          })
+        }
+      },
     }
 </script>
 
@@ -225,10 +254,10 @@
         grid-template-rows: repeat(100, 1fr);
     }
     .table{
-        grid-area : 10/2/100/40;
+        grid-area : 10/5/100/60;
     }
     .message{
-        grid-area: 10/45/100/90;
+        grid-area: 10/65/100/95;
         background-color: #5c6bc0;
     }
 </style>

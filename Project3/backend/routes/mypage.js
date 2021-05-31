@@ -13,6 +13,20 @@ var pool = mysql.createPool({
 
 /* GET users listing. */
 //유저 정보 가져오기
+router.post('/write_review', function(req, res, next) {
+    var a = 1;
+    var data=req.body;
+    var b= 2;
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query("INSERT INTO review_board(title, content, star, u_idx, i_idx) VALUES(?, ?, ?, ?, ?);",[data.title, data.content, data.rating, data.u_idx,data.i_idx], function (err,result) {
+        })
+        connection.query("UPDATE item SET star= star+? WHERE idx=?;",[data.i_idx], function (err,result) {
+        })
+        connection.release();
+    });
+});
+
 router.post('/', function(req, res, next) {
     var user_info;
     var user_idx=req.body.u_idx; //유저 u_idx받아오기
@@ -37,7 +51,7 @@ router.post('/buyhistory', function(req, res, next) {
     var user_idx=req.body.u_idx; //유저 u_idx받아오기
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT item.image1 AS image, item.product AS product, basket.buy_time AS buytime, basket.amount AS amount, item.price AS price FROM basket,item WHERE basket.complete=1 AND basket.u_idx=? AND item.idx=basket.i_idx AND DATE_FORMAT(basket.buy_time,'%Y-%m-%d %T') ORDER BY basket.buy_time DESC",[user_idx], function (err,results) {
+        connection.query("SELECT item.idx as i_idx,item.image1 AS image, item.product AS product, basket.buy_time AS buytime, basket.amount AS amount, item.price AS price FROM basket,item WHERE basket.complete=1 AND basket.u_idx=? AND item.idx=basket.i_idx AND DATE_FORMAT(basket.buy_time,'%Y-%m-%d %T') ORDER BY basket.buy_time DESC",[user_idx], function (err,results) {
             if(err){
                 return res.json({success: false});
             }
@@ -54,6 +68,65 @@ router.post('/buyhistory', function(req, res, next) {
 //자신이 쓴글
 
 //Q&A문의
+router.post('/qna', function(req, res, next) {
+    var treat;
+    var untreat;
+    var user_idx=req.body.u_idx; //유저 u_idx받아오기
+
+    var treatsql='SELECT qnaq.title, qnaq.content, qnaq.create_time, userq.name, qnaa.content AS re_content FROM qna_board qnaa, qna_board qnaq ,USER userq WHERE qnaq.reply=1 AND qnaa.parent_idx=qnaq.idx AND qnaq.parent_idx=0 AND qnaq.u_idx=userq.idx AND qnaq.u_idx=?;';
+    var treatsqls=mysql.format(treatsql,user_idx);
+
+    var untreatsql='SELECT qna_board.title, qna_board.content, qna_board.create_time, user.name FROM qna_board,USER WHERE reply=0 AND parent_idx=0 AND qna_board.u_idx= user.idx AND qna_board.u_idx=?;';
+    var untreatsqls=mysql.format(untreatsql,user_idx);
+
+
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query(treatsqls+untreatsqls, function (err,results) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                treat=results[0];
+                untreat=results[1];
+                return res.send({success: true, treat: treat, untreat: untreat});
+            }
+        })
+        connection.release();
+    });
+});
+
+//qna삽입
+router.post('/qnasend', function(req, res, next) {
+    var user_idx=req.body.user_idx; //유저 u_idx받아오기
+    var product=req.body.product;
+    var content=req.body.content;
+    var title=req.body.title;
+    var i_idx;
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query("SELECT idx FROM item WHERE product=?",[product], function (err,item_idx) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+
+                i_idx=item_idx;
+                connection.query("INSERT INTO qna_board(title,content,u_idx,i_idx) VALUES(?,?,?,?)",[title, content,user_idx,i_idx[0].idx],function(err,result){
+                    if(err){
+
+                        return res.json({success: false});
+                    }
+                    else{
+                        return res.send({success: true});
+                    }
+                })
+
+            }
+        })
+        connection.release();
+    });
+});
 
 
 

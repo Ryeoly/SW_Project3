@@ -5,14 +5,15 @@
                 <v-list-item-avatar>
                     <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
                 </v-list-item-avatar>
-              <v-list-item-title class="title">
-                {{value[0].NAME}}
+              <v-list-item-title class="title"
+              v-model="adminname">
+
               </v-list-item-title>
             </v-list-item>
 
             <v-list-item link>
                 <v-list-item-content>
-                    <v-list-item-subtitle> {{value[0].email}}</v-list-item-subtitle>
+                    <v-list-item-subtitle> {{value[1]}}</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-action>
@@ -68,10 +69,19 @@
                 { text: '내 정보 수정', icon: 'mdi-account-cog' , goto:'/mypage/my_info'},
                 { text: '구매 내역', icon: 'mdi-wallet-giftcard', goto:'/mypage/buy_history' },
                 { text: 'Q&A 문의', icon: 'mdi-account-question', goto:'/mypage/Q_A'},
-                { text: '내가 쓴 글', icon: 'mdi-clipboard-edit', goto: '/mypage/my_board' },
+                // { text: '내가 쓴 글', icon: 'mdi-clipboard-edit', goto: '/mypage/my_board' },
             ],
 
         }),
+
+      computed:{
+        adminname(){
+          return this.$store.state.adminname
+        },
+        adminemail(){
+          return this.$store.state.adminemail
+        }
+      },
 
     }
 </script>

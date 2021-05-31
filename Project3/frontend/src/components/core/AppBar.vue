@@ -34,19 +34,24 @@
 
           <v-autocomplete
                   v-model="product"
+                  :loading="loading"
                   :items="products"
-                  label="Product"
+                  :search-input.sync="search"
+                  cache-items
+                  class="mx-4"
+                  flat
+                  hide-no-data
+                  hide-details
                   append-icon="mdi-magnify"
                   chips
                   @click:append="go_search()"
-                  color="blue"
-                  flat
-                  hide-details
                   solo-inverted
                   style="max-width: 300px;"
           >
           </v-autocomplete>
 
+        <v-btn v-if="islogin" href="/login">Login</v-btn>
+        <v-btn v-else @click="logout_user">Logout</v-btn>
 
         <v-dialog
             v-model="dialog"
@@ -87,10 +92,9 @@
                 width="35"
                 max-width="48"
                 permanent
-                @click="[islogin(return_islogin),islogin_reverse]"
+                @click="goMypage"
           >
         </v-img>
-
       </v-row>
     </v-container>
   </v-app-bar>
@@ -106,19 +110,33 @@
 
   export default {
     name: 'CoreAppBar',
+
     data :()=>({
+      login:false,
+      _login:true,
+      loading: false,
       products: [
-        'GTA5', 'Capcom','Apex','Skylines','삼국지','Counter-Strike'
-        ,'Rust','Hood','Slormancer','Another Eden','Euro Truck'
-        ,'FIFA','철권','Battlegrounds'
-              ],
+        'Apex Legends',
+        "PLAYERUNKNOWN'S BATTLEGROUNDS",
+        'Capcom Arcade Stadium','TEKKEN 7',
+        'Counter-Strike: Global Offensive',
+        'Rust',
+        'ANOTHER EDEN',
+        'ROMANCE OF THE THREE KINGDOMS',
+        'Hood: Outlaws & Legends',
+        'The Slormancer',
+        'Cities: Skylines',
+        'Euro Truck Simulator 2',
+        'EA SPORTS FIFA 21',
+        'Grand Theft Auto V',
+      ],
       selected:[],
         user_id: false,
         dialog: false,
         notifications: false,
         sound: true,
         widgets: false,
-      product:null
+      product:""
       }),
     computed: {
       ...mapGetters(['links']),
@@ -126,15 +144,40 @@
       buy_items() {
         return this.$store.state.baskets
       },
-
+      islogin(){
+        if(this.$store.state.useridx === "1"){
+          return true
+        }
+        else{
+          return false
+        }
+      },
     },
       methods: {
-        ...mapMutations(['toggleDrawer']),
+        ...mapMutations(['toggleDrawer','search_product_set' ]),
         ...mapMutations(['islogin_reverse']),
         ...mapMutations(["save_basket"]),
+        ...mapMutations(["save_item_data"]),
+        ...mapMutations(["save_qna_data"]),
+        ...mapMutations(["save_rec_data"]),
+        ...mapMutations(["save_count"]),
+        ...mapMutations(["save_rev_data"]),
+        ...mapMutations(["saveidx"]),
         ...mapMutations(["p_Amount"]),
         ...mapMutations(["m_Amount"]),
         ...mapMutations(["delete_item"]),
+        ft_login(){
+          if(this.$store.state.userdata.useridx === "1"){
+            this.login = false;
+            this._login = true;
+          }
+          else{
+            this.login = true;
+            this._login = false;
+          }
+
+        }
+        ,
         onClick (e, item) {
           e.stopPropagation()
           if (item.href === '/home#about') {
@@ -146,14 +189,7 @@
             router.push({path: item.href})
           }
         },
-          islogin(user_id){
-            if(user_id === false){
-              location.href="/login"
-            }
-            else{
-              location.href="/login1"
-            }
-          },
+
           basketCheck(){
             this.$http.post('/basket/check', {user_idx: this.$store.state.useridx}).then((response) => {
               if(response.data.success === true){
@@ -174,11 +210,41 @@
         deleteItem(idx){
           this.delete_item(idx)
         },
+        go_search(){
+          var idx;
+          for(let i=0;i<this.products.length; i++){
+            if(this.product === this.products[i]){
+              idx = i + 1;
+              idx = idx.toString()
+            }
+          }
+          this.$http.post('/detail', {u_idx:this.$store.state.useridx, i_idx:idx}).then((response)=>{
+            if(response.data.success === true){
+              this.save_item_data(response.data.item_data)
+              this.save_rec_data(response.data.recommend_data)
+              this.save_rev_data(response.data.review_data)
+              this.save_qna_data(response.data.qna_data)
+              this.save_count(response.data.count_data)
+              this.$router.push({path: '/detail'})
+            }
+          })
+        },
+        goMypage(){
+          if(this.$store.state.useridx === "1"){
+            this.$router.push({path: '/login'})
+          }
+          else{
+            this.$router.push({path: '/mypage/my_info'})
+          }
+        },
+        logout_user(){
+          this.saveidx("1")
+          location.href = '/home'
+        }
     },
     components: {
       // eslint-disable-next-line vue/no-unused-components
-      search: () => import('./search'),
-      basket: () => import('./basket')
+      basket: () => import('./basket'),
     },
   }
 </script>
