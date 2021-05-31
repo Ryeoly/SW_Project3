@@ -38,7 +38,7 @@
                   label="Product"
                   append-icon="mdi-magnify"
                   chips
-                  @click:append="user_id"
+                  @click:append="go_search()"
                   color="blue"
                   flat
                   hide-details
@@ -186,9 +186,10 @@
     name: 'CoreAppBar',
     data :()=>({
       products: [
-        'Samson', 'Wichita', 'Combustion', 'Triton',
-        'Helios', 'Wimbeldon', 'Brixton', 'Iguana',
-        'Xeon', 'Falsy', 'Armagedon', 'Zepellin'],
+        'GTA5', 'Capcom','Apex','Skylines','삼국지','Counter-Strike'
+        ,'Rust','Hood','Slormancer','Another Eden','Euro Truck'
+        ,'FIFA','철권','Battlegrounds'
+              ],
       buy_items: [
         {idx:1, image: "amongus.jpg", product: "어몽어스", buy_time: "2021_05_26(수)", amount: "3", price: "15000"},
         {idx:2, image: "apex.jpg", product: "apex", buy_time: "2021_05_24(화)", amount: "1", price: "12000"},
@@ -200,6 +201,7 @@
         notifications: false,
         sound: true,
         widgets: false,
+      product:null
       }),
     computed: {
       ...mapGetters(['links']),
@@ -226,6 +228,9 @@
           else{
             location.href="/login1"
           }
+        },
+        go_search(){
+          location.href="/AppBar_search/" + this.product
         },
     },
     components: {

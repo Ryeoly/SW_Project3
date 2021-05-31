@@ -41,6 +41,7 @@
                                     <v-text-field
                                             color="purple"
                                             label="Email Address"
+                                            v-model="email"
                                     />
                                 </v-col>
 
@@ -130,7 +131,13 @@
 </template>
 
 <script>
-    export default { name: "user_info.vue", }
+    export default { name: "user_info.vue",
+        created() {
+        this.email="asdf"
+        },
+        data:()=>({
+        email:""
+    })}
 </script>
 
 <style>
