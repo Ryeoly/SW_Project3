@@ -70,7 +70,12 @@
             >
             </v-img>
           </template>
-          <basket :value="buy_items" @update="updateDialog" @plus="plusAmount" @minus="minusAmount"/>
+          <basket :value="buy_items"
+                  @update="updateDialog"
+                  @plus="plusAmount"
+                  @minus="minusAmount"
+                  @delete="deleteItem"
+          />
         </v-dialog>
 
 
@@ -129,6 +134,7 @@
         ...mapMutations(["save_basket"]),
         ...mapMutations(["p_Amount"]),
         ...mapMutations(["m_Amount"]),
+        ...mapMutations(["delete_item"]),
         onClick (e, item) {
           e.stopPropagation()
           if (item.href === '/home#about') {
@@ -164,6 +170,9 @@
         },
         minusAmount(idx){
           this.m_Amount(idx)
+        },
+        deleteItem(idx){
+          this.delete_item(idx)
         },
     },
     components: {

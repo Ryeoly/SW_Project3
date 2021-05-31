@@ -35,7 +35,26 @@ router.post('/check', function(req,res,next){
     var user_idx = req.body.user_idx; //유저 u_idx받아오기
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT item.image1, item.product, basket.amount, item.price as total_price, item.price as original_price FROM basket,item WHERE basket.complete=0 AND basket.u_idx=? AND item.idx=basket.i_idx;",[user_idx], function (err,results) {
+        connection.query("SELECT item.idx, item.image1, item.product, basket.amount, item.price as total_price, item.price as original_price FROM basket,item WHERE basket.complete=0 AND basket.u_idx=? AND item.idx=basket.i_idx;",[user_idx], function (err,results) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                basket_datas = results;
+                return res.send({success: true, basket_datas: basket_datas});
+            }
+        })
+        connection.release();
+    });
+});
+
+router.post('/update', function(req,res,next){
+    var new_price = req.body.new_price;
+    var new_amount = req.body.new_amount;
+    var user_idx = req.body.user_idx; //유저 u_idx받아오기
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query("SELECT item.idx, item.image1, item.product, basket.amount, item.price as total_price, item.price as original_price FROM basket,item WHERE basket.complete=0 AND basket.u_idx=? AND item.idx=basket.i_idx;",[user_idx], function (err,results) {
             if(err){
                 return res.json({success: false});
             }

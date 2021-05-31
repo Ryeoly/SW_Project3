@@ -108,6 +108,7 @@ export default new Vuex.Store({
         state.baskets[idx].amount += 1, state.baskets[idx].total_price += state.baskets[idx].original_price),
     m_Amount:(state, idx)=>(
         state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].original_price),
+    delete_item:(state, obj)=>(state.baskets = obj),
   },
   actions: {
 
