@@ -112,14 +112,12 @@ router.post('/qnasend', function(req, res, next) {
             else{
 
                 i_idx=item_idx;
-                var a=1;
                 connection.query("INSERT INTO qna_board(title,content,u_idx,i_idx) VALUES(?,?,?,?)",[title, content,user_idx,i_idx[0].idx],function(err,result){
                     if(err){
 
                         return res.json({success: false});
                     }
                     else{
-                        var b=1;
                         return res.send({success: true});
                     }
                 })

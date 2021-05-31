@@ -1,7 +1,7 @@
 <template>
     <div id="mypage" class="wrapper">
         <div class="leftbar">
-            <Leftside :value="user_info"/>
+            <Leftside :value="[name_info, email_info]"/>
         </div>
         <div class="mainview">
             <router-view />
@@ -14,17 +14,25 @@
     export default {
 
         name: 'Mypage',
-        created(){
-          this.u_idx=this.$store.state.userdata.useridx
-          this.$http.post('/mypage',{u_idx: this.u_idx}).then((res)=>{
-            if(res.data.success===false){
-              console.log("error")
-            }
-            else{
-              this.user_info=res.data.user_info
-            }
-          })
+        // created(){
+        //   this.u_idx=this.$store.state.userdata.useridx
+        //   this.$http.post('/mypage',{u_idx: this.u_idx}).then((res)=>{
+        //     if(res.data.success===false){
+        //       console.log("error")
+        //     }
+        //     else{
+        //       this.user_info=res.data.user_info
+        //     }
+        //   })
+        // },
+      computed:{
+        name_info(){
+          return this.$store.state.useridx
         },
+        email_info(){
+          return this.$store.state.useremail
+        }
+      },
         data: () => ({
             selectedItem: 0,
             items: [

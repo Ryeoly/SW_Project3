@@ -79,11 +79,8 @@
                                           </span>
                                         </div>
                                         <div
-                                                v-for="(_reply,i) in board.reply"
-                                                :key="i"
-                                                class="reply_form"
                                         >
-                                            {{_reply.content}}
+                                            {{board.re_content}}
                                         </div>
                                     </v-expansion-panel-content>
 
@@ -147,17 +144,18 @@
 
                                         <div style="margin-top: 20px; width: 40%; margin-left: 30%">
                                             <v-textarea
+                                                    v-model="replymessage"
                                                     color="#000000"
                                                     label="Message"
                                                     solo
                                                     background-color="#DDDDDD"
                                                     flat
                                                     append-icon="mdi-send"
+                                                    @click:append="send(board.idx,board.itemidx)"
                                             />
                                         </div>
                                     </div>
                                 </v-expansion-panel-content>
-
                             </v-simple-table>
                         </v-expansion-panel>
                     </v-expansion-panels>
@@ -175,22 +173,47 @@
 <script>
     export default {
         name: "QnA_ans.vue",
+
+        created(){
+          this.$http.get('/admin/qna').then((res)=>{
+            if(res.data.success===false){
+              console.log("error")
+            }
+            else{
+              this.treat=res.data.treat
+              this.untreat=res.data.untreat
+            }
+          })
+        },
+
         data: () => ({
+            replymessage: "",
             treat:[
-                {idx:1, title:"타이틀1", content:"내용1", create_time:"2021-04-22", writer:"윤득렬", reply:[{content : "asdfasdfasdf"},{content : "aqgqfbassdf"}]},
-                {idx:2, title:"타이틀2", content:"내용2", create_time:"2021-04-30", writer:"윤득",},
-                {idx:3, title:"타이틀3", content:"내용3", create_time:"2021-05-01", writer:"윤렬", },
-                {idx:4, title:"타이틀4", content:"내용4", create_time:"2021-05-12", writer:"득렬", },
-                {idx:5, title:"타이틀5", content:"내용5", create_time:"2021-08-31", writer:"윤렬", },
-                {idx:6, title:"타이틀6", content:"내용6", create_time:"2021-01-01", writer:"렬", },
+
             ],
             untreat:[
-                {idx:7, title:"타이틀3", content:"내용3", create_time:"2021-05-01", writer:"윤렬", },
-                {idx:8, title:"타이틀4", content:"내용4", create_time:"2021-05-12", writer:"득렬", },
-                {idx:9, title:"타이틀5", content:"내용5", create_time:"2021-08-31", writer:"윤렬", },
-                {idx:10, title:"타이틀6", content:"내용6", create_time:"2021-01-01", writer:"렬", },
+
             ],
+          idx:null,
+          item_idx:null,
         }),
+
+        methods:{
+          send(idxx,idxxx){
+            this.idx=idxx
+            this.item_idx=idxxx
+            this.$http.post('/admin/qnasend',{parent_idx: this.idx, content: this.replymessage, item_idx: this.item_idx}).then((res)=>{
+              if(res.data.success===false){
+                console.log("error")
+              }
+              else{
+                this.$router.go();
+                console.log("success")
+              }
+
+            })
+          }
+        }
 
     }
 </script>

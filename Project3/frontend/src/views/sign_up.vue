@@ -204,8 +204,6 @@
                         text
                         @click="submit"
                         v-bind="attrs"
-
-
                 >
                     가입하기
                 </v-btn>

@@ -5,14 +5,15 @@
                 <v-list-item-avatar>
                     <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
                 </v-list-item-avatar>
-              <v-list-item-title class="title">
-                {{value[0].NAME}}
+              <v-list-item-title class="title"
+              v-model="adminname">
+
               </v-list-item-title>
             </v-list-item>
 
             <v-list-item link>
                 <v-list-item-content>
-                    <v-list-item-subtitle> {{value[0].email}}</v-list-item-subtitle>
+                    <v-list-item-subtitle> {{value[1]}}</v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-list-item-action>
@@ -72,6 +73,15 @@
             ],
 
         }),
+
+      computed:{
+        adminname(){
+          return this.$store.state.adminname
+        },
+        adminemail(){
+          return this.$store.state.adminemail
+        }
+      },
 
     }
 </script>
