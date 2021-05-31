@@ -7,7 +7,12 @@ export default new Vuex.Store({
   state: {
     pages: require('../data/page.json'),
     articles: require('../data/articles.json'),
-    gamedatas: require('../data/game_data.json'),
+    itemdata: [],
+    recommenddata: [],
+    reviewdata: [],
+    qnadata: [],
+    count: [],
+    baskets: [],
     drawer: false,
     islogin:false,
     userdata : [],
@@ -90,8 +95,19 @@ export default new Vuex.Store({
     setDrawer: (state, payload) => (state.drawer = payload),
     toggleDrawer: state => (state.drawer = !state.drawer),
     islogin_reverse:state=>( state.islogin = !state.islogin),
+
     saveuser:(state, data)=>(state.userdata = data),
     saveidx:(state, data)=>(state.useridx=data),
+    save_item_data:(state, data)=>(state.itemdata= data),
+    save_rec_data:(state, data)=>(state.recommenddata= data),
+    save_rev_data:(state, data)=>(state.reviewdata= data),
+    save_qna_data:(state, data)=>(state.qnadata= data),
+    save_count:(state, data)=>(state.count= data),
+    save_basket:(state, data)=>(state.baskets= data),
+    p_Amount:(state, idx)=>(
+        state.baskets[idx].amount += 1, state.baskets[idx].total_price += state.baskets[idx].original_price),
+    m_Amount:(state, idx)=>(
+        state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].original_price),
   },
   actions: {
 

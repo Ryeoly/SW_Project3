@@ -14,6 +14,8 @@ import admin from "../views/admin";
 import trend from "../components/admin/trend";
 import QnA_ans from "../components/admin/QnA_ans";
 import product_add from "../components/admin/product_add";
+import communityy from "../views/communityy";
+import AppBar_search from "../views/AppBar_search";
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,14 @@ const routes = [
   {
     path: '/home',
     component: Home
+  },
+  {
+    path: '/AppBar_serach/:product',
+    component: AppBar_search
+  },
+  {
+    path:'/Community',
+    component: communityy
   },
   {
     path: '/shop',
