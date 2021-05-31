@@ -94,6 +94,17 @@
           >
         </v-img>
 
+
+          <a v-show="login">
+            <span>
+              로그인
+            </span>
+          </a>
+        <a v-show="_login">
+            <span>
+              로그아웃
+            </span>
+        </a>
       </v-row>
     </v-container>
   </v-app-bar>
@@ -110,6 +121,8 @@
   export default {
     name: 'CoreAppBar',
     data :()=>({
+      login:false,
+      _login:true,
       loading: false,
       products: [
         'GTA5', 'Capcom','Apex','Skylines','삼국지','Counter-Strike'
@@ -139,6 +152,18 @@
         ...mapMutations(["p_Amount"]),
         ...mapMutations(["m_Amount"]),
         ...mapMutations(["delete_item"]),
+        ft_login(){
+          if(this.$store.state.userdata.useridx === "1"){
+            this.login = false;
+            this._login = true;
+          }
+          else{
+            this.login = true;
+            this._login = false;
+          }
+
+        }
+        ,
         onClick (e, item) {
           e.stopPropagation()
           if (item.href === '/home#about') {
