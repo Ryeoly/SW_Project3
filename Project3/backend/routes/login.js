@@ -15,11 +15,11 @@ var pool = mysql.createPool({
 router.post('/',function (req,res,next) {
     var email=req.body.email;
     var pwd =req.body.pwd;
-    var user_idx;
+    var user_data;
 
     pool.getConnection(function(err,connection){
         if(err) throw err;
-        connection.query("SELECT idx FROM USER WHERE email = ? AND pwd=?",[email,pwd],function(err,result){
+        connection.query("SELECT idx AS useridx, name, YEAR(birth) AS nowyear, MONTH(birth) AS nowmonth, DAY(birth) AS nowday, phone,address,like_genre1,like_genre2,like_genre3 FROM USER WHERE email = ? AND pwd=?",[email,pwd],function(err,result){
             if(err){
                 return res.json({success: false});
             }
@@ -28,8 +28,8 @@ router.post('/',function (req,res,next) {
                     return res.send({success: false});
                 }
                 else {
-                    user_idx=result;
-                    return res.send({success: true,user_idx: user_idx});
+                    user_data=result;
+                    return res.send({success: true, information: user_data});
                 }
             }
         })

@@ -40,6 +40,7 @@
 
 
 <script>
+  import {mapMutations} from 'vuex'
     export default {
         name: "login.vue",
         props: {
@@ -53,6 +54,8 @@
       }),
 
         methods: {
+          ...mapMutations(['saveuser']),
+          ...mapMutations(['saveidx']),
           click(){
             this.$http.post('/login',{email: this.email, pwd: this.password}).then((res)=>{
               if(res.data.success===false){
@@ -60,6 +63,8 @@
                 this.fail = true
               }
               else{
+                this.saveuser(res.data.information[0])
+                this.saveidx(res.data.information[0].useridx)
                 this.$router.push({path:'/mypage/my_info'})
               }
 

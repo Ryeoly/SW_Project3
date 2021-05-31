@@ -10,6 +10,7 @@ export default new Vuex.Store({
     gamedatas: require('../data/game_data.json'),
     drawer: false,
     islogin:false,
+    userdata : [],
     useridx: "1",
     items: [
       {
@@ -89,7 +90,8 @@ export default new Vuex.Store({
     setDrawer: (state, payload) => (state.drawer = payload),
     toggleDrawer: state => (state.drawer = !state.drawer),
     islogin_reverse:state=>( state.islogin = !state.islogin),
-
+    saveuser:(state, data)=>(state.userdata = data),
+    saveidx:(state, data)=>(state.useridx=data),
   },
   actions: {
 
