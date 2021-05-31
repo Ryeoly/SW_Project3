@@ -17,6 +17,7 @@ var detailRouter = require('./routes/detail');
 var comunityRouter = require('./routes/comunity');
 var mypageRouter = require('./routes/mypage');
 var basketRouter = require('./routes/basket');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use('/detail', detailRouter);
 app.use('/comunity', comunityRouter);
 app.use('/mypage', mypageRouter);
 app.use('/basket', basketRouter);
+app.use('/admin', adminRouter);
 
 
 // catch 404 and forward to error handler
