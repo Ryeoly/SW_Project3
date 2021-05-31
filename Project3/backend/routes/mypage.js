@@ -13,6 +13,20 @@ var pool = mysql.createPool({
 
 /* GET users listing. */
 //유저 정보 가져오기
+router.post('/write_review', function(req, res, next) {
+    var a = 1;
+    var data=req.body;
+    var b= 2;
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query("INSERT INTO review_board(title, content, star, u_idx, i_idx) VALUES(?, ?, ?, ?, ?);",[data.title, data.content, data.rating, data.u_idx,data.i_idx], function (err,result) {
+        })
+        connection.query("UPDATE item SET star= star+? WHERE idx=?;",[data.i_idx], function (err,result) {
+        })
+        connection.release();
+    });
+});
+
 router.post('/', function(req, res, next) {
     var user_info;
     var user_idx=req.body.u_idx; //유저 u_idx받아오기
@@ -37,7 +51,7 @@ router.post('/buyhistory', function(req, res, next) {
     var user_idx=req.body.u_idx; //유저 u_idx받아오기
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("SELECT item.image1 AS image, item.product AS product, basket.buy_time AS buytime, basket.amount AS amount, item.price AS price FROM basket,item WHERE basket.complete=1 AND basket.u_idx=? AND item.idx=basket.i_idx AND DATE_FORMAT(basket.buy_time,'%Y-%m-%d %T') ORDER BY basket.buy_time DESC",[user_idx], function (err,results) {
+        connection.query("SELECT item.idx as i_idx,item.image1 AS image, item.product AS product, basket.buy_time AS buytime, basket.amount AS amount, item.price AS price FROM basket,item WHERE basket.complete=1 AND basket.u_idx=? AND item.idx=basket.i_idx AND DATE_FORMAT(basket.buy_time,'%Y-%m-%d %T') ORDER BY basket.buy_time DESC",[user_idx], function (err,results) {
             if(err){
                 return res.json({success: false});
             }

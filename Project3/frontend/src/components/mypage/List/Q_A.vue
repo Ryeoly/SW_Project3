@@ -29,13 +29,13 @@
                 <v-simple-table class="card">
                     <thead>
                     <tr>
-                        <th class="primary--text">
-                            글 번호
+                        <th class="primary--text" style="width: 7%">
+                            번호
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text" style="width: 30%">
                             제목
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text" style="width: 63%">
                             등록일
                         </th>
                         <th style="width: 6px">
@@ -52,10 +52,9 @@
 
                             <tr>
                                 <v-expansion-panel-header>
-                                    <td>{{i}}</td>
-                                    <td>{{board.title}}</td>
-                                    <td>{{board.create_time}}</td>
-                                    <td>{{board.name}}</td>
+                                    <td style="width: 7%">{{i}}</td>
+                                    <td style="width: 30%">{{board.title}}</td>
+                                    <td style="width: 63%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                 </v-expansion-panel-header>
                             </tr>
 
@@ -98,13 +97,13 @@
                 <v-simple-table class="card">
                     <thead>
                     <tr>
-                        <th class="primary--text">
-                            글 번호
+                        <th class="primary--text"  style="width: 7%">
+                            번호
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text"  style="width: 30%">
                             제목
                         </th>
-                        <th class="primary--text">
+                        <th class="primary--text"  style="width: 63%">
                             등록일
                         </th>
                         <th style="width: 6px">
@@ -121,10 +120,9 @@
 
                             <tr>
                                 <v-expansion-panel-header>
-                                    <td>{{i}}</td>
-                                    <td>{{board.title}}</td>
-                                    <td>{{board.create_time}}</td>
-                                    <td>{{board.name}}</td>
+                                    <td  style="width: 7%">{{i}}</td>
+                                    <td  style="width: 30%">{{board.title}}</td>
+                                    <td  style="width: 63%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                 </v-expansion-panel-header>
                             </tr>
 
@@ -256,10 +254,10 @@
         grid-template-rows: repeat(100, 1fr);
     }
     .table{
-        grid-area : 10/2/100/40;
+        grid-area : 10/5/100/60;
     }
     .message{
-        grid-area: 10/45/100/90;
+        grid-area: 10/65/100/95;
         background-color: #5c6bc0;
     }
 </style>

@@ -12,6 +12,7 @@
 
 <script>
     export default {
+
         name: 'Mypage',
         created(){
           this.u_idx=this.$store.state.userdata.useridx
