@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
 let mysql = require('mysql'); //mysql 모듈을 로딩.
 var pool = mysql.createPool({
     connectionLimit: 5,
@@ -84,6 +85,54 @@ router.post('/delete', function(req,res,next){
         connection.release();
     });
 });
+
+let key1=0; //key값 비교
+let key2=0;
+let key3=0;
+let key4=0;
+//인증코드 발생
+var generateKey = function(min,max){
+    var generate_key = Math.floor(Math.random()*(max-min+1)) + min;
+    return generate_key;
+}
+
+//인증코드 이메일발신
+router.get("/sendcode",function(req,res,next){
+    let email =req.body.email;
+    key1 =generateKey(1111,9999);
+    key2 =generateKey(1111,9999);
+    key3 =generateKey(1111,9999);
+    key4 =generateKey(1111,9999);
+    let key=key1+"-"+key2+"-"+key3+"-"+key4
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'dtree0520@gmail.com',
+            pass: 'keonyoung520'
+        }
+    });
+
+    let mailOptions = {
+        from: 'dtree0520@gmail.com',
+        to: email,
+        subject: "[윤초코]결제완료 이메일 입니다.",
+        text: "결제가 완료되었습니다.\n 게임코드: " + key
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            console.log(error);
+        }
+        else {
+            console.log('Email 전송완료: ' + info.response);
+        }
+    });
+
+    return res.send({success:true});
+
+});
+
 
 
 module.exports = router;

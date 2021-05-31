@@ -149,6 +149,7 @@ export default {
         buyer_tel : '010-1234-5678',
       }, function(rsp) {
         let msg;
+        var check;//결제가 완료되었는지 체크하는 변수
         if ( rsp.success ) {
           //4. 결제 요청 결과 서버(자사)에 적용하기
           //ajax 서버 통신 구현 -> 5. 서버사이드에서 validation check
@@ -159,12 +160,31 @@ export default {
           msg += '상점 거래ID : ' + rsp.merchant_uid;
           msg += '결제 금액 : ' + rsp.paid_amount;
           msg += '카드 승인번호 : ' + rsp.apply_num;
+          check=0;//결제가 성공하면 0
         } else {
           // eslint-disable-next-line no-redeclare
           msg = '결제에 실패하였습니다.';
           msg += '에러내용 : ' + rsp.error_msg;
+          check=1; //결제가 실패하면 1
         }
         alert(msg);
+        if(check==0){//결제에 성공했을때
+          this.$http.get('/basket/sendcode').then((response)=>{//결제코드 전송
+            if(response.data.success === false){
+              console.log("error")
+            }
+            else{
+              console.log("success")
+            }
+          })
+          //여기다가 바스켓 테이블에 산물건들 complete를 1로 바꿔줘야함
+          //그리고 홈페이지로 이동
+
+
+        }
+        else{//결제 실패했을때
+          this.$router.push('/home')
+        }
       });
     },
     changeDialog() {

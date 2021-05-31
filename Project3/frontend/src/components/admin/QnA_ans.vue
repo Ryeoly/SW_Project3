@@ -57,7 +57,7 @@
                                         <v-expansion-panel-header>
                                             <td>{{i}}</td>
                                             <td>{{board.title}}</td>
-                                            <td>{{board.create_time}}</td>
+                                            <td>{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                             <td>{{board.name}}</td>
                                         </v-expansion-panel-header>
                                     </tr>
@@ -124,7 +124,7 @@
                                     <v-expansion-panel-header>
                                         <td>{{i}}</td>
                                         <td>{{board.title}}</td>
-                                        <td>{{board.create_time}}</td>
+                                        <td>{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                         <td>{{board.name}}</td>
                                     </v-expansion-panel-header>
                                 </tr>

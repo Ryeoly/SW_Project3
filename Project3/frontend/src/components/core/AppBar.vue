@@ -223,7 +223,6 @@
           this.delete_item(idx)
         },
         go_search(){
-<<<<<<< HEAD
           var idx;
           for(let i=0;i<this.products.length; i++){
             if(this.product === this.products[i]){
@@ -253,10 +252,6 @@
         logout_user(){
           this.saveidx("1")
           location.href = '/home'
-=======
-          this.$store.commit('search_product_set', "1111")
-          location.href = "/AppBar_search"
->>>>>>> 13e1d5a4ee290a781dcc1bb63ae418e0d68d1fed
         }
     },
     components: {
