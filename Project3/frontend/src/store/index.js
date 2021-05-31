@@ -17,6 +17,9 @@ export default new Vuex.Store({
     qnadata: [],
     count: [],
     baskets: [],
+    genredata: null,
+    monthdata: null,
+    selldata: null,
     drawer: false,
     islogin:false,
     userdata : [],
@@ -122,7 +125,9 @@ export default new Vuex.Store({
     m_Amount:(state, idx)=>(
         state.baskets[idx].amount -= 1, state.baskets[idx].total_price -= state.baskets[idx].price),
     delete_item:(state, obj)=>(state.baskets = obj),
-
+    set_genre_data:(state, data)=>(state.genredata = data),
+    set_month_data:(state, data)=>(state.monthdata = data),
+    set_sell_data:(state, data)=>(state.selldata = data)
   },
   actions: {
 

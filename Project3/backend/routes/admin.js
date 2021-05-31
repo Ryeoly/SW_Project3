@@ -11,6 +11,40 @@ var pool = mysql.createPool({
     multipleStatements: true
 });
 
+router.get('/trend', function(req, res, next) {
+    var genre_data;
+    var month_data;
+    var sell_data;
+    var genre_sql='select sum(amount) as amount FROM (SELECT item.genre,basket.amount FROM item, basket WHERE item.idx=basket.i_idx AND basket.complete=1) as t GROUP BY genre;';
+
+    var month_sql='select sum(amount) as amount FROM (SELECT DATE_FORMAT(basket.buy_time ,\'%Y-%m\') as time,basket.amount FROM item, basket WHERE item.idx=basket.i_idx AND basket.complete=1) as t GROUP BY time;';
+
+    var sell_sql='select sum(total_price) as price from (SELECT DATE_FORMAT(basket.buy_time ,\'%Y-%m\') as time, basket.total_price FROM item, basket WHERE item.idx=basket.i_idx AND basket.complete=1) as t group by time;';
+
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query(genre_sql + month_sql + sell_sql, function (err,results) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                genre_data = results[0];
+                month_data = results[1];
+                sell_data = results[2];
+                return res.send({success: true, genre_data: genre_data, month_data: month_data, sell_data: sell_data});
+            }
+        })
+        connection.release();
+    });
+});
+
+
+
+/*
+* select * from banner where start_day <= str_to_date(now(),'%Y-%m-%d') and end_day > str_to_date(now(),'%Y-%m-%d') Limit 5;
+*
+* select * from user where idx = ''
+* */
 //물품추가
 router.post('/add',function (req,res,next) {
     var product=req.body.product;

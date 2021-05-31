@@ -95,18 +95,6 @@
                 @click="goMypage"
           >
         </v-img>
-
-
-          <a v-show="login">
-            <span>
-              로그인
-            </span>
-          </a>
-        <a v-show="_login">
-            <span>
-              로그아웃
-            </span>
-        </a>
       </v-row>
     </v-container>
   </v-app-bar>
