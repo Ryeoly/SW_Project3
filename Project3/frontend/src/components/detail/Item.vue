@@ -28,7 +28,7 @@
           <v-card-title><h1>{{values[0][0].product}}</h1></v-card-title>
           <br>
           <v-card-subtitle>{{values[0][0].price}}</v-card-subtitle>
-          <v-btn width="240" @click="addCart(values[0][0].idx)">장바구니에 담기</v-btn>
+          <v-btn width="240" @click="addCart(values[0][0].idx, values[0][0].price)">장바구니에 담기</v-btn>
         </v-cols>
       </v-row>
       <v-row>
@@ -82,8 +82,8 @@ export default {
     RepresentVideo(){
       this.represent = false
     },
-    addCart(data){
-      this.$http.post('/basket', {i_idx: data, u_idx: this.$store.state.useridx, amount: "1"}).then((response) => {
+    addCart(data, price){
+      this.$http.post('/basket', {i_idx: data, u_idx: this.$store.state.useridx, amount: "1", price: price}).then((response) => {
           if(response.data.success === true){
             alert("Success Add Your Item to Cart")
           }
