@@ -32,7 +32,7 @@
               v-model="month"
               :rules="[() => !!month || 'This field is required']"
               :items="months"
-              label="출생 월"
+              label="태어난 달"
               placeholder="Select..."
               style="text-align: right"
               required
@@ -302,16 +302,18 @@ export default {
         this.$refs[f].validate(true)
       })
 
-        this.$http.post('/mypage/my_info/2',{user_idx: this.u_idx,name:this.name, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2, like_genre3:this.like_genre3}).then((res)=>{
-          if(res.data.success===false){
-            console.log("error")
-          }
-          else{
-            this.saveuser(this.userdata)
-            this.dialog=true
-          }
+      this.$http.post('/mypage/my_info/2',{user_idx: this.u_idx,name:this.name, year:this.year, month:this.month, day:this.day, phone:this.phone, address:this.address, like_genre1:this.like_genre1, like_genre2:this.like_genre2, like_genre3:this.like_genre3}).then((res)=>{
+        if(res.data.success===false){
+          console.log("error")
+        }
+        else{
+          this.saveuser(this.userdata)
+          this.dialog=true
+        }
 
-        })
+      })
+
+
 
     },
 
