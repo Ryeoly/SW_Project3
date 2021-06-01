@@ -13,6 +13,10 @@ import admin from "../views/admin";
 import trend from "../components/admin/trend";
 import QnA_ans from "../components/admin/QnA_ans";
 import product_add from "../components/admin/product_add";
+import product_modify from "../components/admin/product_modify";
+import product_delete from "../components/admin/product_delete";
+import sell_list from "../components/admin/sell_list";
+import user_manage from "../components/admin/user_manage";
 
 Vue.use(VueRouter)
 
@@ -50,9 +54,13 @@ const routes = [
     path:'/admin',
     component: admin,
     children: [
+      {path:'product_modify', component: product_modify},
       {path:'trend', component:trend},
       {path:'QnA_ans', component:QnA_ans},
-      {path:'product_add', component:product_add}
+      {path:'product_add', component:product_add},
+      {path:'product_delete', component:product_delete},
+      {path:'sell_list', component:sell_list},
+      {path:'user_manage', component:user_manage},
     ]
   }
 

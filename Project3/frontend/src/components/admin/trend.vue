@@ -72,9 +72,6 @@
             })
         },
         mounted() {
-            this.renderChart(this.pieChartData, this.pieChartOptions);
-            this.renderChart(this.lineChartData, this.lineChartOptions);
-            this.renderChart(this.barChartData, this.barChartOptions);
         },
         components: {
             mdbPieChart,

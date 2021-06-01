@@ -129,5 +129,42 @@ router.post('/qnasend', function(req, res, next) {
     });
 });
 
+router.post('/user_delete', function(req, res, next) {
+    var idx=req.body.user_idx; //유저 u_idx받아오기
+
+    var sql1="delete from user where idx=?;";
+    var sql2="select * from user where administer=0;";
+
+    var user_list;
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query(sql1+sql2,[idx], function (err,result) {
+            user_list=result[1]
+            return res.send({user_list: user_list});
+        })
+        connection.release();
+    });
+
+});
+
+router.get('/user_list', function(req, res, next) {
+    var sql1="select * from user where administer=0;";
+
+    var user_list;
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query(sql1, function (err,result) {
+            if(err){
+
+            }
+            else{
+                user_list=result
+                return res.send({user_list: user_list});
+            }
+        })
+        connection.release();
+    });
+});
+
 
 module.exports = router;

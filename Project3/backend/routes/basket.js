@@ -133,6 +133,22 @@ router.get("/sendcode",function(req,res,next){
 
 });
 
+router.get('/all_list', function(req,res,next){
+    var sale_list;
+    pool.getConnection(function (err,connection) {
+        if(err) throw err;
+        connection.query("SELECT item.image1 as image, item.product as product,basket.buy_time as buy_time, basket.amount as amount, basket.total_price as total_price FROM basket,item WHERE basket.complete=1 AND item.idx=basket.i_idx order by buy_time desc;",function (err,results) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                sale_list = results;
+                return res.send({sale_list: sale_list});
+            }
+        })
+        connection.release();
+    });
+});
 
 
 module.exports = router;
