@@ -169,7 +169,8 @@ export default {
         }
         alert(msg);
         if(check==0){//결제에 성공했을때
-          this.$http.get('/basket/sendcode').then((response)=>{//결제코드 전송
+          this.user_email=this.$store.state.useremail
+          this.$http.post('/basket/sendcode',{email: this.user_email}).then((response)=>{//결제코드 전송
             if(response.data.success === false){
               console.log("error")
             }

@@ -97,7 +97,7 @@ var generateKey = function(min,max){
 }
 
 //인증코드 이메일발신
-router.get("/sendcode",function(req,res,next){
+router.post("/sendcode",function(req,res,next){
     let email =req.body.email;
     key1 =generateKey(1111,9999);
     key2 =generateKey(1111,9999);
