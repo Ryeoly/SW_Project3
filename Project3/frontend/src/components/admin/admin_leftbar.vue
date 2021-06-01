@@ -3,7 +3,7 @@
     <v-list>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+          <v-img :src="require('../../assets/icon/person.jpeg')"></v-img>
         </v-list-item-avatar>
       </v-list-item>
 
@@ -27,8 +27,7 @@
     >
       <v-list-item-group
           v-model="selectedItem"
-          color="#DCDCDC"
-          text="#000000"
+          color="secondary"
       >
         <v-list-item
             v-for="(item, i) in items"

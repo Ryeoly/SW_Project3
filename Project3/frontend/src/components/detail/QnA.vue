@@ -1,43 +1,42 @@
 <template>
-  <div style="margin-top: 30px; margin-bottom: 5%">
-    <b>Q&A Board</b>
-    <v-simple-table>
+  <div style=" margin-top: 30px; margin-bottom: 5%; shape-rendering: crispEdges">
+    <h1><b>Q&A Board</b></h1>
+    <v-simple-table style="border-color: #ffffff">
       <thead>
       <tr>
-        <th class="primary--text">
+        <th class="black--text" style="width: 10%">
           글 번호
         </th>
-        <th class="primary--text">
+        <th class="black--text" style="width: 40%">
           제목
         </th>
-        <th class="primary--text">
+        <th class="black--text" style="width: 30%">
           등록일
         </th>
-        <th class="primary--text">
+        <th class="black--text" style="width: 20%">
           작성자
         </th>
-        <th style="width: 6px">
+        <th style="width: 8px">
         </th>
       </tr>
       </thead>
     </v-simple-table>
     <v-expansion-panels>
       <v-expansion-panel
-              v-for="(board, i) in boards"
-              :key="i">
-        <v-simple-table>
-
-            <tr>
-              <v-expansion-panel-header>
-              <td>{{i}}</td>
-              <td>{{board.title}}</td>
-              <td>{{board.create_time}}</td>
-              <td>{{board.name}}</td>
-              </v-expansion-panel-header>
-            </tr>
+          v-for="(board, i) in boards"
+          :key="i">
+        <v-simple-table style="border-color: #ffffff">
+          <tr>
+            <v-expansion-panel-header>
+              <td style="width: 10%">{{i + 1}}</td>
+              <td style="width: 40%">{{board.title}}</td>
+              <td style="width: 30%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
+              <td style="width: 20%">{{board.NAME}}</td>
+            </v-expansion-panel-header>
+          </tr>
 
           <v-expansion-panel-content
-            color="#F3E2CC"
+              color="#ffffff"
           >
             <div class="title" style="margin-top: 20px; margin-bottom: 30px">
               <span>
@@ -53,24 +52,23 @@
               </span>
             </div>
             <div
-                    v-for="(_reply,i) in board.reply"
-                    :key="i"
-                    class="reply_form"
+                v-for="(_reply,i) in board.reply"
+                :key="i"
+                class="reply_form"
             >
               {{_reply.content}}
             </div>
             <div style="margin-top: 20px; width: 40%; margin-left: 30%">
               <v-textarea
-                      color="#000000"
-                      label="Message"
-                      solo
-                      background-color="#DDDDDD"
-                      flat
-                      append-icon="mdi-send"
+                  outlined
+                  rounded
+                  label="Message"
+                  solo
+                  flat
+                  append-icon="mdi-send"
               />
             </div>
           </v-expansion-panel-content>
-
         </v-simple-table>
       </v-expansion-panel>
     </v-expansion-panels>

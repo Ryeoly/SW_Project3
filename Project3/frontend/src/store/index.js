@@ -42,14 +42,6 @@ export default new Vuex.Store({
         text: 'Shop',
         href: '/shop'
       },
-      {
-        text: 'Rank',
-        href: '/Rank'
-      },
-      {
-        text: 'Community',
-        href: '/Community'
-      },
     ],
     genres: [
       {text: 'ALL'},
@@ -87,7 +79,7 @@ export default new Vuex.Store({
 
       return categories
     },*/
-    links: (state/*, getters*/) => {
+    bar_link: (state/*, getters*/) => {
       return state.items/*.concat(getters.categories)*/
     },
     genres: (state) => {

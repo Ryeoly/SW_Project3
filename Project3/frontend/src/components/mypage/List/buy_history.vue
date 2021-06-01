@@ -3,19 +3,19 @@
         <v-simple-table class="card" >
             <thead>
             <tr style="height: 40px">
-                <th class="primary--text">
+                <th class="secondary--text">
                     제품 사진
                 </th>
-                <th class="primary--text">
+                <th class="secondary--text">
                     제품명
                 </th>
-                <th class="primary--text">
+                <th class="secondary--text">
                     구매 일자
                 </th>
-                <th class="primary--text">
+                <th class="secondary--text">
                     주문금액(수량)
                 </th>
-                <th class="primary--text">
+                <th class="secondary--text">
                     Review
                 </th>
             </tr>
@@ -44,7 +44,7 @@
                         >
                             <template v-slot:activator="{ on, attrs }">
                                 <v-btn
-                                        color="primary"
+                                        color="secondary"
                                         dark
                                         v-bind="attrs"
                                         v-on="on"
@@ -82,14 +82,14 @@
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn
-                                            color="blue darken-1"
+                                            color="secondary"
                                             text
                                             @click="dialog = false"
                                     >
                                         Close
                                     </v-btn>
                                     <v-btn
-                                            color="blue darken-1"
+                                            color="secondary"
                                             text
                                             @click="write_review"
                                     >
@@ -102,9 +102,6 @@
                 </tr>
             </tbody>
         </v-simple-table>
-        <div class="graph">
-
-        </div>
     </div>
 
 </template>
@@ -160,8 +157,5 @@
     }
     .card{
         grid-area : 10/2/70/98;
-    }
-    .graph{
-        grid-area : 72/2/100/100;
     }
 </style>

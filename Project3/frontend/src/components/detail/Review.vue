@@ -1,22 +1,22 @@
 <template>
-  <div style="margin-bottom: 5%">
-    <b>Review Board</b>
+  <div style=" margin-top: 30px; margin-bottom: 5%; shape-rendering: crispEdges">
+    <h1><b>Review Board</b></h1>
     <v-simple-table>
       <thead>
       <tr>
-        <th class="primary--text">
+        <th class="black--text" style="width: 10%">
           글 번호
         </th>
-        <th class="primary--text">
+        <th class="black--text" style="width: 40%">
           제목
         </th>
-        <th class="primary--text">
+        <th class="black--text" style="width: 30%">
           등록일
         </th>
-        <th class="primary--text">
+        <th class="black--text" style="width: 20%">
           작성자
         </th>
-        <th style="width: 6px">
+        <th style="width: 8px">
         </th>
       </tr>
       </thead>
@@ -29,15 +29,15 @@
 
           <tr>
             <v-expansion-panel-header>
-              <td>{{i}}</td>
-              <td>{{board.title}}</td>
-              <td>{{board.create_time}}</td>
-              <td>{{board.name}}</td>
+              <td style="width: 10%">{{i + 1}}</td>
+              <td style="width: 40%">{{board.title}}</td>
+              <td style="width: 30%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
+              <td style="width: 20%">{{board.NAME}}</td>
             </v-expansion-panel-header>
           </tr>
 
           <v-expansion-panel-content
-                  color="#F3E2CC"
+                  color="#ffffff"
           >
             <div class="title" style="margin-top: 20px; margin-bottom: 30px">
               <v-row>
@@ -46,15 +46,13 @@
               </span>
                 <v-spacer/>
                 <v-rating
+                        readonly
                         v-model="rating"
-                        background-color="indigo lighten-3"
-                        color="indigo"
-                        size="large"
+                        color="warning"
+                        dense
                         half-increments
                 ></v-rating>
               </v-row>
-
-
             </div>
             <div style="text-align: center; height: 150px">
               {{board.content}}

@@ -32,8 +32,8 @@
                   >
                   </v-img>
                 </v-hover>
-                <v-card-title>{{gamedata.product}}</v-card-title>
-                <v-card-subtitle>{{gamedata.price}}</v-card-subtitle>
+                <v-card-title style="text-align: right">{{gamedata.product}}</v-card-title>
+                <v-card-subtitle style="text-align: right"><h5>{{gamedata.price}}₩</h5></v-card-subtitle>
               </v-card>
             </v-item>
           </v-col>

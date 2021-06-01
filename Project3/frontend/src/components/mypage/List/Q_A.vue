@@ -3,39 +3,35 @@
     <v-card class="table">
         <v-toolbar
                 flat
-                color="primary"
+                color="background"
                 dark
         >
             <v-toolbar-title>문의 모음</v-toolbar-title>
         </v-toolbar>
         <v-tabs vertical>
             <v-tab>
-                <v-icon left>
+                <v-icon left color="secondary">
                     mdi-check-bold
                 </v-icon>
-                처리된 Q&A
+              <b>처리된 Q&A</b>
             </v-tab>
             <v-tab>
-                <v-icon left>
+                <v-icon left color="secondary">
                     mdi-help
                 </v-icon>
-                미처리 Q&A
+              <b>미처리 Q&A</b>
             </v-tab>
-
             <v-tab-item>
-
-
-
-                <v-simple-table class="card">
+                <v-simple-table class="card" style="border-width: medium">
                     <thead>
                     <tr>
-                        <th class="primary--text" style="width: 7%">
+                        <th style="width: 10%">
                             번호
                         </th>
-                        <th class="primary--text" style="width: 30%">
+                        <th style="width: 30%">
                             제목
                         </th>
-                        <th class="primary--text" style="width: 63%">
+                        <th style="width: 60%">
                             등록일
                         </th>
                         <th style="width: 6px">
@@ -48,18 +44,19 @@
                     <v-expansion-panel
                             v-for="(board, i) in treat"
                             :key="i">
-                        <v-simple-table>
+                        <v-simple-table style="border-width: medium; border-color: black">
 
                             <tr>
                                 <v-expansion-panel-header>
-                                    <td style="width: 7%">{{i}}</td>
+                                    <td style="width: 7%">{{i + 1}}</td>
                                     <td style="width: 30%">{{board.title}}</td>
                                     <td style="width: 63%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                 </v-expansion-panel-header>
                             </tr>
 
                             <v-expansion-panel-content
-                                    color="#F3E2CC"
+                                    style="border-width: medium"
+
                             >
                                 <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
@@ -84,26 +81,19 @@
                         </v-simple-table>
                     </v-expansion-panel>
                 </v-expansion-panels>
-
-
-
-
-
             </v-tab-item>
 
             <v-tab-item>
-
-
-                <v-simple-table class="card">
+                <v-simple-table class="card" style="border-width: medium">
                     <thead>
                     <tr>
-                        <th class="primary--text"  style="width: 7%">
+                        <th style="width: 10%">
                             번호
                         </th>
-                        <th class="primary--text"  style="width: 30%">
+                        <th style="width: 30%">
                             제목
                         </th>
-                        <th class="primary--text"  style="width: 63%">
+                        <th style="width: 60%">
                             등록일
                         </th>
                         <th style="width: 6px">
@@ -116,18 +106,18 @@
                     <v-expansion-panel
                             v-for="(board, i) in untreat"
                             :key="i">
-                        <v-simple-table>
+                        <v-simple-table style="border-width: medium; border-color: black">
 
                             <tr>
                                 <v-expansion-panel-header>
-                                    <td  style="width: 7%">{{i}}</td>
+                                    <td  style="width: 7%">{{i + 1}}</td>
                                     <td  style="width: 30%">{{board.title}}</td>
                                     <td  style="width: 63%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                 </v-expansion-panel-header>
                             </tr>
 
                             <v-expansion-panel-content
-                                    color="#F3E2CC"
+                                style="border-width: medium"
                             >
                                 <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
@@ -149,9 +139,13 @@
         </v-tabs>
     </v-card>
         <v-card class="message">
-            <base-heading class="mb-5">
-                Q&A 문의하기
-            </base-heading>
+          <v-toolbar
+              flat
+              color="background"
+              dark
+          >
+            <v-toolbar-title>Q&A 문의하기</v-toolbar-title>
+          </v-toolbar>
             <v-text-field
                     color="info"
                     v-model="email"
@@ -169,12 +163,16 @@
             ></v-autocomplete>
           <v-textarea
               v-model="title"
+              outlined
+              rounded
               solo
               name="title"
               label="Q&A 제목"
               style="margin-right:10%; margin-left: 10% "
           ></v-textarea>
             <v-textarea
+                outlined
+                rounded
                     v-model="content"
                     solo
                     name="content"
@@ -184,10 +182,9 @@
             <v-row>
                 <v-spacer></v-spacer>
                 <v-spacer></v-spacer>
-                <v-btn
+                <v-btn color="secondary"
                 @click="qnasend">Send</v-btn>
             </v-row>
-
         </v-card>
     </div>
 </template>
@@ -254,10 +251,9 @@
         grid-template-rows: repeat(100, 1fr);
     }
     .table{
-        grid-area : 10/5/100/60;
+        grid-area : 10/2/70/60;
     }
     .message{
-        grid-area: 10/65/100/95;
-        background-color: #5c6bc0;
+        grid-area: 10/65/70/98;
     }
 </style>

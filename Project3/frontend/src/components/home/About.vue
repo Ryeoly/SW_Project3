@@ -2,9 +2,11 @@
   <v-container
     id="about"
     tag="section"
+    class="white--text"
   >
-    <base-subheading>About Us</base-subheading>
+    <base-subheading><h1>About Us</h1></base-subheading>
 
+    <br>
     <p>
       Yunchoko store is an online shopping mall that sells various
       genres of Steam games. It is user-friendly and introduces and

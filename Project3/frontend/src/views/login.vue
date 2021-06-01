@@ -1,9 +1,9 @@
 <template>
     <div class="base">
         <div class="login_form">
-        <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
-                <v-toolbar-title>Login form</v-toolbar-title>
+        <v-card class="elevation-12" color="white">
+            <v-toolbar dark color="background">
+                <v-toolbar-title class="white--text">Login Form</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
                 <v-form>
@@ -12,12 +12,14 @@
                             v-model="email"
                             label="Email을 입력해주세요"
                             type="text"
+                            class="darken-3 lime--text"
                     ></v-text-field>
                     <v-text-field
                             prepend-icon="mdi-lock"
                             v-model="password"
                             label="패스워드를 입력해주세요"
                             type="password"
+                            class="darken-3 lime--text"
                     ></v-text-field>
                   <span v-if="this.fail"
                   color="red">Login Failed!</span>
@@ -30,8 +32,8 @@
                     <a style="margin-left: 3px">비밀번호</a>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" to="/sign_up">회원가입</v-btn>
-                <v-btn color="primary" @click="click">Login</v-btn>
+                <v-btn color="secondary" to="/sign_up">회원가입</v-btn>
+                <v-btn color="secondary" @click="click">Login</v-btn>
             </v-card-actions>
         </v-card>
         </div>

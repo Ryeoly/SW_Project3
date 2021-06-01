@@ -1,37 +1,40 @@
 <template>
-    <v-card style="margin-left: 10%; margin-right: 10%; margin-top: 5%; margin-bottom: 5%">
+    <v-card tile style="margin-top: 5%; margin-bottom: 5%">
       <v-container>
-      <v-row>
-        <v-cols cols="6">
-          <v-img
-              v-if="represent"
-              :src="require(`@/assets/game_img/${values[0][0].image1}`)"
-              width="460"
-              height="215"
-          />
-          <video
-              v-else
-              autoplay
-              :src="require(`@/assets/game_video/${values[0][0].video1}`)"
-              width="460"
-              height="215"
-          />
-        </v-cols>
-        <v-col cols="3" />
-        <v-cols cols="6">
-          <v-rating
-              readonly
-              v-model="rating"
-              color="warning"
-              icon-label="custom icon label text {0} of {1}"
-          ></v-rating>
-          <v-card-title><h1>{{values[0][0].product}}</h1></v-card-title>
-          <br>
-          <v-card-subtitle>{{values[0][0].price}}</v-card-subtitle>
-          <v-btn width="240" @click="addCart(values[0][0].idx, values[0][0].price)">장바구니에 담기</v-btn>
-        </v-cols>
-      </v-row>
-      <v-row>
+        <v-row>
+          <v-cols cols="6">
+            <v-img
+                v-if="represent"
+                :src="require(`@/assets/game_img/${values[0][0].image1}`)"
+                width="460"
+                height="215"
+                style="align-content: center"
+            />
+            <video
+                v-else
+                autoplay
+                :src="require(`@/assets/game_video/${values[0][0].video1}`)"
+                width="460"
+                height="215"
+                style="align-content: center"
+            />
+          </v-cols>
+          <v-col cols="3" />
+          <v-cols cols="6">
+            <v-rating
+                readonly
+                v-model="rating"
+                color="warning"
+                icon-label="custom icon label text {0} of {1}"
+                half-increments
+            >{{rating}}/5.0</v-rating>
+            <v-card-title style="text-align: right"><h1>{{values[0][0].product}}</h1></v-card-title>
+            <br>
+            <v-card-subtitle style="text-align: right"><h2>{{values[0][0].price}}₩</h2></v-card-subtitle>
+            <v-btn style="alignment: center" width="400" @click="addCart(values[0][0].idx, values[0][0].price)" color="background" class="white--text">장바구니에 담기</v-btn>
+          </v-cols>
+        </v-row>
+        <v-row>
           <v-img
               :src="require(`@/assets/game_img/${values[0][0].image1}`)"
               max-width="90"
@@ -44,7 +47,7 @@
               height="50"
               @click="RepresentVideo"
           />
-      </v-row>
+        </v-row>
       </v-container>
     </v-card>
 </template>

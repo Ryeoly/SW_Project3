@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <a>1111</a>
-
-        <div style="margin-left: 10%;">
+    <div class="base">
+        <div class="card1">
             <h1>장르별 판매량</h1>
             <mdb-container >
                 <mdb-pie-chart
@@ -15,8 +13,7 @@
                 />
             </mdb-container>
         </div>
-        <v-divider /><br><br>
-        <div style="margin-left: 10%;">
+        <div class="card2">
             <h1>월간 판매량</h1>
             <mdb-container>
                 <mdb-bar-chart
@@ -28,8 +25,7 @@
                 ></mdb-bar-chart>
             </mdb-container>
         </div>
-        <v-divider /><br><br>
-        <div style="margin-left: 10%;">
+        <div class="card3">
             <h1>누적 판매액</h1>
             <mdb-container>
                 <mdb-line-chart
@@ -45,20 +41,14 @@
 </template>
 
 <script>
-    // import { mdbPieChart,mdbBarChart,mdbLineChart,mdbContainer } from "mdbvue";
+    import { mdbPieChart,mdbBarChart,mdbLineChart,mdbContainer } from "mdbvue";
     export default {
         name: "trend.vue",
-        created() {
-            this.pieChartData.datasets.data = this.value[0]
-            this.lineChartData.datasets.data = this.value[2]
-            this.barChartData.datasets.data = this.value[1]
-        }
-        ,
         components: {
-            // mdbPieChart,
-            // mdbBarChart,
-            // mdbLineChart,
-            // mdbContainer
+            mdbPieChart,
+            mdbBarChart,
+            mdbLineChart,
+            mdbContainer
         },
 
         props: {
@@ -74,7 +64,7 @@
                     labels: ['Action','Arcade','FPS','Role Play','RPG','Simulation','Video Game'],
                     datasets: [
                         {
-                            data:[],
+                            data:this.value[0],
                             backgroundColor: [
                                 "rgba(255,99,132,1)",
                                 "rgba(54, 162, 235, 1)",
@@ -130,7 +120,7 @@
                             backgroundColor: "rgba(255, 99, 132, 0.1)",
                             borderColor: "rgba(255, 99, 132, 1)",
                             borderWidth: 0.7,
-                            data: [],
+                            data: this.value[2],
                         },
                     ]
                 },
@@ -168,7 +158,7 @@
                     datasets: [
                         {
                             label: "월간 판매량",
-                            data: [],
+                            data: this.value[1],
                             backgroundColor: [
                                 "rgba(255, 99, 132, 0.2)",
                                 "rgba(54, 162, 235, 0.2)",
@@ -218,5 +208,25 @@
 </script>
 
 <style scoped>
-
+.v-sheet--offset {
+  top: -24px;
+  position: relative;
+}
+.base{
+  display: grid;
+  grid-template-columns: repeat(100, 1fr);
+  grid-template-rows: repeat(100, 1fr);
+}
+.card1{
+  grid-area : 5/5/30/50;
+}
+.card2{
+  grid-area : 5/55/30/100;
+}
+.card3{
+  grid-area : 35/5/60/50;
+}
+.card4{
+  grid-area : 55/55/100/100;
+}
 </style>

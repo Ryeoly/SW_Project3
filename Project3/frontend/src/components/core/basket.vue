@@ -2,18 +2,18 @@
     <v-card>
       <v-toolbar
           dark
-          color="primary"
+          color="background"
       >
         <v-btn
             icon
             dark
             @click="changeDialog"
         >
-          <v-icon>mdi-close</v-icon>
+          <v-icon color="#ffffff">mdi-close</v-icon>
         </v-btn>
 
 
-        <v-toolbar-title class="flex text-center">
+        <v-toolbar-title class="white--text flex text-center">
           Cart
         </v-toolbar-title>
       </v-toolbar>
@@ -24,19 +24,19 @@
           <th>
             선택
           </th>
-          <th class="primary--text">
+          <th class="black--text">
             제품 사진
           </th>
-          <th class="primary--text">
+          <th class="black--text">
             제품명
           </th>
-          <th class="primary--text">
+          <th class="black--text">
             수량
           </th>
-          <th class="primary--text">
+          <th class="black--text">
             주문금액
           </th>
-          <th>
+          <th class="black--text">
             주문관리
           </th>
         </tr>
@@ -50,7 +50,7 @@
           <td>
             <v-checkbox
                 v-model="selected"
-                :value="i"
+                :value="[i,item.idx,item.product]"
             ></v-checkbox>
           </td>
           <td>
@@ -69,7 +69,7 @@
                 title="Minus Amount"
                 @click="amountDown(i)"
             >
-              <v-icon>mdi-chevron-left</v-icon>
+              <v-icon>mdi-minus</v-icon>
             </base-btn>
             {{ item.amount }}
             <base-btn
@@ -78,12 +78,12 @@
                 title="Plus Amount"
                 @click="amountUp(i)"
             >
-              <v-icon>mdi-chevron-right</v-icon>
+              <v-icon>mdi-plus</v-icon>
             </base-btn>
           </td>
           <td>{{ item.total_price }}</td>
           <td>
-            <v-btn @click="deleteitem(i)">삭제하기</v-btn>
+            <v-btn @click="deleteitem(i)" color="secondary" class="white--text">삭제하기</v-btn>
           </td>
         </tr>
         <tr>
@@ -98,8 +98,7 @@
       </v-simple-table>
       <div style="margin-top: 30px"></div>
       <div style="text-align: center">
-        <v-btn @click="requestPay">결제하기</v-btn>
-        <div>{{selected}}</div>
+        <v-btn @click="requestPay" color="secondary" class="white--text">결제하기</v-btn>
       </div>
     </v-card>
 </template>
@@ -127,8 +126,8 @@ export default {
   computed: {
     sum() {
       var result = 0;
-      for(let i = 0;i < this.value.length; i++ ) {
-        result += this.value[i].total_price
+      for(let i = 0;i < this.selected.length; i++ ) {
+        result += this.value[this.selected[i][0]].total_price
       }
       return result
     }
@@ -218,8 +217,6 @@ export default {
     },
   }
 }
-
-
 </script>
 
 <style scoped>

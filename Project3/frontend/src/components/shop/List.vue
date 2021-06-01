@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-container>
+    <v-container >
       <v-row>
         <v-col
             calss="d-flex"
             sm="3"
         >
-          <span><h3>Shop/{{value}}</h3></span>
+          <span><h1>Shop/{{value}}</h1></span>
         </v-col>
         <v-col calss="d-flex"
                sm="6"></v-col>
@@ -15,9 +15,10 @@
             sm="3"
         >
           <v-select
+              color="primary"
               :items="lists"
               v-model="selected"
-              label="Solo field"
+              label="Best Sale"
               dense
               solo
               return-object
