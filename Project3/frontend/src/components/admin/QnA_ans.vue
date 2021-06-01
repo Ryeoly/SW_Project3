@@ -4,41 +4,38 @@
         <v-card class="table">
             <v-toolbar
                     flat
-                    color="primary"
+                    color="background"
                     dark
             >
                 <v-toolbar-title>Q&A 모음</v-toolbar-title>
             </v-toolbar>
             <v-tabs vertical>
                 <v-tab>
-                    <v-icon left>
+                    <v-icon left color="secondary">
                         mdi-check-bold
                     </v-icon>
-                    처리된 Q&A
+                  <b>처리된 Q&A</b>
                 </v-tab>
                 <v-tab>
-                    <v-icon left>
+                    <v-icon left color="secondary">
                         mdi-help
                     </v-icon>
-                    미처리 Q&A
+                  <b>미처리 Q&A</b>
                 </v-tab>
-
-
                 <v-tab-item>
-
                         <v-simple-table>
                             <thead>
                             <tr>
-                                <th class="primary--text">
+                                <th style="width: 10%">
                                     글 번호
                                 </th>
-                                <th class="primary--text">
+                                <th style="width: 30%">
                                     제목
                                 </th>
-                                <th class="primary--text">
+                                <th style="width: 40%">
                                     등록일
                                 </th>
-                                <th class="primary--text">
+                                <th style="width: 20%">
                                     작성자
                                 </th>
                                 <th style="width: 6px">
@@ -55,7 +52,7 @@
 
                                     <tr>
                                         <v-expansion-panel-header>
-                                            <td>{{i}}</td>
+                                            <td>{{i + 1}}</td>
                                             <td>{{board.title}}</td>
                                             <td>{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                             <td>{{board.name}}</td>
@@ -63,7 +60,7 @@
                                     </tr>
 
                                     <v-expansion-panel-content
-                                            color="#F3E2CC"
+                                            color="primary"
                                     >
                                         <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
@@ -90,22 +87,20 @@
 
                 </v-tab-item>
 
-
-
                 <v-tab-item>
                     <v-simple-table>
                         <thead>
                         <tr>
-                            <th class="primary--text">
+                            <th style="width: 10%">
                                 글 번호
                             </th>
-                            <th class="primary--text">
+                            <th style="width: 30%">
                                 제목
                             </th>
-                            <th class="primary--text">
+                            <th style="width: 40%">
                                 등록일
                             </th>
-                            <th class="primary--text">
+                            <th style="width: 20%">
                                 작성자
                             </th>
                             <th style="width: 6px">
@@ -122,7 +117,7 @@
 
                                 <tr>
                                     <v-expansion-panel-header>
-                                        <td>{{i}}</td>
+                                        <td>{{i + 1}}</td>
                                         <td>{{board.title}}</td>
                                         <td>{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
                                         <td>{{board.name}}</td>
@@ -130,7 +125,7 @@
                                 </tr>
 
                                 <v-expansion-panel-content
-                                        color="#F3E2CC"
+                                        color="primary"
                                 >
                                     <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
@@ -148,7 +143,7 @@
                                                     color="#000000"
                                                     label="Message"
                                                     solo
-                                                    background-color="#DDDDDD"
+                                                    background-color="#ffffff"
                                                     flat
                                                     append-icon="mdi-send"
                                                     @click:append="send(board.idx,board.itemidx)"
@@ -225,20 +220,12 @@
         grid-template-rows: repeat(100, 1fr);
     }
     .table1{
-        grid-area : 10/10/90/90;
+      grid-area : 10/2/70/98;
     }
     .title {
         border-top: 1px solid;
         border-bottom: 1px solid;
         padding: .5rem .75rem;
         font-size: 1.2rem;
-    }
-    .reply_form {
-        position: relative;
-        margin: -1px 0;
-        padding: 11px 11px 10px 88px;
-        border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-        transition: background .5s;
     }
 </style>

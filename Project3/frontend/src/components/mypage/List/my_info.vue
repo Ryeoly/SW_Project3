@@ -1,6 +1,13 @@
 <template>
   <div class="base">
     <v-card ref="form" class="card22">
+      <v-toolbar
+          flat
+          color="background"
+          dark
+      >
+        <v-toolbar-title>내 정보 수정</v-toolbar-title>
+      </v-toolbar>
       <v-card-text>
 
         <v-text-field
@@ -135,11 +142,10 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-                color="primary"
                 text
                 @click="submit"
                 v-bind="attrs"
-
+                color="secondary"
             >
               수정하기
             </v-btn>
@@ -334,6 +340,6 @@ export default {
   grid-template-rows: repeat(100, 1fr);
 }
 .card22{
-  grid-area : 10/10/90/90;
+  grid-area : 10/2/70/98;
 }
 </style>

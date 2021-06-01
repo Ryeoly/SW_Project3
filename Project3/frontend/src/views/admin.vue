@@ -13,23 +13,9 @@
     export default {
         name: "admin.vue",
 
-        // created(){
-        //   this.u_idx=this.$store.state.adminidx
-        //   this.$http.post('/mypage',{u_idx: this.u_idx}).then((res)=>{
-        //     if(res.data.success===false){
-        //       console.log("error")
-        //     }
-        //     else{
-        //       this.user_info=res.data.user_info
-        //     }
-        //   })
-        // },
-
         components: {
             // eslint-disable-next-line vue/no-unused-components
             admin_left: () =>import('@/components/admin/admin_leftbar'),
-            // eslint-disable-next-line vue/no-unused-components
-            test: () =>import('@/components/mypage/test')
         },
     }
 </script>

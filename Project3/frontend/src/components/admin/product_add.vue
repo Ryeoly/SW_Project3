@@ -1,6 +1,13 @@
 <template>
-<div class="base" style="background-color: #9fa8da">
+<div class="base">
     <v-card ref="form" class="table">
+      <v-toolbar
+          flat
+          color="background"
+          dark
+      >
+        <v-toolbar-title>물품 등록</v-toolbar-title>
+      </v-toolbar>
         <v-card-text>
             <v-text-field
                     ref="Product"
@@ -187,7 +194,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
             <v-btn
-                    color="primary"
+                    color="secondary"
                     text
                     @click="submit"
                     v-bind="attrs"
@@ -209,7 +216,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
-                    color="primary"
+                    color="secondary"
                     text
                     @click="confirm"
                 >
@@ -339,6 +346,6 @@
         grid-template-rows: repeat(100, 1fr);
     }
     .table{
-        grid-area : 5/10/90/90;
+      grid-area : 10/2/70/98;
     }
 </style>

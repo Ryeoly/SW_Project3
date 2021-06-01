@@ -14,8 +14,6 @@
 </template>
 
 <script>
-  //import {mapState} from "vuex";
-
   export default {
     name: 'Shop',
     created () {
@@ -25,7 +23,6 @@
     },
 
     components: {
-      //Suggest: () => import('../components/shop/Suggest'),
       List: () => import('../components/shop/List'),
       Genre: () => import('../components/shop/Genre'),
       Product: () => import('../components/shop/Product'),

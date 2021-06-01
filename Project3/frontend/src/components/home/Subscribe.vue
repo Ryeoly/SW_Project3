@@ -13,95 +13,58 @@
             cols="12"
             md="5"
           >
-            <!--<base-subheading class="mb-3">
-              Subscribe
-            </base-subheading>
-
-            <p>
-              Enter your email address to subscribe to this blog
-              and receive notifications of new posts by email.
-            </p>
-
-            <v-row class="pa-2">
-              <v-responsive
-                class="overflow-visible mr-2"
-                max-width="400"
-              >
-                <v-text-field
-                  hide-details
-                  label="Your Email Address"
-                  solo
-                />
-              </v-responsive>
-
-              <v-btn
-                :block="$vuetify.breakpoint.xsOnly"
-                class="ma-0"
-                color="secondary"
-                style="height: 48px"
-              >
-                Subscribe
-              </v-btn>
-            </v-row>
-          </v-col>
-
-          <v-col
-            cols="12"
-            md="6"
-            offset-md="1"
-          >-->
-            <base-subheading>Contact</base-subheading>
+            <base-subheading class="white--text"><h1>Contact</h1></base-subheading>
 
             <v-list class="transparent">
               <v-list-item>
                 <v-list-item-avatar
-                  color="primary"
+                  color="secondary"
                 >
                   <v-icon
                     class="elevation-4"
-                    dark
+                    light
                   >
                     mdi-email-outline
                   </v-icon>
                 </v-list-item-avatar>
 
-                <v-list-item-title>EMAIL</v-list-item-title>
+                <v-list-item-title class="white--text">EMAIL</v-list-item-title>
 
-                <v-list-item-subtitle>
+                <v-list-item-subtitle class="white--text">
                   Yunchoko@gmail.com
                 </v-list-item-subtitle>
               </v-list-item>
 
               <v-list-item>
-                <v-list-item-avatar color="primary">
+                <v-list-item-avatar color="secondary">
                   <v-icon
                     class="elevation-4"
-                    dark
+                    light
                   >
                     mdi-map-marker
                   </v-icon>
                 </v-list-item-avatar>
 
-                <v-list-item-title>ADDRESS</v-list-item-title>
+                <v-list-item-title class="white--text">ADDRESS</v-list-item-title>
 
-                <v-list-item-subtitle>
+                <v-list-item-subtitle class="white--text">
                   서울시 광운로 20길
                 </v-list-item-subtitle>
               </v-list-item>
 
               <v-list-item>
-                <v-list-item-avatar color="primary">
+                <v-list-item-avatar color="secondary">
                   <v-icon
                     class="elevation-4"
-                    dark
+                    light
                   >
                     mdi-phone
                   </v-icon>
                 </v-list-item-avatar>
 
-                <v-list-item-title>PHONE</v-list-item-title>
+                <v-list-item-title class="white--text">PHONE</v-list-item-title>
 
-                <v-list-item-subtitle>
+                <v-list-item-subtitle class="white--text">
                   010-1111-1111
                 </v-list-item-subtitle>
               </v-list-item>

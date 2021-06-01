@@ -1,5 +1,5 @@
 <template>
-  <div id="detail" class="detailbase">
+  <div id="detail" class="detailbase" >
     <div class="itemcontent">
       <item :values="[item,count_star]" />
     </div>
@@ -10,7 +10,7 @@
             <item-detail :value="item"/>
           </v-col>
           <v-divider vertical/>
-          <v-col cols="2">
+          <v-col cols="3">
             <h3>Relative Video</h3>
             <br><br>
             <div>
@@ -159,8 +159,8 @@ export default {
     grid-template-columns: repeat(100, 1fr);
   }
   .itemcontent{
-    grid-column-start : 10;
-    grid-column-end: 90;
+    grid-column-start: 10;
+    grid-column-end: 91;
   }
   .maincontent{
     grid-column-start : 10;
@@ -171,11 +171,11 @@ export default {
     grid-column-end: 90;
   }
   .rev {
-    grid-column-start : 20;
-    grid-column-end: 80;
+    grid-column-start : 15;
+    grid-column-end: 85;
   }
   .q {
-    grid-column-start : 20;
-    grid-column-end: 80;
+    grid-column-start : 15;
+    grid-column-end: 85;
   }
 </style>

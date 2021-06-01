@@ -2,6 +2,7 @@
   <v-app-bar
     app
     flat
+    color="background"
   >
     <v-app-bar-nav-icon
       class="hidden-md-and-up"
@@ -21,11 +22,12 @@
         />
 
         <v-btn
-          v-for="(link, i) in links"
+          v-for="(link, i) in bar_link"
           :key="i"
           v-bind="link"
           class="hidden-sm-and-down"
           text
+          color="#ffffff"
           @click="onClick($event, link)"
         >
           {{ link.text }}
@@ -44,14 +46,23 @@
                   hide-details
                   append-icon="mdi-magnify"
                   chips
+                  hint="Search..."
                   @click:append="go_search()"
                   solo-inverted
-                  style="max-width: 300px;"
+                  style="background-color: #ffffff; max-width: 300px;"
           >
           </v-autocomplete>
 
-        <v-btn v-if="islogin" href="/login">Login</v-btn>
-        <v-btn v-else @click="logout_user">Logout</v-btn>
+        <v-btn v-if="islogin"
+               href="/login"
+               class="hidden-sm-and-down"
+               text
+               color="#ffffff">Login</v-btn>
+        <v-btn v-else
+               @click="logout_user"
+               class="hidden-sm-and-down"
+               text
+               color="#ffffff">Logout</v-btn>
 
         <v-dialog
             v-model="dialog"
@@ -60,20 +71,14 @@
             transition="dialog-top-transition"
         >
           <template v-slot:activator="{ attrs }">
-            <v-img
-                :src="require('../../assets/icon/shopping-cart.png')"
-                class="text-right"
-                contain
-                height="35"
-                width="35"
-                max-width="48"
-                permanent
-                color="primary"
-                dark
+            <v-btn
+                class="hidden-sm-and-down"
+                color="#ffffff"
+                text
                 v-bind="attrs"
                 @click="basketCheck"
-            >
-            </v-img>
+            >Cart
+            </v-btn>
           </template>
           <basket :value="buy_items"
                   @update="updateDialog"
@@ -83,18 +88,14 @@
           />
         </v-dialog>
 
-
-        <v-img
-                :src="require('../../assets/icon/profile.png')"
-                class="text-right"
-                contain
-                height="35"
-                width="35"
-                max-width="48"
-                permanent
+        <v-btn
+                class="hidden-sm-and-down"
+                color="#ffffff"
+                text
                 @click="goMypage"
           >
-        </v-img>
+          My Page
+        </v-btn>
       </v-row>
     </v-container>
   </v-app-bar>
@@ -139,7 +140,7 @@
       product:""
       }),
     computed: {
-      ...mapGetters(['links']),
+      ...mapGetters(['bar_link']),
       ...mapGetters(['return_islogin']),
       buy_items() {
         return this.$store.state.baskets
