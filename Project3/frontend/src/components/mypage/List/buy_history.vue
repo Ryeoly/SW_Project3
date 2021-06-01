@@ -35,7 +35,7 @@
                     </td>
                     <td>{{ item.product }}</td>
                     <td>{{$moment(item.buytime).format('YYYY-MM-DD')}}</td>
-                    <td>{{ item.price}}({{ item.amount}})</td>
+                    <td>{{ item.total_price}}({{ item.amount}})</td>
                     <td>
                         <v-dialog
                                 v-model="dialog"

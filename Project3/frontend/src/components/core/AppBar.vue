@@ -238,7 +238,7 @@
           }
         },
         logout_user(){
-          this.saveidx("1")
+          localStorage.clear()
           location.href = '/home'
         }
     },
