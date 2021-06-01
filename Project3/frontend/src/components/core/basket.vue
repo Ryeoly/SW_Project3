@@ -50,7 +50,7 @@
           <td>
             <v-checkbox
                 v-model="selected"
-                :value="[i,item.idx,item.product]"
+                :value="[i,item.basketidx,item.product]"
             ></v-checkbox>
           </td>
           <td>
@@ -114,6 +114,7 @@ export default {
   data:()=>({
     selected:[],
     impCode : '',
+    names:"",
   }),
 
   props: {
@@ -135,6 +136,10 @@ export default {
 
   methods: {
     requestPay: function(){
+      for(let i = 0;i < this.selected.length; i++ ){
+        this.names+=this.selected[i][2];
+      }
+
       //1. 객체 초기화 (가맹점 식별코드 삽입)
       const IMP = window.IMP;
       IMP.init('imp49200152');
@@ -143,7 +148,7 @@ export default {
         pg : 'inicis',
         pay_method : 'card',
         merchant_uid : 'merchant_' + new Date().getTime(),
-        name : 'games',
+        name : this.names,
         amount : this.sum,
         buyer_tel : '010-1234-5678',
       }, function(rsp) {
@@ -168,16 +173,27 @@ export default {
         }
         alert(msg);
         if(check==0){//결제에 성공했을때
-          this.$http.get('/basket/sendcode').then((response)=>{//결제코드 전송
+          this.user_email=this.$store.state.useremail
+          this.$http.post('/basket/sendcode',{email: this.user_email, names: this.selected}).then((response)=>{//결제코드 전송
             if(response.data.success === false){
               console.log("error")
             }
             else{
               console.log("success")
             }
-          })
-          //여기다가 바스켓 테이블에 산물건들 complete를 1로 바꿔줘야함
+          }),
+              //여기다가 바스켓 테이블에 산물건들 complete를 1로 바꿔줘야함
+              this.$http.post('/basket/updateidx',{updateidxs: this.selected}).then((response)=>{//결제코드 전송
+                if(response.data.success === false){
+                  console.log("error")
+                }
+                else{
+                  console.log("success")
+                }
+              })
           //그리고 홈페이지로 이동
+          this.$router.push('/home')
+
 
 
         }

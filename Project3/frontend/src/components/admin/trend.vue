@@ -37,6 +37,7 @@
                 }
             })
         },
+
       components: {
         TrendChart: () => import('./trendChart'),
       }
