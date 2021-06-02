@@ -23,6 +23,8 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7. 마이 페이지
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8. 관리자 페이지
+
 TEAM
 ===
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팀장
@@ -38,13 +40,14 @@ TEAM
 
 
 
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How to build
-1. frontend
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How to build?
+---
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. frontend
 ```
 $ npm run build
 ```
-2. backend
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. backend
 ```
 $ npm start
 ```
