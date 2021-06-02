@@ -48,12 +48,17 @@ How to build?
 ===
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. frontend
-
+> ```
+> $ npm install
+> ```
 > ```
 > $ npm run build
 > ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. backend
+> ```
+> $ npm install
+> ```
 > ```
 > $ npm start
 > ```
