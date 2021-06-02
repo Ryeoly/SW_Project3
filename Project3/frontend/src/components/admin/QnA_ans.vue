@@ -52,16 +52,14 @@
 
                                     <tr>
                                         <v-expansion-panel-header>
-                                            <td>{{i + 1}}</td>
-                                            <td>{{board.title}}</td>
-                                            <td>{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
-                                            <td>{{board.name}}</td>
+                                            <td style="width: 10%">{{i + 1}}</td>
+                                            <td style="width: 30%">{{board.title}}</td>
+                                            <td style="width: 40%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
+                                            <td style="width: 20%">{{board.name}}</td>
                                         </v-expansion-panel-header>
                                     </tr>
 
-                                    <v-expansion-panel-content
-                                            color="primary"
-                                    >
+                                    <v-expansion-panel-content>
                                         <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
                                             Q&A
@@ -72,61 +70,55 @@
                                         </div>
                                         <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
-                                            댓글
+                                            관리자의 답변
                                           </span>
                                         </div>
-                                        <div
-                                        >
+                                        <div>
                                             {{board.re_content}}
                                         </div>
                                     </v-expansion-panel-content>
-
                                 </v-simple-table>
                             </v-expansion-panel>
                         </v-expansion-panels>
-
                 </v-tab-item>
 
                 <v-tab-item>
                     <v-simple-table>
                         <thead>
-                        <tr>
-                            <th style="width: 10%">
-                                글 번호
-                            </th>
-                            <th style="width: 30%">
-                                제목
-                            </th>
-                            <th style="width: 40%">
-                                등록일
-                            </th>
-                            <th style="width: 20%">
-                                작성자
-                            </th>
-                            <th style="width: 6px">
-                            </th>
-                        </tr>
+                            <tr>
+                                <th style="width: 10%">
+                                    글 번호
+                                </th>
+                                <th style="width: 30%">
+                                    제목
+                                </th>
+                                <th style="width: 40%">
+                                    등록일
+                                </th>
+                                <th style="width: 20%">
+                                    작성자
+                                </th>
+                                <th style="width: 6px">
+                                </th>
+                            </tr>
                         </thead>
                     </v-simple-table>
 
                     <v-expansion-panels>
                         <v-expansion-panel
-                                v-for="(board, i) in untreat"
-                                :key="i">
+                            v-for="(board, i) in untreat"
+                            :key="i">
                             <v-simple-table>
-
                                 <tr>
                                     <v-expansion-panel-header>
-                                        <td>{{i + 1}}</td>
-                                        <td>{{board.title}}</td>
-                                        <td>{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
-                                        <td>{{board.name}}</td>
+                                      <td style="width: 10%">{{i + 1}}</td>
+                                      <td style="width: 30%">{{board.title}}</td>
+                                      <td style="width: 40%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
+                                      <td style="width: 20%">{{board.name}}</td>
                                     </v-expansion-panel-header>
                                 </tr>
 
-                                <v-expansion-panel-content
-                                        color="primary"
-                                >
+                                <v-expansion-panel-content>
                                     <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
                                             Q&A
@@ -136,17 +128,16 @@
                                         {{board.content}}
                                     </div>
                                     <div class="title" style="margin-top: 20px; margin-bottom: 30px">
-
                                         <div style="margin-top: 20px; width: 40%; margin-left: 30%">
                                             <v-textarea
-                                                    v-model="replymessage"
-                                                    color="#000000"
-                                                    label="Message"
-                                                    solo
-                                                    background-color="#ffffff"
-                                                    flat
-                                                    append-icon="mdi-send"
-                                                    @click:append="send(board.idx,board.itemidx)"
+                                                v-model="replymessage"
+                                                color="#000000"
+                                                label="Message"
+                                                solo
+                                                background-color="#ffffff"
+                                                flat
+                                                append-icon="mdi-send"
+                                                @click:append="send(board.idx,board.itemidx)"
                                             />
                                         </div>
                                     </div>
@@ -157,10 +148,6 @@
                 </v-tab-item>
             </v-tabs>
         </v-card>
-
-
-
-
     </div>
 </div>
 </template>
@@ -202,7 +189,9 @@
                 console.log("error")
               }
               else{
-                this.$router.go();
+                this.untreat = res.data.untreat_data
+                this.treat = res.data.treat_data
+                this.replymessage = ""
                 console.log("success")
               }
 

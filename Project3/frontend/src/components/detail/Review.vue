@@ -47,7 +47,7 @@
                 <v-spacer/>
                 <v-rating
                         readonly
-                        v-model="rating"
+                        v-model="rating[i]"
                         color="warning"
                         dense
                         half-increments
@@ -58,7 +58,6 @@
               {{board.content}}
             </div>
           </v-expansion-panel-content>
-
         </v-simple-table>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -75,9 +74,19 @@
         default: () => ({}),
       },
     },
+    created() {
+      for(let i=0; i<this.boards.length; i++){
+        this.rating[i] = this.boards[i].star
+      }
+    },
+    computed:{
+      make_rate(obj){
+        return parseInt(obj.star)
+      }
+    },
 
     data: () =>({
-      rating:this.boards.star,
+      rating:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     }),
   }
 </script>

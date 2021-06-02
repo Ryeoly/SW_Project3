@@ -23,11 +23,11 @@
           <v-cols cols="6">
             <v-rating
                 readonly
-                v-model="rating"
+                v-model="make_rate"
                 color="warning"
                 icon-label="custom icon label text {0} of {1}"
                 half-increments
-            >{{rating}}/5.0</v-rating>
+            ></v-rating>
             <v-card-title style="text-align: right"><h1>{{values[0][0].product}}</h1></v-card-title>
             <br>
             <v-card-subtitle style="text-align: right"><h2>{{values[0][0].price}}₩</h2></v-card-subtitle>

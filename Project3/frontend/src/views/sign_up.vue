@@ -1,6 +1,9 @@
 <template>
     <div class="base">
         <v-card ref="form" class="signup_form">
+          <v-toolbar dark color="background">
+            <v-toolbar-title class="white--text">Sign-Up Form</v-toolbar-title>
+          </v-toolbar>
             <v-card-text>
                 <v-row>
                     <v-text-field

@@ -69,7 +69,7 @@
                 this.saveuser(res.data.information[0])
                 this.saveidx(res.data.information[0].useridx)
                 this.saveemail(this.email)
-                this.$router.push({path:'/mypage/my_info'})
+                this.$router.push({path:'/home'})
               }
 
             })

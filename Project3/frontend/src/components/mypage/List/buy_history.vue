@@ -22,10 +22,9 @@
             </thead>
             <tbody>
                 <tr
-                        v-for="(item, i) in buy_items"
-                        :key="i"
-                        style="height: 120px"
-                        link>
+                    v-for="(item, i) in buy_items"
+                    :key="i"
+                    style="height: 120px">
                     <td>
                         <v-img
                                 :src="require(`@/assets/game_img/`+item.image)"
@@ -111,8 +110,7 @@
         name: "buy_history.vue",
 
       created(){
-        this.u_idx=this.$store.state.userdata.useridx
-        this.$http.post('/mypage/buyhistory',{u_idx: this.u_idx}).then((res)=>{
+        this.$http.post('/mypage/buyhistory',{u_idx: this.$store.state.useridx}).then((res)=>{
           if(res.data.success===false){
             console.log("error")
           }
@@ -131,11 +129,7 @@
             user_id:"",
             i_idx:"",
             dialog:false,
-            buy_items: [
-                // {image: "amongus.jpg", product: "어몽어스", buy_time: "2021_05_26(수)", amount: "3", price: "15000"},
-                // {image: "apex.jpg", product: "apex", buy_time: "2021_05_24(화)", amount: "1", price: "12000"},
-                // {image: "battlefield.jpg", product: "배틀 필드", buy_time: "2021_05_28(금)", amount: "6", price: "10000"},
-            ],
+            buy_items: [],
         }),
         methods:{
             event_click(i_idx){

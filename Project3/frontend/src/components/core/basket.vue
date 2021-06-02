@@ -50,7 +50,7 @@
           <td>
             <v-checkbox
                 v-model="selected"
-                :value="[i,item.basketidx,item.product]"
+                :value="[i,item.basketidx,item.product,item.amount,item.idx]"
             ></v-checkbox>
           </td>
           <td>
@@ -135,10 +135,19 @@ export default {
   },
 
   methods: {
-    requestPay: function(){
+    requestPay(){
       for(let i = 0;i < this.selected.length; i++ ){
-        this.names+=this.selected[i][2];
+        this.names+=(this.selected[i][2] + ", ");
       }
+      this.user_email=this.$store.state.useremail
+      this.$http.post('/basket/sendcode',{email: this.user_email, updateidxs: this.selected}).then((response)=>{//결제코드 전송
+        if(response.data.success === false){
+          console.log("error")
+        }
+        else{
+          console.log("success")
+        }
+      })
 
       //1. 객체 초기화 (가맹점 식별코드 삽입)
       const IMP = window.IMP;
@@ -153,53 +162,18 @@ export default {
         buyer_tel : '010-1234-5678',
       }, function(rsp) {
         let msg;
-        var check;//결제가 완료되었는지 체크하는 변수
         if ( rsp.success ) {
           //4. 결제 요청 결과 서버(자사)에 적용하기
           //ajax 서버 통신 구현 -> 5. 서버사이드에서 validation check
-
-          //6. 최종 서버 응답 클라이언트에서 단계 4.에서 보낸 서버사이드 응답 에따라 결제 성공 실패 출력
           msg = '결제가 완료되었습니다.';
-          msg += '고유ID : ' + rsp.imp_uid;
-          msg += '상점 거래ID : ' + rsp.merchant_uid;
-          msg += '결제 금액 : ' + rsp.paid_amount;
-          msg += '카드 승인번호 : ' + rsp.apply_num;
-          check=0;//결제가 성공하면 0
+          //6. 최종 서버 응답 클라이언트에서 단계 4.에서 보낸 서버사이드 응답 에따라 결제 성공 실패 출력
         } else {
           // eslint-disable-next-line no-redeclare
           msg = '결제에 실패하였습니다.';
           msg += '에러내용 : ' + rsp.error_msg;
-          check=1; //결제가 실패하면 1
         }
         alert(msg);
-        if(check==0){//결제에 성공했을때
-          this.user_email=this.$store.state.useremail
-          this.$http.post('/basket/sendcode',{email: this.user_email, names: this.selected}).then((response)=>{//결제코드 전송
-            if(response.data.success === false){
-              console.log("error")
-            }
-            else{
-              console.log("success")
-            }
-          }),
-              //여기다가 바스켓 테이블에 산물건들 complete를 1로 바꿔줘야함
-              this.$http.post('/basket/updateidx',{updateidxs: this.selected}).then((response)=>{//결제코드 전송
-                if(response.data.success === false){
-                  console.log("error")
-                }
-                else{
-                  console.log("success")
-                }
-              })
-          //그리고 홈페이지로 이동
-          this.$router.push('/home')
-
-
-
-        }
-        else{//결제 실패했을때
-          this.$router.push('/home')
-        }
+        window.location.reload()
       });
     },
     changeDialog() {

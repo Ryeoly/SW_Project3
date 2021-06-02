@@ -112,17 +112,30 @@ router.post('/qnasend', function(req, res, next) {
     var content=req.body.content;
     var item_idx=req.body.item_idx;
 
-    var sql1="INSERT INTO qna_board(parent_idx,content,reply,u_idx,i_idx) VALUES(?,?,1,2,?);";
+    var sql1="INSERT INTO qna_board(parent_idx,title,content,reply,u_idx,i_idx) VALUES(?,?,?,1,2,?);";
     var sql2="UPDATE qna_board SET reply=1 WHERE idx=?;";
 
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query(sql1+sql2,[parent_idx,content,item_idx,parent_idx], function (err,item_idx) {
+        connection.query(sql1+sql2,[parent_idx,"관리자의 답글",content,item_idx,parent_idx], function (err,item_idx) {
             if(err){
                 return res.json({success: false});
             }
             else{
-                return res.send({success: true});
+                var treatsql='SELECT qnaq.idx, qnaq.i_idx AS itemidx , qnaq.title, qnaq.content, qnaq.create_time, userq.name, qnaa.content AS re_content FROM qna_board qnaa, qna_board qnaq ,USER userq WHERE qnaq.reply=1 AND qnaa.parent_idx=qnaq.idx AND qnaq.parent_idx=0 AND qnaq.u_idx=userq.idx;';
+                var untreatsql='SELECT qna_board.idx, qna_board.i_idx AS itemidx, qna_board.title, qna_board.content, qna_board.create_time, user.name FROM qna_board,USER WHERE reply=0 AND parent_idx=0 AND qna_board.u_idx= user.idx;';
+                var treat_qna;
+                var untreat_qna;
+                connection.query(treatsql + untreatsql, function (err,result) {
+                    if(err){
+                        return res.json({success: false});
+                    }
+                    else{
+                        treat_qna = result[0];
+                        untreat_qna = result[1];
+                        return res.send({treat_data: treat_qna, untreat_data: untreat_qna})
+                    }
+                })
             }
         })
         connection.release();

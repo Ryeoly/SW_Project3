@@ -99,13 +99,13 @@ var generateKey = function(min,max){
 //인증코드 이메일발신
 router.post("/sendcode",function(req,res,next){
     let email =req.body.email;
-    var names=req.body.names;
+    var updateidxs=req.body.updateidxs;
     var name=[];
     var text="";
-    for(let i=0;i<names.length;i++){
-        name[i]=names[i][2];
+    for(let i=0;i<updateidxs.length;i++){
+        name[i]=updateidxs[i][2];
     }
-    for(let i=0;i<names.length;i++){
+    for(let i=0;i<updateidxs.length;i++){
         key1 =generateKey(1111,9999);
         key2 =generateKey(1111,9999);
         key3 =generateKey(1111,9999);
@@ -138,32 +138,32 @@ router.post("/sendcode",function(req,res,next){
         }
     });
 
-    return res.send({success:true});
-
-});
-
-//complete바꾸기
-router.post('/updateidx',function (req,res,next) {
     var sqls="";
-    var updateidxs=req.body.updateidxs;
+    var sql1s="";
     for(let i=0;i<updateidxs.length;i++){
         var query = mysql.format("UPDATE basket SET complete=1 WHERE idx=?;", updateidxs[i][1]);
         sqls += query;
+
+        var query2=mysql.format("UPDATE item SET sold_num=sold_num+? WHERE idx=?;",[updateidxs[i][3],updateidxs[i][4]]);
+        sql1s += query2;
     }
+
 
     pool.getConnection(function(err,connection){
         if(err) throw err;
-        connection.query(sqls,function(err,rows){
+        connection.query(sqls+sql1s,function(err,rows){
             if(err){
                 return res.json({success: false});
             }
             else{
-                res.send({success: true});
+                return res.json({success: true});
             }
         })
         connection.release();
     });
+
 });
+
 
 router.get('/all_list', function(req,res,next){
     var sale_list;

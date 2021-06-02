@@ -70,7 +70,6 @@
 <script>
 import {mapState} from "vuex";
 import {getIdFromURL} from "vue-youtube-embed";
-//import {getIdFromURL} from "vue-youtube-embed";
 
 export default {
   name: "Detail",
@@ -145,7 +144,6 @@ export default {
   components: {
     Item: () => import('../components/detail/Item'),
     ItemDetail: () => import('../components/detail/ItemDetail'),
-    //YoutubePlay: () => import('../components/detail/Youtube'),
     Suggest: () => import('../components/detail/Suggest'),
     Review: () => import('../components/detail/Review'),
     Qna: () => import('../components/detail/QnA'),

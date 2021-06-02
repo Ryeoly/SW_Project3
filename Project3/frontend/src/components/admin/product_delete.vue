@@ -3,16 +3,16 @@
         <v-simple-table class="card" v-model="gamedatas">
             <thead>
             <tr>
-                <th class="primary--text">
+                <th>
                     제품 사진
                 </th>
-                <th class="primary--text">
+                <th>
                     제품명
                 </th>
-                <th class="primary--text">
+                <th>
                     판매 금액
                 </th>
-                <th class="primary--text">
+                <th>
                     제품 삭제
                 </th>
             </tr>
@@ -32,7 +32,7 @@
                 </td>
                 <td>{{ item.product }}</td>
                 <td>{{item.price}}</td>
-                <td><v-btn @click="delete_product(item.idx)">삭제</v-btn></td>
+                <td><v-btn color="secondary" class="white--text" @click="delete_product(item.idx)">삭제</v-btn></td>
             </tr>
             </tbody>
         </v-simple-table>

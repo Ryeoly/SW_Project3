@@ -1,18 +1,18 @@
 <template>
     <div class="base">
-        <v-simple-table class="card" >
+        <v-simple-table class="card_sell" >
             <thead>
             <tr>
-                <th class="primary--text">
+                <th>
                     제품 사진
                 </th>
-                <th class="primary--text">
+                <th>
                     제품명
                 </th>
-                <th class="primary--text">
+                <th>
                     판매 일자
                 </th>
-                <th class="primary--text">
+                <th>
                     판매금액(수량)
                 </th>
             </tr>
@@ -58,11 +58,7 @@
             user_id:"",
             i_idx:"",
             dialog:false,
-            buy_items: [
-                // {image: "amongus.jpg", product: "어몽어스", buy_time: "2021_05_26(수)", amount: "3", price: "15000"},
-                // {image: "apex.jpg", product: "apex", buy_time: "2021_05_24(화)", amount: "1", price: "12000"},
-                // {image: "battlefield.jpg", product: "배틀 필드", buy_time: "2021_05_28(금)", amount: "6", price: "10000"},
-            ],
+            buy_items: [],
         }),
         methods:{
         }
@@ -75,7 +71,7 @@
         grid-template-columns: repeat(100, 1fr);
         grid-template-rows: repeat(100, 1fr);
     }
-    .card{
+    .card_sell{
         grid-area : 2/2/70/98;
     }
 </style>

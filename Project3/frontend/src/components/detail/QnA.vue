@@ -48,25 +48,9 @@
             </div>
             <div class="title" style="margin-top: 20px; margin-bottom: 30px">
               <span>
-                댓글
+                관리자의 답변
               </span>
-            </div>
-            <div
-                v-for="(_reply,i) in board.reply"
-                :key="i"
-                class="reply_form"
-            >
-              {{_reply.content}}
-            </div>
-            <div style="margin-top: 20px; width: 40%; margin-left: 30%">
-              <v-textarea
-                  outlined
-                  rounded
-                  label="Message"
-                  solo
-                  flat
-                  append-icon="mdi-send"
-              />
+              <div>{{board.re_content}}</div>
             </div>
           </v-expansion-panel-content>
         </v-simple-table>

@@ -1,8 +1,6 @@
 <template>
-    <div style="align-content: center;" class="base">
-      <div class="table1">
+    <div style="align-content: center;">
         <trend-chart :value="[genre_data, month_data, sell_data]" />
-      </div>
     </div>
 </template>
 

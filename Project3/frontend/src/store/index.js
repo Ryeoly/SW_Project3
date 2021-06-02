@@ -60,27 +60,8 @@ export default new Vuex.Store({
     ],
   },
   getters: {
-    /*categories: state => {
-      const categories = []
-
-      for (const page of state.pages) {
-        if (
-          !page.category ||
-          categories.find(category => category.text === page.category)
-        ) continue
-
-        const text = page.category
-
-        categories.push({
-          text,
-          href: '#!',
-        })
-      }
-
-      return categories
-    },*/
-    bar_link: (state/*, getters*/) => {
-      return state.items/*.concat(getters.categories)*/
+    bar_link: (state) => {
+      return state.items
     },
     genres: (state) => {
       return state.genres

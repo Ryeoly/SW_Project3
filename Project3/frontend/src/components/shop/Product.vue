@@ -79,11 +79,7 @@
 </template>
 
 <script>
-//import {mapGetters, mapState} from "vuex";
-  //import myVideo from "vue-video";
-
   import {mapMutations} from "vuex";
-  //import Shop from "../../views/Shop";
 
   export default {
     name: 'ShopGame',

@@ -29,10 +29,10 @@ router.post('/', function(req, res, next) {
     var recommend_sql='SELECT item.idx AS idx, product,image1 FROM item,USER WHERE user.idx=? AND (item.genre=user.like_genre1 OR item.genre=user.like_genre2 OR item.genre=user.like_genre3) ORDER BY item.sold_num DESC;';
     var recommend_sqls=mysql.format(recommend_sql,user_idx);
 
-    var qna_sql='SELECT qna_board.idx AS idx,title,create_time,NAME,content FROM qna_board,USER WHERE qna_board.i_idx=? AND qna_board.u_idx=user.idx AND qna_board.reply=0;';
-    var qna_sqls=mysql.format(qna_sql,item_idx);
+    var qna_sql="SELECT a.idx,a.title,a.create_time,a.name,a.content,IF(a.idx=b.parent_idx,b.content,'아직 답변이 달리지 않았습니다.') AS re_content FROM (SELECT qna_board.idx AS idx,title,create_time,NAME,content, qna_board.parent_idx FROM qna_board,USER WHERE qna_board.i_idx=? AND qna_board.u_idx=user.idx) AS a,(SELECT * FROM qna_board WHERE i_idx=?) AS b WHERE a.parent_idx=0 AND b.parent_idx!=0;";
+    var qna_sqls=mysql.format(qna_sql,[item_idx, item_idx]);
 
-    var review_sql='SELECT review_board.idx AS idx,title,create_time,NAME,star,content FROM review_board,USER WHERE review_board.i_idx=? AND review_board.u_idx=user.idx;';
+    var review_sql='SELECT review_board.idx AS idx, title,create_time,NAME,star,content FROM review_board,USER WHERE review_board.i_idx=? AND review_board.u_idx=user.idx;';
     var review_sqls=mysql.format(review_sql,item_idx);
 
     var count_sql='SELECT COUNT(*) AS cnt FROM review_board,USER WHERE review_board.i_idx=? AND review_board.u_idx=user.idx;';

@@ -1,19 +1,18 @@
 <template>
     <div class="base">
-        <v-simple-table class="card" v-model="user_list" id="virtual-scroll-table"
-                        v-scroll:#virtual-scroll-table="onScroll">
+        <v-simple-table class="card" v-model="user_list">
             <thead>
             <tr>
-                <th class="primary--text">
+                <th>
                     idx
                 </th>
-                <th class="primary--text">
+                <th>
                     이름
                 </th>
-                <th class="primary--text">
+                <th>
                     email
                 </th>
-                <th class="primary--text">
+                <th>
                     전화번호
                 </th>
                 <th>
@@ -35,7 +34,7 @@
                 <td>{{ item.email}}</td>
                 <td>{{item.phone}}</td>
                 <td>{{$moment(item.birth).format('YYYY-MM-DD')}}</td>
-                <td><v-btn @click="delete_user(item.idx)">삭제</v-btn></td>
+                <td><v-btn color="secondary" class="white--text" @click="delete_user(item.idx)">삭제</v-btn></td>
             </tr>
             </tbody>
         </v-simple-table>

@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="title" style="margin-top: 20px; margin-bottom: 30px">
                                           <span>
-                                            댓글
+                                            관리자의 답변
                                           </span>
                                 </div>
                                 <div
@@ -104,15 +104,15 @@
 
                 <v-expansion-panels>
                     <v-expansion-panel
-                            v-for="(board, i) in untreat"
+                            v-for="(boards, i) in untreat"
                             :key="i">
                         <v-simple-table style="border-width: medium; border-color: black">
 
                             <tr>
                                 <v-expansion-panel-header>
                                     <td  style="width: 7%">{{i + 1}}</td>
-                                    <td  style="width: 30%">{{board.title}}</td>
-                                    <td  style="width: 63%">{{$moment(board.create_time).format('YYYY-MM-DD')}}</td>
+                                    <td  style="width: 30%">{{boards.title}}</td>
+                                    <td  style="width: 63%">{{$moment(boards.create_time).format('YYYY-MM-DD')}}</td>
                                 </v-expansion-panel-header>
                             </tr>
 
@@ -125,7 +125,7 @@
                                           </span>
                                 </div>
                                 <div style="text-align: center; height: 150px">
-                                    {{board.content}}
+                                    {{boards.content}}
                                 </div>
                             </v-expansion-panel-content>
 
@@ -209,6 +209,7 @@
         data: () =>({
             tabs:null,
             game:null,
+            title: null,
             games: [
                 'Apex Legends',"PLAYERUNKNOWN'S BATTLEGROUNDS",'Capcom Arcade Stadium','TEKKEN 7','Counter-Strike: Global Offensive','Rust','ANOTHER EDEN','ROMANCE OF THE THREE KINGDOMS','Hood: Outlaws & Legends','The Slormancer','Cities: Skylines','Euro Truck Simulator 2','EA SPORTS FIFA 21','Grand Theft Auto V',
             ],
@@ -235,9 +236,11 @@
               console.log("error")
             }
             else{
-              console.log("success")
+              this.untreat = res.data.untreat_data
+              this.game = null
+              this.title = null
+              this.content = null
             }
-
           })
         }
       },

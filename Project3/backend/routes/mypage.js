@@ -14,14 +14,16 @@ var pool = mysql.createPool({
 /* GET users listing. */
 //유저 정보 가져오기
 router.post('/write_review', function(req, res, next) {
-    var a = 1;
     var data=req.body;
-    var b= 2;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
-        connection.query("INSERT INTO review_board(title, content, star, u_idx, i_idx) VALUES(?, ?, ?, ?, ?);",[data.title, data.content, data.rating, data.u_idx,data.i_idx], function (err,result) {
-        })
-        connection.query("UPDATE item SET star= star+? WHERE idx=?;",[data.i_idx], function (err,result) {
+        connection.query("UPDATE item SET star= star+? WHERE idx=?;"+"INSERT INTO review_board(title, content, star, u_idx, i_idx) VALUES(?, ?, ?, ?, ?);",[data.rating,data.i_idx,data.title, data.content, data.rating, data.u_idx,data.i_idx], function (err,result) {
+            if(err){
+                return res.json({success: false});
+            }
+            else{
+                return res.json({success: true});
+            }
         })
         connection.release();
     });
@@ -103,6 +105,7 @@ router.post('/qnasend', function(req, res, next) {
     var content=req.body.content;
     var title=req.body.title;
     var i_idx;
+    var untreat_data;
     pool.getConnection(function (err,connection) {
         if(err) throw err;
         connection.query("SELECT idx FROM item WHERE product=?",[product], function (err,item_idx) {
@@ -110,15 +113,21 @@ router.post('/qnasend', function(req, res, next) {
                 return res.json({success: false});
             }
             else{
-
                 i_idx=item_idx;
-                connection.query("INSERT INTO qna_board(title,content,u_idx,i_idx) VALUES(?,?,?,?)",[title, content,user_idx,i_idx[0].idx],function(err,result){
+                connection.query("INSERT INTO qna_board(title,content,u_idx,i_idx) VALUES(?,?,?,?)",[title, content,user_idx,i_idx[0].idx],function(err,results){
                     if(err){
-
                         return res.json({success: false});
                     }
                     else{
-                        return res.send({success: true});
+                        connection.query("SELECT qna_board.title, qna_board.content, qna_board.create_time, user.name FROM qna_board,USER WHERE reply=0 AND parent_idx=0 AND qna_board.u_idx= user.idx AND qna_board.u_idx=?;",[user_idx],function(err,result) {
+                            if(err){
+                                return res.json({success: false});
+                            }
+                            else{
+                                untreat_data = result;
+                                return res.send({seuccess: true, untreat_data: untreat_data})
+                            }
+                        })
                     }
                 })
 
