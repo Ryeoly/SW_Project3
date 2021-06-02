@@ -29,7 +29,7 @@ TEAM
 ===
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팀장
 ---
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 2016722076 조현우(Hyunwoo-CHO)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👑 2016722076 조현우(Hyunwoo-CHO)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팀원
 ---
