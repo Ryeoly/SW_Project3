@@ -1,10 +1,13 @@
 소프트웨어 공학 Project3
 ===
+
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;프로젝트 목표
 ---
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 다양한 장르의 스팀게임을 판매하는 인터넷 쇼핑몰 웹 애플리케이션 개발
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* gitHub을 이용한 공동작업
+
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주요 페이지
@@ -24,6 +27,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7. 마이 페이지
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8. 관리자 페이지
+
+
 
 TEAM
 ===
