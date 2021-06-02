@@ -39,15 +39,14 @@ TEAM
 
 
 
+TEAM
+===
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How to build?
----
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. frontend
+&nbsp;&nbsp;&nbsp;1. frontend
 ```
-$ npm run build
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ npm run build
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. backend
+&nbsp;&nbsp;&nbsp;2. backend
 ```
-$ npm start
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ npm start
 ```
