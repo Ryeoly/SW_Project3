@@ -34,3 +34,17 @@ TEAM
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 2016722055 윤득렬(ryeoly)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* 2016722046 고건영(dtree0520)
+
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How to build
+1. frontend
+```
+$ npm run build
+```
+2. backend
+```
+$ npm start
+```
