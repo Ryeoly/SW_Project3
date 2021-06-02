@@ -3,13 +3,7 @@ var router = express.Router();
 var nodemailer = require('nodemailer');
 let mysql = require('mysql'); //mysql 모듈을 로딩.
 var pool = mysql.createPool({
-    connectionLimit: 5,
-    host     : 'gus007dn.iptime.org',
-    user     : 'yunchoko',
-    password : 'qwer1234!',
-    database : 'yunchoko',
-    port : 8204,
-    multipleStatements: true
+
 });
 
 let key=0; //key값 비교
@@ -27,8 +21,7 @@ router.post("/sendauth",function(req,res,next){
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'dtree0520@gmail.com',
-            pass: 'keonyoung520'
+
         }
     });
 
